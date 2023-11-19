@@ -1,0 +1,265 @@
+.allinone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.text-style {
+  font-size: 24px;
+  margin-left: 20px;
+}
+
+.btn_click {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.mmm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.cardimg {
+  width: 300px;
+  height: 406px;
+  background-color: gray;
+  margin: 10px;
+  border-radius: 5px;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.cardimg2 {
+  width: 300px;
+  height: 406px;
+  background-color: gray;
+  margin: 10px;
+  border-radius: 5px;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.vs {
+  margin-top: 165px;
+  margin-left: 92px;
+  font-size: 30px;
+  color: rgb(0, 128, 117);
+  font-weight: 300;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.imgstyle {
+  width: 72%;
+  /* height: auto; */
+  height: 369px;
+  object-fit: contain;
+  margin-top: 0;
+  border-radius: 5px;
+  margin-left:4px
+}
+
+.FileUpload {
+  opacity: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.FileUpload2 {
+  opacity: 0;
+  position: relative;
+  z-index: 1;
+  margin-left: 0;
+  margin-top: 10px;
+  height: 406px;
+}
+
+@media (max-width: 768px) {
+  .mmm {
+    margin-left: 0;
+  }
+
+  .btn_click {
+    margin-left: 0;
+  }
+
+  .FileUpload2 {
+    margin-left: 0;
+  }
+  .imgstyle {
+    width: 100%;
+    /* height: auto; */
+    height: 249px;
+    object-fit: contain;
+    margin-top: 0;
+    border-radius: 5px;
+    margin-left:4px
+  }
+}
+
+@media (max-width: 480px) {
+  .text-style {
+    font-size: 20px;
+  }
+
+  .vs {
+    margin-top: 10px;
+    margin-left: 0;
+    font-size: 24px;
+  }
+}
+
+
+/* new code */
+
+.file-upload-card {
+    display: inline-block;
+    border: 1px dashed #ccc;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 11px;
+    margin-left: 11px
+  }
+  
+  .file-upload-label {
+    display: inline-block;
+    padding: 81px;
+  }
+  
+  .file-upload-icon {
+    display: block;
+    width: 50px;
+    height: 50px;
+    /* background-image: url('./img/search.svg'); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+  }
+  
+  .file-upload-text {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .file-upload-input {
+    display: none;
+  }
+  .sfile-upload-input {
+    display: none;
+  }
+  .sfile-upload-label{
+    display: inline-block;
+    padding: 81px;
+  }
+
+  .simgstyle{
+    width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin-top: 0;
+  border-radius: 5px;
+  margin-left:4px
+  }
+
+  .clickpost{
+    cursor: pointer;
+    height: 51px;
+    width: 197px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: x-large;
+    border-radius: 12px;
+    border-width: 0px;
+  }
+
+  .colorchange{
+    height: 30px;
+    width: 31px;
+    border-radius: 64px;
+    background-color:red;
+    margin-top: 5px;
+    margin: 5px
+  }
+  .colorchange1{
+    height: 30px;
+    width: 31px;
+    border-radius: 64px;
+    background-color: #4CAF50;
+    margin-top: 5px;
+    margin: 5px
+  }
+  .colorchange2{
+    height: 30px;
+    width: 31px;
+    border-radius: 64px;
+    background-color:blue;
+    margin-top: 5px;
+    margin: 5px
+  }
+  .colorchange3{
+    height: 30px;
+    width: 31px;
+    border-radius: 64px;
+    background-color:black;
+    margin-top: 5px;
+    margin: 5px
+  }
+
+  .textmanustyle{
+    display: flex;
+    padding-left: 182px;
+    margin-top: 10px;
+  }
+  .manutext{
+    width: 50px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: whitesmoke;
+    cursor:context-menu;
+  }
+  .manutext1{
+    width: 50px;
+    font-family:'Times New Roman', Times, serif;
+    background-color: whitesmoke;
+    cursor:context-menu;
+  }
+  .manutext2{
+    width: 50px;
+    font-family:'Brush Script MT', cursive;
+    background-color: whitesmoke;
+    cursor:context-menu;
+  }
+  .texteditor{
+    margin-top: 18px;
+    background-color: #ccc;
+    height: 42px;
+    width: 565px;
+    margin-left: 10px;
+    display: flex;
+}
+  @media screen and (max-width: 600px) {
+  .textmanustyle {
+    display: flex;
+    padding-left: 42px;
+    margin-top: 10px;
+}
+.texteditor{
+  margin-top: 18px;
+  background-color: #ccc;
+  height: 42px;
+  width: 370px;
+  margin-left: 19px;
+}
+  }

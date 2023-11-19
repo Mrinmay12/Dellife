@@ -1,0 +1,100 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.containertext {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    /* background-color: #f2f2f2; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #333; /* Add a border to all sides */
+    margin-top: 9px;
+    border-radius: 11px;
+}
+.slovetext{
+    /* background-color: #00c99d; */
+    /* color: white; */
+}
+.topstyle{
+    display: flex;
+    flex-direction: row;
+    padding-top: 9px;
+    padding-bottom: 5px;
+}
+
+.shairicone{
+    width: 31%;
+    text-align: end;
+    cursor: pointer;
+}
+.profiletag{
+    width: 79%;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+  }
+  
+  .user-info2_img{
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .user-info2 {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-bottom: 8px;
+  }
+  span.user-name2 {
+    margin-top: 2px;
+    font-family: cursive;
+    font-weight: bolder;
+}
+  .imagemain{
+    width: 80%;
+    max-width: 1200px;
+  }
+  .mainimage-cards-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+ .mainimage-card {
+    position: relative;
+    /* width: 49%; */
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+  }
+  .imageshow{
+    height: 200px;
+  }
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 10px;
+        border: 1px solid #333; /* Adjust border for smaller screens */
+    }
+}

@@ -1,0 +1,13 @@
+.maincontant{
+    padding-top: 51px;
+    background-color: #80808000;
+    padding-bottom: 70px;
+}
+
+@media screen and (max-width: 600px) {
+    .maincontant{
+        padding-top: 87px;
+        background-color: #80808000;
+        padding-bottom: 70px;
+    }
+}
