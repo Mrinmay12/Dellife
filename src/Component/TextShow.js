@@ -68,7 +68,7 @@ export default function TextShow() {
 
       {/* only text */}
       <div class="containertext">
-        <div className='topstyle'>
+        <div className='topstyle'> 
           <div className='profiletag'>
             <div class="user-info">
               <img src="https://images.pexels.com/photos/1133957/pexels-photo-1133957.jpeg?auto=compress&cs=tinysrgb&w=800" alt="User Image" />

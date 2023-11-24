@@ -1,0 +1,80 @@
+.colorchange{
+    height: 30px;
+    width: 31px;
+    border-radius: 64px;
+    background-color:red;
+    margin-top: 5px;
+    margin: 5px
+  }
+  .colorchange1{
+    height: 30px;
+    width: 31px;
+    border-radius: 64px;
+    background-color: #4CAF50;
+    margin-top: 5px;
+    margin: 5px
+  }
+  .colorchange2{
+    height: 30px;
+    width: 31px;
+    border-radius: 64px;
+    background-color:blue;
+    margin-top: 5px;
+    margin: 5px
+  }
+  .colorchange3{
+    height: 30px;
+    width: 31px;
+    border-radius: 64px;
+    background-color:black;
+    margin-top: 5px;
+    margin: 5px
+  }
+
+  .textmanustyle{
+    display: flex;
+    padding-left: 182px;
+    margin-top: 10px;
+  }
+  .manutext{
+    width: 50px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: whitesmoke;
+    cursor:context-menu;
+  }
+  .manutext1{
+    width: 50px;
+    font-family:'Times New Roman', Times, serif;
+    background-color: whitesmoke;
+    cursor:context-menu;
+  }
+  .manutext2{
+    width: 50px;
+    font-family:'Brush Script MT', cursive;
+    background-color: whitesmoke;
+    cursor:context-menu;
+  }
+  .texteditor{
+    margin-top: 18px;
+    background-color: #ccc;
+    height: 42px;
+    width: 565px;
+    margin-left: 10px;
+    display: flex;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    .textmanustyle {
+      display: flex;
+      padding-left: 42px;
+      margin-top: 10px;
+  }
+  .texteditor{
+    margin-top: 18px;
+    background-color: #ccc;
+    height: 42px;
+    width: 371px;
+    margin-left: 8px;
+  }
+    }

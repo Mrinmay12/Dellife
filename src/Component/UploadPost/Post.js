@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react'
 import "./Post.css"
 import clickSound from "./Image/click.mp3"
-import InputField from './InputField';
+// import InputField from './InputField';
 import InputArea from './InputArea';
+import InputField from '../RegisterInput/InputField';
+import PostForm from '../PostForm/PostForm';
 import {
   useNavigate,
 } from "react-router-dom"; 
 import { useSelector } from 'react-redux';
+import Texteditor from './TextEditor/Texteditor';
 export default function Post() {
   const navigate=useNavigate();
   // const data = useSelector(state => state.myReducer.data);
@@ -114,16 +117,20 @@ const handleSubmit = async (e) => {
 const [textcolor,setTextcolor]=useState("black") 
 const [textstyle,setTextstyle]=useState("1") 
 
-const handleColor=(e)=>{
-  setTextcolor(e)
-}
-const handleTextstyle=(e)=>{
-  setTextstyle(e)
-}
+
 
 
 
   return (
+    <>
+     <div>
+          <p style={{color:"#4caf50",fontSize:"22px",textAlign:"end",paddingRight:"36px",marginTop:"2px",cursor:"pointer"}} onClick={()=>{handleSound();handleSubmit();}}>Post</p>
+          <audio ref={clickSoundRef}>
+        <source src={clickSound} type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      </div>
+
     <div className='allinone'>
    
      
@@ -161,34 +168,18 @@ const handleTextstyle=(e)=>{
               </>
             )}
           </>
-
+ 
 
         </div>
        
 
 
       </div>
-      <div className="texteditor">
-      <div className='colorchange3' value={textcolor} onClick={()=>handleColor("black")}></div>
-      <div className='colorchange' value={textcolor} onClick={()=>handleColor("red")}></div>
-      <div className='colorchange1' value={textcolor} onClick={()=>handleColor("green")}></div>
-      <div className='colorchange2' value={textcolor} onClick={()=>handleColor("blue")}></div>
-      <div className='textmanustyle'>
-        <p className='manutext' value={textstyle} onClick={()=>handleTextstyle("1")}>Text</p>
-        <p className='manutext1' value={textstyle} onClick={()=>handleTextstyle("2")}>Text</p>
-        <p className='manutext2'  value={textstyle} onClick={()=>handleTextstyle("3")}>Text</p>
+    <div className='postformbig'>
+      <PostForm/>
       </div>
-      </div>
-      <InputArea handleChnage={handleTitle} textcolor={textcolor} textstyle={textstyle}/>
-      <div className='btn'>
-        <div className='btn_click'>
-          <button className='clickpost' onClick={()=>{handleSound();handleSubmit();}}>Post</button>
-          <audio ref={clickSoundRef}>
-        <source src={clickSound} type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-        </div>
-      </div>
+     
     </div>
+    </>
   )
 }
