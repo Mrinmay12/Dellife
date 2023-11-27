@@ -284,9 +284,10 @@ form {}
 }
 
 .label {
-	font-size: 1.5em;
-	margin-top: 10px;
-	padding-left: 20px;
+	/* font-size: 1.5em; */
+	/* margin-top: 10px; */
+	/* padding-left: 20px; */
+	margin: 6px;
 }
 
 .formgroup,

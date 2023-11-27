@@ -122,18 +122,20 @@ const [textstyle,setTextstyle]=useState("1")
 
 
   return (
-    <>
+    <> 
      <div>
-          <p style={{color:"#4caf50",fontSize:"22px",textAlign:"end",paddingRight:"36px",marginTop:"2px",cursor:"pointer"}} onClick={()=>{handleSound();handleSubmit();}}>Post</p>
+          <p style={{color:"#4caf50",fontSize:"22px",textAlign:"end",paddingRight:"36px",marginTop:"2px",cursor:"pointer"}} onClick={()=>{handleSound();handleSubmit();}}><button className='postbtn'>Post</button></p>
           <audio ref={clickSoundRef}>
         <source src={clickSound} type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
       </div>
-
+    
     <div className='allinone'>
    
-     
+    <div className='postformbig'>
+      <PostForm/>
+      </div>
       
 
       <div className='mmm'>
@@ -175,9 +177,7 @@ const [textstyle,setTextstyle]=useState("1")
 
 
       </div>
-    <div className='postformbig'>
-      <PostForm/>
-      </div>
+   
      
     </div>
     </>

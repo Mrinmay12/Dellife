@@ -24,11 +24,11 @@ export default function PostForm() {
 
 
                 <form id="waterform" method="post"> 
-                    <Texteditor setTextcolorget={settextcolor2} settextstyle={settextstyle2}/>
+                    {/* <Texteditor setTextcolorget={settextcolor2} settextstyle={settextstyle2}/>
                     <div class="formgroup" id="name-form">
                         <label className='label' for="name">Title</label>
                         <input type="text" className={textstyle2==="1"?'input':textstyle2==="2"?"input2":"input3"} style={{ color: textcolor2 === "" ? "black" : textcolor2 }} id="name" name="name" placeholder="Enter Title" value={title} onChange={handleChangtitle}/>
-                    </div>
+                    </div> */}
                     <Texteditor setTextcolorget={settextcolor} settextstyle={settextstyle}/>
                     <div class="formgroup" id="message-form">
                         <label className='label' for="message">Discription</label>

@@ -1,0 +1,120 @@
+:root {
+    --light-gray: #ffffff;
+    --gray: #37474f;
+    --primary: #1f57ff;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    color: var(--gray);
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: minmax(250px, 300px);
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem;
+}
+
+.containeruser {
+    box-shadow: 0rem 0.125rem 0.5rem 0rem var(--light-gray);
+    text-align: center;
+    border-radius: 1rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #333; 
+}
+
+.banner-image {
+    position: absolute;
+    /* background-image: url(https://picsum.photos/500/400); */
+    height: 10rem;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.profile-image {
+    width: 8rem;
+    clip-path: circle(60px at center);
+    /* margin-top: 5.5rem; */
+    transition: all 0.5s ease 0;
+}
+
+/* .profile-image:hover {
+    filter: grayscale(1);
+} */
+
+.name {
+    font-size: 1.5rem !important;
+}
+
+/* .description {
+    margin: 1rem 2rem;
+    font-size: 0.9rem;
+} */
+
+.bottonbtn {
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: var(--primary);
+    padding: 1rem;
+    /* cursor: pointer; */
+    display:flex;
+    justify-content: space-between;
+    height: 51px;
+    border-radius: 10px;
+}
+.bottonbtn img {
+    margin-right: 8px; /* Adjust the spacing between the icon and text */
+}
+.bottonbtn p {
+    margin: 0; /* Remove default paragraph margin */
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+}
+.followbtn{
+    border: none;
+    color: white;
+    cursor: pointer;
+    background-color: var(--primary);
+    font-size: 1rem;
+    font-weight: bold;
+}
+@media screen and (min-width: 650px) {
+    .wrapper {
+         grid-template-columns: repeat(2, minmax(250px, 300px));
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .wrapper {
+         grid-template-columns: repeat(3, minmax(250px, 300px));
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .wrapper {
+         grid-template-columns: repeat(4, minmax(250px, 300px));
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .wrapper {
+         grid-template-columns: repeat(5, minmax(250px, 300px));
+    }
+}

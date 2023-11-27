@@ -3,6 +3,7 @@
   flex-direction: row;
   align-items: center;
   padding: 20px;
+  padding-left: 200px;
 }
 
 .btn {
@@ -29,7 +30,7 @@
   align-items: flex-start;
   margin-top: 20px;
   /* margin-left: 136px; */
-  width: 50%;
+  width: 100%;
 }
 
 .cardimg {
@@ -64,13 +65,13 @@
 }
 
 .imgstyle {
-  width: 72%;
+  width: 100%;
   /* height: auto; */
   height: 369px;
   object-fit: contain;
   margin-top: 0;
-  border-radius: 5px;
-  margin-left: 4px
+  /* border-radius: 5px; */
+  /* margin-left: 4px */
 }
 
 .FileUpload {
@@ -91,6 +92,7 @@
 @media (max-width: 768px) {
   .mmm {
     margin-left: 0;
+    width: 100%;
   }
 
   .btn_click {
@@ -107,8 +109,8 @@
     height: 249px;
     object-fit: contain;
     margin-top: 0;
-    border-radius: 5px;
-    margin-left: 4px
+    /* border-radius: 5px; */
+    margin-left: 0px
   }
 }
 
@@ -147,6 +149,7 @@
  
   .mmm {
     margin-left: 0;
+    width: 100%;
   }
 }
 
@@ -201,7 +204,7 @@
   object-fit: contain;
   margin-top: 0;
   border-radius: 5px;
-  margin-left: 4px
+  margin-left: 0px
 }
 
 .clickpost {
@@ -213,4 +216,13 @@
   font-size: x-large;
   border-radius: 12px;
   border-width: 0px;
+}
+
+.postbtn {
+  border: none;
+  background-color: white;
+  font-size: 22px;
+  font-family: serif;
+  color:  #1f57ff;
+  cursor: pointer;
 }
