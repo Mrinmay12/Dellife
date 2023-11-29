@@ -183,3 +183,17 @@ header.clearfix {
         cursor: pointer;
     }
 }
+
+.numicon{
+    width: 80%;
+    padding-left: 30%;
+}
+.linebar2{
+    display: block;
+    height: 3px;
+    width: 8%;
+    background: red;
+    position: relative;
+    left: 0;
+    transition: 0.3s ease-in-out;
+}

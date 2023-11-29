@@ -32,7 +32,7 @@ export default function PostForm() {
                     <Texteditor setTextcolorget={settextcolor} settextstyle={settextstyle}/>
                     <div class="formgroup" id="message-form">
                         <label className='label' for="message">Discription</label>
-                        <textarea id="message" className={textstyle==="1"?"textarea" :textstyle==="2"?"textarea2":"textarea3"} name="message" style={{ color: textcolor === "" ? "black" : textcolor }} value={text} placeholder="Enter Driscription" onChange={OnChnage}></textarea>
+                        <textarea id="message" className={textstyle==="1"?"textarea" :textstyle==="2"?"textarea2":"textarea3"} name="message" style={{ color: textcolor === "" ? "black" : textcolor }} value={text} placeholder="Write something...." onChange={OnChnage}></textarea>
                     </div>
 
 

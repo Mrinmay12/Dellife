@@ -39,7 +39,7 @@ export default function TextShow() {
 
         <h3>Responsive Area Test</h3>
         <div class="mainimage-cards-container">
-          <div class="mainimage-card">
+          <div class="">
             <img src="https://cdn.lifehacker.ru/wp-content/uploads/2019/05/Valley-of-Geysers_Olikbas-Shutterstock_1599819392.jpg" alt='headerimage' className='imageshow' />
 
           </div>
@@ -109,7 +109,7 @@ export default function TextShow() {
 
         <h3>Responsive Area Test</h3>
         <div class="mainimage-cards-container">
-          <div class="mainimage-card">
+          <div class="">
             <img src="https://cdn.lifehacker.ru/wp-content/uploads/2019/05/Valley-of-Geysers_Olikbas-Shutterstock_1599819392.jpg" alt='headerimage' className='imageshow' />
 
           </div>
@@ -145,7 +145,7 @@ export default function TextShow() {
 
         <h3>Responsive Area Test</h3>
         <div class="mainimage-cards-container">
-          <div class="mainimage-card">
+          <div class="">
             <img src="https://images.unsplash.com/photo-1566438480900-0609be27a4be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80" alt='headerimage' className='imageshow' />
 
           </div>
