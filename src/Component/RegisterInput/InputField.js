@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import "./Input.css"
-export default function InputField({}) {
+export default function InputField({name}) {
   const[value,setValue]=useState("")
   const handleChnage=(e)=>{
     setValue(e.target.value)
@@ -9,7 +9,7 @@ export default function InputField({}) {
     <div>
     <div className="form__group field">
       <input type="text" className="form__field" placeholder="Name" name="name" id='name' value={value} onChange={(e)=>handleChnage(e)} />
-      <label htmlFor="name" className="form__label">Name</label>
+      <label htmlFor="name" className="form__label">{name}</label>
     </div>
   </div>
   )

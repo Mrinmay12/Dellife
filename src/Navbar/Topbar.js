@@ -113,7 +113,7 @@ export default function Topbar() {
   return (
     <main>
       <header className="clearfix">
-      {isMobile && pathname === '/location' ?(null):(
+      {isMobile && pathname === '/location' || pathname==="/chats" ?(null):(
         <div className="home">
           <a onClick={() => navigate("/")} className="logo">
             DelLife
@@ -147,15 +147,20 @@ export default function Topbar() {
 ):(
   <>
   {/* Mobile view */}
-  {pathname === '/location'?(
+
+  {pathname === '/location' ||pathname==="/chats"?(
     <>
     <nav className="container-fluid">
           <ul className="clearfix">
-              <li><a href="#one" className={pathname === '/' ? 'activ' : ''} style={{ color: pathname === '/' ? "red" : "black" }} onClick={(e) => handleLinkClick(e, 0, '#one')}><FontAwesomeIcon icon={faArrowLeft} style={{ color: pathname === '/' ? "red" : "black" }} className="iconstyle" /></a></li>
+              <li><a href="#one" className={pathname === '/' ? 'activ' : ''} style={{ color: pathname === '/' ? "red" : "black" }} onClick={(e) => pathname==="/location"?handleLinkClick(e, 0, '#one'):navigate("/message")}><FontAwesomeIcon icon={faArrowLeft} style={{ color: pathname === '/' ? "red" : "black" }} className="iconstyle" /></a></li>
 
             <li>
               <a>
+               {pathname==="/chats"?<>
+                Mrin
+               </>:(
                 <Search/>
+               )} 
               </a>
             </li>
 
