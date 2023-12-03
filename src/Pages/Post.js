@@ -1,26 +1,23 @@
 import React ,{useEffect}from 'react'
 import UploadPost from "../Component/UploadPost/Post"
 export default function Post() {
-  useEffect(() => {
-    const handleReload = (event) => {
-      // Prevent the default behavior of the event
+   useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      // Display a custom message before unloading
+      alert('Are you sure you want to leave this mm page?');
+
+      // Cancel the event
       event.preventDefault();
-
-      // Optionally, you can display a message to the user
-      const confirmationMessage = 'Reloading is disabled for this page.';
-      event.returnValue = confirmationMessage;
-
-      return confirmationMessage;
+      // Standard-compliant browsers
+      event.returnValue = '';
     };
 
-    // Add event listeners to disable reload
-    window.addEventListener('beforeunload', handleReload);
-    window.addEventListener('unload', handleReload);
+    // Add the event listener when the component mounts
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
-    // Clean up event listeners on component unmount
+    // Remove the event listener when the component unmounts
     return () => {
-      window.removeEventListener('beforeunload', handleReload);
-      window.removeEventListener('unload', handleReload);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, []);
   
