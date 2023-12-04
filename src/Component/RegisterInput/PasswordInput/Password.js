@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import "./Password.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faE } from '@fortawesome/free-solid-svg-icons';
-export default function Password() {
+export default function Password({onChange}) {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleTogglePassword = () => {
@@ -11,6 +11,7 @@ export default function Password() {
   const[password,setpassword]=useState("")
   const handlePassword=(e)=>{
     setpassword(e.target.value)
+    onChange(e.target.value)
   }
   return (
     <div className="form__group">

@@ -5,6 +5,7 @@ import greenTick from "./Images/green_tick.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import platform from 'platform';
+import Smallmodel from "./SmallPupup/Smallmodel"
 // import Checkbox from './Checkbox'
 export default function TextShow() {
   const handleShareImage = () => {
@@ -32,8 +33,12 @@ export default function TextShow() {
               <span class="user-name">Mrinmay Manna</span>
             </div>
           </div>
-          <div className='shairicone' onClick={handleShareImage}>
-            <img width="20" height="20" src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/external-share-interface-kiranshastry-solid-kiranshastry-1.png" alt="external-share-interface-kiranshastry-solid-kiranshastry-1" />
+          {/* <div className='shairicone' onClick={handleShareImage}>
+          <i className="icon clickable fa fa-ellipsis-h right" aria-hidden="true" style={{fontSize:"21px"}}></i>
+         
+          </div> */}
+          <div className='shairicone2'>
+            <Smallmodel/>
           </div>
         </div>
 

@@ -17,6 +17,7 @@ import Location from "./Pages/Location";
 import "./Style.css"
 import Login from "./Pages/LoginPage/Login";
 import ChatMessage from "./Component/MessagePage/ChatMessage ";
+import Register from "./Pages/LoginPage/Register";
 export default function AppRoutes() {
 const navigate=useNavigate()
   return (
@@ -26,6 +27,7 @@ const navigate=useNavigate()
       <Routes>
      
             <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
             <Route path="/" element={<Home />} />
           
             <Route path="/profile" element={<Profile />}/>  
