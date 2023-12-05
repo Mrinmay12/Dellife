@@ -34,17 +34,6 @@ export default function Topbar() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  useEffect(() => {
-    // Set initial borderPosition based on the current route
-    const lisLength = document.querySelectorAll('nav ul li').length;
-    const lisWidth = 100 / lisLength;  
-    const position = !isMobile?getInitialPosition(pathname, lisWidth):getInitialPosition2(pathname, lisWidth);
-    setBorderPosition(position);
-  }, [pathname,isMobile]);
-
- 
-
   const getInitialPosition = (path, width) => {
     switch (path) {
       case '/':
@@ -60,6 +49,7 @@ export default function Topbar() {
         return 0;
     }
   };
+
   const getInitialPosition2 = (path, width) => {
     switch (path) {
       case '/':
@@ -77,6 +67,19 @@ export default function Topbar() {
         return 0;
     }
   };
+  useEffect(() => {
+    // Set initial borderPosition based on the current route
+    const lisLength = document.querySelectorAll('nav ul li').length;
+    const lisWidth = 100 / lisLength;  
+    const position = !isMobile?getInitialPosition(pathname, lisWidth):getInitialPosition2(pathname, lisWidth);
+    setBorderPosition(position);
+    // console.log(lisWidth,"lisWidthlisWidth",position);
+  }, [pathname,isMobile]);
+
+//  console.log(borderPosition,"my borderposiyion");
+
+
+ 
   const handleLinkClick = (e, i, attr) => {
     e.preventDefault();
     if (attr === "#one") {
@@ -107,7 +110,8 @@ export default function Topbar() {
     const lisLength = document.querySelectorAll('nav ul li').length;
     const lisWidth = 100 / lisLength;
     const position = i * lisWidth;
-    setBorderPosition(position);
+    // console.log(lisLength,lisWidth,position,"newnnn");
+    // setBorderPosition(position);
   };
 
   return (

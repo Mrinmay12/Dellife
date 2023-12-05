@@ -95,3 +95,18 @@ li {
 li:focus {
   background-color: transparent; /* Set background color to transparent */
 }
+
+ul {
+  outline: none; /* Disable the outline */
+}
+
+ul:focus {
+  background-color: transparent; /* Set background color to transparent */
+}
+i {
+  outline: none; /* Disable the outline */
+}
+
+i:focus {
+  background-color: transparent; /* Set background color to transparent */
+}
