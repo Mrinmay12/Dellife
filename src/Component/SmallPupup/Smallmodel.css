@@ -86,3 +86,12 @@
     right: 60px;
 }
   }
+
+  /* CSS */
+li {
+  outline: none; /* Disable the outline */
+}
+
+li:focus {
+  background-color: transparent; /* Set background color to transparent */
+}
