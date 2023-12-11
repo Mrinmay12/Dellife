@@ -58,9 +58,9 @@ export default function Register() {
         <div className='submitbtn'> 
         <h2>Register</h2>
         </div>
-    <InputField name={"Full name"} onChange={handlename}/>
-    <InputField name={"Email"} onChange={handleemail}/>
-    <InputField name={"age"} onChange={handleage}/>
+    <InputField name={"Full name"} onChange={handlename} id={"name"}/>
+    <InputField name={"Email"} onChange={handleemail} id={"email"}/>
+    <InputField name={"age"} onChange={handleage} id={"age"}/>
     <Password onChange={handlepassword}/>
     <div className='submitbtn'>
     <Button handleClickbtn={handleSubmit} loader={loader}/>

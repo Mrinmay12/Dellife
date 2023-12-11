@@ -23,13 +23,13 @@ export default function Password({onChange}) {
       <input
         className="pass_field"
         placeholder="Password"
-        name="name"
-        id="name"
+        name="password"
+        id="password"
         value={password}
         onChange={(e) => handlePassword(e)}
         type={showPassword ? 'text' : 'password'}
       />
-      <label htmlFor="name" className="form__label">
+      <label htmlFor="password" className="form__label">
         Password
       </label>
     </div>
