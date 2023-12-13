@@ -10,6 +10,7 @@ import {
 } from "react-router-dom"; 
 import { useSelector } from 'react-redux';
 import Texteditor from './TextEditor/Texteditor';
+import apiUrl from '../../ApiAxios';
 export default function Post() {
   const navigate=useNavigate();
   // const data = useSelector(state => state.myReducer.data);
@@ -72,50 +73,40 @@ export default function Post() {
 const handleTitle=(e)=>{
   setdescription(e)
 }
-// useEffect(()=>{
-//   if(imgnotexist===true){
-//     fimageRef.current.focus()                      
-//     setFImage(null)
-//   }
-// },[imgnotexist])
+const [Json,setJson]=useState({})
+console.log(Json,"json data",fimage);
 
 const handleSound=()=>{
   clickSoundRef.current.play();
 }
 const handleSubmit = async (e) => {
   
-// const formData = new FormData();
-// formData.append('image1', fimage);
-// formData.append('image2', simage);
-// formData.append('user_id', "Mrinmayljv0j9f7q7940");
+const formData = new FormData();
+formData.append('image', fimage);
+formData.append('user_id', "Mrinmayljv0j9f7q7940");
 // formData.append('status', true);
 // formData.append('post_description', description);
-// if((fimage===null ||imgnotexist===true) && (simage===null || imgnotexist2===true) && description===""){
-//   navigate("/")
+if(Json.text===""){
+  navigate("/")
   
-// }else{
+}else{
 
-//   try {
-//     await apiUrl.post('/api/userpost/newupload', formData, {
-//       headers: {
-//         'Content-Type': 'multipart/form-data',
-//       },
-//     });
+  try {
+    await apiUrl.post('/api/userpost/newpost', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     
-//     navigate("/");
-//     // Reset the form
-//     setFImage(null);
-//     setSImage(null);
-//     setdescription('');
-//   } catch (error) {
-//     console.error(error);
-//     alert('Error uploading images. Please try again later.');
-//   }
-// }
-}
+    navigate("/");
+    setFImage(null);
 
-const [textcolor,setTextcolor]=useState("black") 
-const [textstyle,setTextstyle]=useState("1") 
+  } catch (error) {
+    console.error(error);
+    alert('Error uploading images. Please try again later.');
+  }
+}
+}
 
 
 
@@ -134,7 +125,7 @@ const [textstyle,setTextstyle]=useState("1")
     <div className='allinone'>
    
     <div className='postformbig'>
-      <PostForm/>
+      <PostForm setJson={setJson}/>
       </div>
       
 

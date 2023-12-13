@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./PostForm.css"
 import Texteditor from '../UploadPost/TextEditor/Texteditor'
-export default function PostForm() {
+export default function PostForm({setJson}) {
     const [text, setText] = useState("")
-    const [textcolor, settextcolor] = useState("")
+    const [textcolor, settextcolor] = useState("black")
     const[textstyle,settextstyle]=useState("1")
 
     const[title,setTitle]=useState("")
@@ -15,6 +15,12 @@ export default function PostForm() {
     const handleChangtitle=(e)=>{
         setTitle(e.target.value)
     }
+    useEffect(()=>{
+        setJson({
+            text,textcolor,textstyle 
+        })
+    },[text,textcolor,textstyle])
+  
     return (
         <div>
 
