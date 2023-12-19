@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react'
+import AutoGrowTextarea from '../AutogrowInput/AutoGrowTextarea';
 import "./Message.css"
 import Messageshow from './MessageShow/Messageshow';
 export default function ChatMessage ({ photo, text, time }) {
@@ -38,7 +39,7 @@ export default function ChatMessage ({ photo, text, time }) {
    <Messageshow own={true} message={"hi"} time={"3/34/4"}/>
    <Messageshow own={false} message={"hi"} time={"3/34/4"}/>
    <Messageshow own={true} message={"hi"} time={"3/34/4"}/>
-   <Messageshow own={true} message={"hi"} time={"3/34/4"}/>
+   <Messageshow own={true} message={"hi"} time={"3/34/4"}/> 
    <Messageshow own={true} message={"hi"} time={"3/34/4"}/>
    <Messageshow own={true} message={"hi"} time={"3/34/4"}/>
    <Messageshow own={true} message={"hi"} time={"3/34/4"}/>
@@ -48,8 +49,8 @@ export default function ChatMessage ({ photo, text, time }) {
    <Messageshow own={true} message={"hi"} time={"3/34/4"}/>
    <Messageshow own={true} message={"hi"} time={"09/06/2001"}/>
     
+  <AutoGrowTextarea/>
     </div>
-  
   </div>
   )
 }

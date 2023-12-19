@@ -11,6 +11,7 @@ import {
 import { useSelector } from 'react-redux';
 import Texteditor from './TextEditor/Texteditor';
 import apiUrl from '../../ApiAxios';
+import { userNewPost } from '../../AllApi/Integrateapi';
 export default function Post() {
   const navigate=useNavigate();
   // const data = useSelector(state => state.myReducer.data);
@@ -84,6 +85,9 @@ const handleSubmit = async (e) => {
 const formData = new FormData();
 formData.append('image', fimage);
 formData.append('user_id', "Mrinmayljv0j9f7q7940");
+formData.append('post_title', Json.text);
+formData.append('color_code', Json.textcolor);
+formData.append('textstyle', Json.textstyle);
 // formData.append('status', true);
 // formData.append('post_description', description);
 if(Json.text===""){
@@ -92,11 +96,7 @@ if(Json.text===""){
 }else{
 
   try {
-    await apiUrl.post('/api/userpost/newpost', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    await userNewPost(formData)
     
     navigate("/");
     setFImage(null);

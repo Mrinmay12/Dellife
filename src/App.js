@@ -12,7 +12,7 @@ import {
   QueryClient,
   QueryClientProvider,
   useQuery,
-} from '@tanstack/react-query'
+} from 'react-query'
 import AppRoutes from './AppRoutes';
 function App() {
   const queryClient = new QueryClient()
