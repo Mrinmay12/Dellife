@@ -13,7 +13,10 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faSignOutAlt, faArrowLeft, faHome, faUserFriends, faUser, faLocation, faUpload, faMessage } from '@fortawesome/free-solid-svg-icons';
 import Search from "../Component/SearchInput/Search"
+import { useDispatch } from 'react-redux';
+import { setRefresh } from '../redux/action/RefreshAction';
 export default function Topbar() {
+  const dispatch = useDispatch()
   const [borderPosition, setBorderPosition] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
@@ -83,6 +86,7 @@ export default function Topbar() {
   const handleLinkClick = (e, i, attr) => {
     e.preventDefault();
     if (attr === "#one") {
+      dispatch(setRefresh(new Date().getMilliseconds()))
       navigate("/");
     } else if (attr === "#two") {
       navigate("/location");

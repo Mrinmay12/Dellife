@@ -2,9 +2,11 @@
 
 import { combineReducers } from 'redux';
 import myReducer from './reducer/LoginReducer';
+import RefreshReducer from "./reducer/RefreshReducer"
 
 const rootReducer = combineReducers({
-  myReducer
+  myReducer,
+  RefreshReducer
   // add more reducers here if needed
 });
 

@@ -1,17 +1,14 @@
-// src/reducers/myReducer.js
-
 const initialState = {
-    data: {}
+    data: new Date().getMilliseconds()
   };
   
-  const myReducer = (state = initialState, action) => {
+  const RefreshReducer = (state = initialState, action) => {
     switch (action.type) {
-      case 'SET_DATA':
+      case 'SET_REFRESH':
         return { ...state, data: action.payload };
       default:
         return state;
     }
   };
   
-  export default myReducer;
-  
+  export default RefreshReducer;

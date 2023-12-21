@@ -18,7 +18,27 @@ import "./Style.css"
 import Login from "./Pages/LoginPage/Login";
 import ChatMessage from "./Component/MessagePage/ChatMessage ";
 import Register from "./Pages/LoginPage/Register";
+import { useSelector, useDispatch } from 'react-redux';
+import { setData } from "./redux/action/LoginAction";
+
+import {Userdetails} from "./AllApi/Integrateapi"
 export default function AppRoutes() {
+  const dispatch=useDispatch()
+
+  const refreshdata = useSelector(state => state.RefreshReducer.data)
+console.log(refreshdata,"refreshdata");
+  useEffect(()=>{
+    const User_details=async()=>{
+      try{
+   let user_data=await   Userdetails("MMMlqdw3gbivck15")
+   dispatch(setData(user_data.data.data))
+      }catch(err){
+        console.log(err);
+      }
+    }
+    User_details()
+     
+        },[refreshdata])
 const navigate=useNavigate()
   return (
     <div>
@@ -31,6 +51,7 @@ const navigate=useNavigate()
             <Route path="/" element={<Home />} />
           
             <Route path="/profile" element={<Profile />}/>  
+            <Route path="/profile/:post_id" element={<Profile />}/>  
             <Route path="/post" element={<Post />}/>  
             <Route path="/message" element={<Message />}/>  
             <Route path="/location" element={<Location />}/>  

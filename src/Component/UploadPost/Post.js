@@ -13,6 +13,7 @@ import Texteditor from './TextEditor/Texteditor';
 import apiUrl from '../../ApiAxios';
 import { userNewPost } from '../../AllApi/Integrateapi';
 export default function Post() {
+  const userlogin = useSelector(state => state.myReducer.data)
   const navigate=useNavigate();
   // const data = useSelector(state => state.myReducer.data);
   const [fimage, setFImage] = useState(null);
@@ -84,7 +85,7 @@ const handleSubmit = async (e) => {
   
 const formData = new FormData();
 formData.append('image', fimage);
-formData.append('user_id', "Mrinmayljv0j9f7q7940");
+formData.append('user_id', userlogin.user_id);
 formData.append('post_title', Json.text);
 formData.append('color_code', Json.textcolor);
 formData.append('textstyle', Json.textstyle);
