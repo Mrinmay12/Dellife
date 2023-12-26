@@ -10,7 +10,7 @@ import Loder from '../Component/LoderComponent/Loder';
 import { ProfilePicUpdate, SeeOtherUserProfile, UserProfilePic } from "../AllApi/Integrateapi"
 import { setRefresh } from "../redux/action/RefreshAction";
 import { useParams } from 'react-router-dom';
-import { setData } from '../redux/action/LoginAction';
+import { setData } from '../redux/action/LoginAction'; 
 export default function Profile() {
   let { post_id } = useParams();
   const dispatch = useDispatch()
@@ -65,49 +65,77 @@ useEffect(()=>{
   }
 
   //base64 convert 
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
+  const MAX_FILE_SIZE =  6862851000000; // set your desired maximum file size in bytes
+
+  const resizeImage = (file) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+  
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+  
+        const MAX_WIDTH = 800; // set your desired maximum width
+        const MAX_HEIGHT = 600; // set your desired maximum height
+  
+        let width = img.width;
+        let height = img.height;
+  
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+  
+        canvas.width = width;
+        canvas.height = height;
+  
+        ctx.drawImage(img, 0, 0, width, height);
+  
+        canvas.toBlob((blob) => {
+          resolve(blob);
+        }, 'image/jpeg', 0.7); // adjust the quality if needed
       };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
+  
+      img.src = URL.createObjectURL(file);
     });
   };
+  
+  const convertToBase64 = async (file) => {
+    const resizedBlob = await resizeImage(file);
+    const base64 = await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(resizedBlob);
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+    });
+  
+    return base64;
+  };
+  
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
+    // console.log(file.size, 'jjjjjjjjj',MAX_FILE_SIZE);
+    if (file.size > MAX_FILE_SIZE) {
+      // Handle the case where the file size is too large
+      console.log('File size exceeds the maximum allowed size');
+      return;
+    }
+  
+    console.log(file.size, 'jjjjjjjjj');
     const base64 = await convertToBase64(file);
-    setProfileImage(base64)
+    setProfileImage(base64);
   
   };
-  // useEffect(() => {
-  //   if (ProfileImage !== null) {
-  //     const formData = new FormData();
-  //     formData.append('image', ProfileImage);
-  //     const UpdateProfile = async () => {
-  //       try {
-  //         setpofileuploadstatus(true)
-  //         let res = await ProfilePicUpdate(userlogin.user_id, formData)
-  //         console.log(res.data.user_pic,"myres")
-  //         if (res && res.data && res.data.data.user_pic) {
-  //           setPopupImageUrl(res.data.data.user_pic);
-  //         }
-  //       } catch (err) {
-  //         console.log(err);
-  //       } finally {
-  //         setpofileuploadstatus(false)
-  //         dispatch(setRefresh(new Date().getMilliseconds()))
-  //         setProfileImage(null)
-  //       }
-       
-  //     }
-  //     UpdateProfile()
-  //   }
-  // }, [ProfileImage])
+
   const ProfileImageupload=async()=>{
     const json={
       profile_img:ProfileImage,
