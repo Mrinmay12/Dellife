@@ -25,7 +25,7 @@ body {
   .avatar-upload {
     position: relative;
     max-width: 205px;
-    margin: 50px auto;
+    margin: 16px auto;
   }
   .avatar-upload .avatar-edit {
     position: absolute;
@@ -149,6 +149,18 @@ body {
     padding-left: 8px;
     border-radius: 17px;
 }
+.profilebottom{
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  width: 100% !important;
+  background-color: aliceblue;
+  margin-top: 4px;
+  border-radius: 16px;
+}
+.centerpostcard{
+  padding-left:0px !important
+}
 }
 @media (max-width: 740px) {
   .profileinput {
@@ -162,5 +174,60 @@ body {
     padding-left: 8px;
     border-radius: 17px;
 }
+.profilebottom{
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  width: 100% !important;
+  background-color: aliceblue;
+  margin-top: 4px;
+  border-radius: 16px;
+}
+.centerpostcard{
+  padding-left:0px !important
+}
 }
 /*  */
+
+.editprofile{
+  display: flex;
+  justify-content: center;
+}
+.profilebottom{
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  width: 40%;
+  background-color: aliceblue;
+  margin-top: 4px;
+  border-radius: 16px;
+}
+.profilediv{
+  justify-content: center;
+    display: flex;
+}
+.centerpostcard{
+  padding-left:25px
+}
+.profilebottomtext{
+  margin: 28px;
+  font-size: 19px;
+  border-bottom-width: 1.2px;
+  border-color: red;
+  /* border-style: solid; */
+  border-bottom-style: solid;
+  cursor: pointer;
+}
+.profilebottomtext2{
+  margin: 28px;
+  font-size: 19px;
+  /* border-bottom-width: 4px;
+  border-bottom-style: solid; */
+  cursor: pointer;
+}
+
+.user_name{
+  margin: 8px;
+  font-size: 20px;
+  font-family: -webkit-body;
+}

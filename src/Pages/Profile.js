@@ -10,7 +10,10 @@ import Loder from '../Component/LoderComponent/Loder';
 import { ProfilePicUpdate, SeeOtherUserProfile, UserProfilePic } from "../AllApi/Integrateapi"
 import { setRefresh } from "../redux/action/RefreshAction";
 import { useParams } from 'react-router-dom';
-import { setData } from '../redux/action/LoginAction'; 
+import { setData } from '../redux/action/LoginAction';
+import EditProfile from '../Component/ProfileEdit/EditProfile';
+import save from "../Images/save.jpg"
+import card from "../Images/card.jpg"
 export default function Profile() {
   let { post_id } = useParams();
   const dispatch = useDispatch()
@@ -22,22 +25,22 @@ export default function Profile() {
   const [ProfileImage, setProfileImage] = useState(null)
   const [pofileuploadstatus, setpofileuploadstatus] = useState(false)
   const ProfileImageRef = useRef()
-  const[hidden,setHidden]=useState(false)
+  const [hidden, setHidden] = useState(false)
   useEffect(() => {
     if (userlogin) {
       setPopupImageUrl(userlogin.user_pic)
     }
   }, [userlogin])
 
-useEffect(()=>{
-  if(post_id){
-    setHidden(true) 
-  }else if(userlogin?.user_id!==""){
-    setHidden(false)
-  }else{
-    setHidden(true) 
-  }
-},[userlogin])
+  useEffect(() => {
+    if (post_id) {
+      setHidden(true)
+    } else if (userlogin?.user_id !== "") {
+      setHidden(false)
+    } else {
+      setHidden(true)
+    }
+  }, [userlogin])
 
   const handleClosePopup = () => {
     // setPopupImageUrl('');
@@ -52,8 +55,9 @@ useEffect(()=>{
   const [age, setAge] = useState("")
   const [userid, setUserid] = useState("")
   const [disable, setDisable] = useState(true)
+  const [editshow, setEditshow] = useState(false)
   const handleEdit = () => {
-    alert('hi')
+    setEditshow((pre) => !pre)
 
   }
 
@@ -65,22 +69,22 @@ useEffect(()=>{
   }
 
   //base64 convert 
-  const MAX_FILE_SIZE =  6862851000000; // set your desired maximum file size in bytes
+  const MAX_FILE_SIZE = 6862851000000; // set your desired maximum file size in bytes
 
   const resizeImage = (file) => {
     return new Promise((resolve) => {
       const img = new Image();
-  
+
       img.onload = () => {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-  
+
         const MAX_WIDTH = 800; // set your desired maximum width
         const MAX_HEIGHT = 600; // set your desired maximum height
-  
+
         let width = img.width;
         let height = img.height;
-  
+
         if (width > height) {
           if (width > MAX_WIDTH) {
             height *= MAX_WIDTH / width;
@@ -92,21 +96,21 @@ useEffect(()=>{
             height = MAX_HEIGHT;
           }
         }
-  
+
         canvas.width = width;
         canvas.height = height;
-  
+
         ctx.drawImage(img, 0, 0, width, height);
-  
+
         canvas.toBlob((blob) => {
           resolve(blob);
         }, 'image/jpeg', 0.7); // adjust the quality if needed
       };
-  
+
       img.src = URL.createObjectURL(file);
     });
   };
-  
+
   const convertToBase64 = async (file) => {
     const resizedBlob = await resizeImage(file);
     const base64 = await new Promise((resolve) => {
@@ -116,10 +120,10 @@ useEffect(()=>{
         resolve(reader.result);
       };
     });
-  
+
     return base64;
   };
-  
+
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -129,29 +133,29 @@ useEffect(()=>{
       console.log('File size exceeds the maximum allowed size');
       return;
     }
-  
+
     console.log(file.size, 'jjjjjjjjj');
     const base64 = await convertToBase64(file);
     setProfileImage(base64);
-  
+
   };
 
-  const ProfileImageupload=async()=>{
-    const json={
-      profile_img:ProfileImage,
-      user_id:userlogin.user_id
+  const ProfileImageupload = async () => {
+    const json = {
+      profile_img: ProfileImage,
+      user_id: userlogin.user_id
     }
     try {
       setpofileuploadstatus(true)
       const response = await ProfilePicUpdate(json);
-  
+
       if (response) {
         setpofileuploadstatus(false)
-        
+
       }
     } catch (error) {
       console.error(error);
-    }finally{
+    } finally {
       dispatch(setRefresh(new Date().getMilliseconds()))
       // setrefress(new Date().getMilliseconds())
     }
@@ -160,25 +164,29 @@ useEffect(()=>{
     if (ProfileImage !== null) {
       ProfileImageupload()
     }
-  },[ProfileImage])
- 
-  useEffect(()=>{
-  
-const Data=async()=>{
-  try{
-  let response=await SeeOtherUserProfile(post_id,userlogin.user_id)
-  dispatch(setData(response.data.data))
-  console.log(response.data.data);
-}catch(err){
-  console.log(err)
-}
-}
-if(post_id){
-  Data() 
-}
-  
-  },[post_id])
-console.log(userlogin.user_id,"userlogin.user_id",hidden);
+  }, [ProfileImage])
+
+  useEffect(() => {
+
+    const Data = async () => {
+      try {
+        let response = await SeeOtherUserProfile(post_id, userlogin.user_id)
+        dispatch(setData(response.data.data))
+        console.log(response.data.data);
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    if (post_id) {
+      Data()
+    }
+
+  }, [post_id])
+  console.log(userlogin.user_id, "userlogin.user_id", hidden);
+const[show,setShow]=useState("post")
+  const handleShow=(e)=>{
+    setShow(e)
+  }
   return (
     <div>
 
@@ -204,20 +212,56 @@ console.log(userlogin.user_id,"userlogin.user_id",hidden);
             </div>
           </div>
         </div>
-        <p>{userlogin.user_name}</p>
-{!hidden &&(
+        <p className='user_name'>{userlogin.user_name}</p>
+        {!editshow ? (
+          <div style={{ justifyContent: "center", display: "flex" }}>
+            <Button value="Edit" handleClick={handleEdit} backcolor={"dimgray"} />
+            <div style={{ marginLeft: "29px" }}>
+              <Button value="Advance setting" handleClick={handleEdit} />
+            </div>
+          </div>
 
-        <Button value="Edit" handleClick={handleEdit} />
-)}
+        ):(
+          <div>
+          <p style={{color:"#4caf50",fontSize:"22px",textAlign:"end",paddingRight:"36px",marginTop:"2px",cursor:"pointer"}} onClick={handleEdit}><button className='postbtn'>Save</button></p>
+          </div>
+        )}
         <br />
         <hr />
-        <div className='twobottom'>
-          <p className='makeprofile'>Make your Profile profession</p>
-          <Button value="Convert" handleClick={() => handleConvert("mm", "11")} />
-        </div>
+    
+          <>
 
+            <div className='twobottom'>
+              <p className='makeprofile'>Make your Profile profession</p>
+              <Button value="Convert" handleClick={() => handleConvert("mm", "11")} />
+            </div>
+          </>
+      <div className='profilediv'>
+        <div className='profilebottom'>
+          <p  className={show==="post"?'profilebottomtext':"profilebottomtext2"} onClick={()=>handleShow("post")} style={{color:show==="post"?"red":"black"}}><img style={{height:"18px" ,marginRight:"4px"}} src={card}/>Posts</p>
+          <p className={show==="save"?'profilebottomtext':"profilebottomtext2"} style={{color:show==="save"?"red":"black"}} onClick={()=>handleShow("save")}><img style={{height:"18px"}} src={save}/> Saved</p>
+        </div>
+        </div>
+     
       </div>
-      <Postcard />
+      {!editshow ? (
+        <>
+          {show==="post"?(
+            <div className='centerpostcard'>
+            <Postcard user_id={userlogin.user_id}/>
+            </div>
+          ):(
+            <div className='centerpostcard'>
+            <Postcard user_id={userlogin.user_id}/>
+            </div>
+          )}
+        </>
+        
+      ) : (
+      <div className='editprofile'>
+        <EditProfile />
+        </div>
+      )}
 
       {/* pupup */}
       {showPopup && (

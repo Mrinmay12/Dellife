@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import "./Button.css"
-const Button = ({loader,handleClickbtn}) => {
+const Button = ({loader,handleClickbtn,name}) => {
   const [loading, setLoading] = useState(false);
 const[disabled,setdisabled]=useState(false)
   const handleClick = () => {
@@ -19,7 +19,7 @@ useEffect(()=>{
   return (
     <div style={{marginTop:"4px"}}>
       <button className={loading ? 'button loading' : 'button'} onClick={handleClick} disabled={disabled}>
-        {loading ? <span className="spinner"></span> :<span className='clickbtn'>Register</span> }
+        {loading ? <span className="spinner"></span> :<span className='clickbtn'>{name}</span> }
       </button>
     </div>
   );

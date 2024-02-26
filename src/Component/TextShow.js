@@ -9,10 +9,13 @@ import Smallmodel from "./SmallPupup/Smallmodel"
 import {
   useNavigate,
 } from "react-router-dom"; 
+import BlurredUpImage from './ImageLoad/BlurredUpImage';
+import Commentmodel from './CommentModel/Commentmodel';
 
 export default function TextShow({ item }) {
   const navigate=useNavigate()
   const [imageLoaded, setImageLoaded] = useState(false);
+
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
@@ -32,8 +35,20 @@ export default function TextShow({ item }) {
     }
   };
   const handleProfile=()=>{
-    navigate(`/profile/${item.post_id}`)
+    navigate(`/otherprofile/${item.post_id}`)
   }
+ 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+const[postId,setPostId]=useState("")
+  const handleOpenComment = (postid) => {
+    setIsModalOpen(true);
+    setPostId(postid)
+  };
+
   return (
     <div>
       {item.Postimage ? (
@@ -50,7 +65,7 @@ export default function TextShow({ item }) {
          
           </div> */}
             <div className='shairicone2'>
-              <Smallmodel />
+              <Smallmodel post_id={item.post_id}/>
             </div>
           </div>
 
@@ -58,8 +73,9 @@ export default function TextShow({ item }) {
 
           <div class="mainimage-cards-container">
             <div class="">
-              <img src={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.Postimage}?alt=media`} alt='headerimage' className='imageshow' style={{ display: imageLoaded ? "block" : "none"}}
-                onLoad={handleImageLoad} />
+            <BlurredUpImage image={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.Postimage}?alt=media`} className="imageshow"/>
+              {/* <img src={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.Postimage}?alt=media`} alt='headerimage' className='imageshow' style={{ display: imageLoaded ? "block" : "none"}}
+                onLoad={handleImageLoad} /> */}
 
             </div>
           </div>
@@ -81,7 +97,7 @@ export default function TextShow({ item }) {
             </div>
 
             <div className='shairicone3'>
-              <FontAwesomeIcon icon={faComment} className="iconstyle" /> 5454
+              <FontAwesomeIcon icon={faComment} className="iconstyle" onClick={()=>handleOpenComment(item.post_id)} /> 5454
             </div>
 
             <div className='shairicone3' onClick={handleShareImage}>
@@ -103,7 +119,7 @@ export default function TextShow({ item }) {
                 </div>
               </div>
               <div className='shairicone2'>
-                <Smallmodel />
+                <Smallmodel post_id={item.post_id}/>
               </div>
             </div>
 
@@ -116,7 +132,7 @@ export default function TextShow({ item }) {
               </div>
 
               <div className='shairicone3'>
-                <FontAwesomeIcon icon={faComment} className="iconstyle" /> 5454
+                <FontAwesomeIcon icon={faComment} className="iconstyle" onClick={()=>handleOpenComment(item.post_id)}/> 5454
               </div>
 
               <div className='shairicone3' onClick={handleShareImage}>
@@ -206,7 +222,7 @@ export default function TextShow({ item }) {
 
 
       {/* <Checkbox/>   */}
-
+      {isModalOpen && <Commentmodel onClose={closeModal} postId={postId}/>}
     </div>
   )
 }

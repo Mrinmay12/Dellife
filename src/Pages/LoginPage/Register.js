@@ -3,7 +3,9 @@ import InputField from '../../Component/RegisterInput/InputField'
 import Password from '../../Component/RegisterInput/PasswordInput/Password'
 import Button from "../../Component/LodingButton/Button"
 import { userRegister } from '../../AllApi/Integrateapi'
-export default function Register() {
+import { useNavigate } from 'react-router-dom'
+export default function Register({setToken}) {
+  const navigate=useNavigate()
   const[name,setName]=useState("")
   const[email,setEmail]=useState("")
   const[age,setAge]=useState("")
@@ -38,7 +40,10 @@ export default function Register() {
           if(response){
             setLoder(false)
            const token = response.data.token;
+           setToken(token)
+           navigate("/")
            // dispatch(setData(response.data.user_id))
+          //  localStorage.setItem("user_id",response.data.user_id)
            localStorage.setItem('token', token);
           //  setLogin_true(true)
           //  setIsLoggedIn(true)
@@ -63,7 +68,7 @@ export default function Register() {
     <InputField name={"age"} onChange={handleage} id={"age"}/>
     <Password onChange={handlepassword}/>
     <div className='submitbtn'>
-    <Button handleClickbtn={handleSubmit} loader={loader}/>
+    <Button handleClickbtn={handleSubmit} loader={loader} name="Register"/>
     </div>
     </div>
     </div>

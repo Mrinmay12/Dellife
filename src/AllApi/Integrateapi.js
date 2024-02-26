@@ -1,6 +1,12 @@
 import apiUrl from "../ApiAxios";
 
 export const userRegister=(data)=>apiUrl.post(`/api/user/newuser`,data)
+export const userLogin=(data)=>apiUrl.post(`/api/user/login`,data)
+export const verifytoken=async(token)=>await apiUrl.get(`/api/user/verifytoken`,{
+  headers: {
+    'Authorization':token,
+  },
+})
 export const userNewPost=(data)=>apiUrl.post(`/api/userpost/newpost`,data,{
     headers: {
         'Content-Type': 'multipart/form-data',
@@ -21,3 +27,7 @@ export const UserProfilePic=(user_id)=>apiUrl.get(`/api/user/userpic/${user_id}`
 
 
 export const SeeOtherUserProfile=(post_id,user_id)=>apiUrl.get(`/api/another_user/details/${post_id}?user_id=${user_id}`)
+
+export const UserPostGet=(user_id,page)=>apiUrl.get(`/api/userpost/user/${user_id}?page=${page}`)
+
+export const AnotherUserPostGet=(post_id,page)=>apiUrl.get(`/api/another_user/post_details/${post_id}?page=${page}`)

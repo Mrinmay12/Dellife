@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import {
     QueryClient,
     QueryClientProvider,
@@ -9,7 +9,13 @@ import {
   import InfiniteScroll from "react-infinite-scroll-component";
   import TextShow from '../Component/TextShow';
   import { userAllPost } from '../AllApi/Integrateapi';
+import { useSelector, useDispatch } from 'react-redux';
+import { io } from "socket.io-client"
+
 export default function Home() {
+  const userlogin = useSelector(state => state.myReducer.data)
+  const socket = useRef();
+
   const queryClient = new QueryClient();
   const [page, setPage] = useState(1);
   const [reff,setRef]=useState("")
@@ -49,8 +55,31 @@ console.log(page,"page");
       setPostdata((prevData) => [...prevData, ...data]);
     }
   }, [data]);
-    console.log(data,"productsproducts",postdata);
     
+  useEffect(() => {
+    const socket = io(process.env.REACT_APP_SOCKET_URL); // Connect to the backend WebSocket server
+    // if (userlogin?.user_id) {
+      socket.emit("add-user", "Mriisisid");
+    // }
+
+    socket.on("get-users", (users) => {
+      console.log("Active Users:", users);
+      // Update your UI with the active users
+    });
+
+
+    return () => {
+      socket.disconnect(); // Disconnect the socket when component unmounts
+    };
+  }, [userlogin?.user_id]);
+  
+    // useEffect(()=>{
+    //   if (userlogin?.user_id) {
+    //     socket.current = io("localhost:9000");
+    //     socket.current.emit("add-user",userlogin?.user_id);
+    //   } 
+    // },[])
+    console.log(userlogin?.user_id,"user_id");
   return (
     <div>
      <InfiniteScroll

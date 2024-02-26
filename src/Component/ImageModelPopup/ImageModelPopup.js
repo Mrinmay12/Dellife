@@ -3,7 +3,7 @@ import "./Popup.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose,faTrash} from '@fortawesome/free-solid-svg-icons';
 // import apiUrl from '../../ApiAxios';
-const ImageModelPopup = ({ imageUrl, onClose ,setrefress}) => {
+const ImageModelPopup = ({ imageUrl, onClose ,setrefress,post_id}) => {
   const deleteImage=async()=>{
   //   try {
   //     const response = await apiUrl.post('api/user/UserProfile/userImage/image/delete',JSON.stringify({user_id:"Mrindgddb2"}))
@@ -21,7 +21,10 @@ const ImageModelPopup = ({ imageUrl, onClose ,setrefress}) => {
         <img src={imageUrl} alt="Popup Image" />
         {/* <button onClick={onClose}>Close</button> */}
         <FontAwesomeIcon icon={faClose} style={{height:"24px",width:"40px"}} className="closebutton" onClick={onClose}/>
-        <FontAwesomeIcon icon={faTrash} style={{height:"27px",width:"40px",color:"red"}} className="deleteicon" onClick={deleteImage}/>
+        {!post_id &&(
+          <FontAwesomeIcon icon={faTrash} style={{height:"27px",width:"40px",color:"red"}} className="deleteicon" onClick={deleteImage}/>
+        )}
+       
       </div>
     </div>
   );
