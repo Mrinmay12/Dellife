@@ -173,7 +173,7 @@
 .chat {
   width: calc(65% - 85px);
   height: 542px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .header-chat {

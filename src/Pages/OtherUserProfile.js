@@ -3,18 +3,19 @@ import "./Profile.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faUser, faSave, faPencil } from '@fortawesome/free-solid-svg-icons';
 import ImageModelPopup from '../Component/ImageModelPopup/ImageModelPopup';
-import Button from '../Component/Button/Button';
+import Button from '../Component/Button/Button';  
 import OtherPostcard from '../Component/AllPostCard/OtherPostcard';
 import { useSelector, useDispatch } from 'react-redux';
 import Loder from '../Component/LoderComponent/Loder';
-import { ProfilePicUpdate, SeeOtherUserProfile, UserProfilePic } from "../AllApi/Integrateapi"
+import { addTwoUser, ProfilePicUpdate, SeeOtherUserProfile, UserProfilePic } from "../AllApi/Integrateapi"
 import { setRefresh } from "../redux/action/RefreshAction";
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import { setData } from '../redux/action/LoginAction';
 import EditProfile from '../Component/ProfileEdit/EditProfile';
 import save from "../Images/save.jpg"
 import card from "../Images/card.jpg"
 export default function OtherUserProfile() {
+  const navigate=useNavigate()
   let { post_id } = useParams();
   const dispatch = useDispatch()
   const userlogin = useSelector(state => state.myReducer.data)
@@ -26,6 +27,7 @@ export default function OtherUserProfile() {
   const ProfileImageRef = useRef()
   const [hidden, setHidden] = useState(false)
   const[user_name,setUsername]=useState("")
+  const[user_id,setUserid]=useState("")
 //   useEffect(() => {
 //     if (userlogin) {
 //       setPopupImageUrl(userlogin.user_pic)
@@ -58,6 +60,7 @@ export default function OtherUserProfile() {
         // dispatch(setData(response.data.data))
         setPopupImageUrl(response.data.data.user_pic)
         setUsername(response.data.data.user_name)
+        setUserid(response.data.data.user_id)
         console.log(response.data.data);
       } catch (err) {
         console.log(err)
@@ -71,6 +74,17 @@ export default function OtherUserProfile() {
 const[show,setShow]=useState("post")
   const handleShow=(e)=>{
     setShow(e)
+  }
+
+  const handleMessage=async()=>{
+  const json=JSON.stringify({
+        senderId: userlogin.user_id,
+        receiverId:user_id
+    })
+    const response=await addTwoUser(json)
+    if(response){
+        navigate(`/message/${response.data.data._id}?userid=${window.btoa(user_id)}`)
+    }
   }
   return (
     <div>
@@ -98,9 +112,9 @@ const[show,setShow]=useState("post")
         <p className='user_name'>{user_name}</p>
         
           <div style={{ justifyContent: "center", display: "flex" }}>
-            <Button value="Edit" backcolor={"dimgray"} />
+            <Button value="Connect" backcolor={"dimgray"} />
             <div style={{ marginLeft: "29px" }}>
-              <Button value="Advance setting" />
+              <Button value="Message" handleClick={handleMessage} />
             </div>
           </div>
 

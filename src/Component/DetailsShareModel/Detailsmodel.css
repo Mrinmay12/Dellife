@@ -1,0 +1,102 @@
+.modal-container-details {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+
+
+  .usershareimg {
+    width: 50px; /* Adjust image size as needed */
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  
+  
+  
+  .shareuserinfo{
+  display: flex;
+  }
+  
+  .usersharename{
+    padding-left: 18px;
+    font-family: auto;
+    padding-top: 11px;
+  }
+  
+  
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    /* margin-top: 20px; */
+      margin-left: 21px;
+      width: 45px; /*Change here */
+      height: 25px; /*Change here */
+  }
+  
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: background-color 0.4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: '';
+    height: 17px; /*Change here */
+    width: 17px; /*Change here */
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(20px); /*Change here */
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  .sharealldetails{
+    width: 100%;
+    display: flex;
+    padding-bottom: 13px;
+  }
+
+  .sharetext{
+    width: 75%;
+    font-size: 22px;
+    font-weight: 600;
+    font-family: 'Montserrat';
+  }

@@ -14,6 +14,7 @@ import { setData } from '../redux/action/LoginAction';
 import EditProfile from '../Component/ProfileEdit/EditProfile';
 import save from "../Images/save.jpg"
 import card from "../Images/card.jpg"
+import ShareDetailsmodel from '../Component/DetailsShareModel/ShareDetailsmodel';
 export default function Profile() {
   let { post_id } = useParams();
   const dispatch = useDispatch()
@@ -187,6 +188,12 @@ const[show,setShow]=useState("post")
   const handleShow=(e)=>{
     setShow(e)
   }
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div>
 
@@ -219,6 +226,7 @@ const[show,setShow]=useState("post")
             <div style={{ marginLeft: "29px" }}>
               <Button value="Advance setting" handleClick={handleEdit} />
             </div>
+            <button onClick={()=>setIsModalOpen(true)}>Permition</button>
           </div>
 
         ):(
@@ -267,6 +275,8 @@ const[show,setShow]=useState("post")
       {showPopup && (
         <ImageModelPopup imageUrl={popupImageUrl} onClose={handleClosePopup} setrefress={setrefress} />
       )}
+
+      {isModalOpen && <ShareDetailsmodel onClose={closeModal} />}
     </div>
   )
 }

@@ -22,22 +22,17 @@ import OtherUserProfile from "./Pages/OtherUserProfile";
 import { useSelector, useDispatch } from 'react-redux';
 import { setData } from "./redux/action/LoginAction";
 import { Userdetails, verifytoken } from "./AllApi/Integrateapi"
+import ErrorPage from "./Pages/ErrorPage";
+//socket
+import { io } from "socket.io-client"
 export default function AppRoutes() {
   const dispatch = useDispatch()
+  const socket = useRef();
   const refreshdata = useSelector(state => state.RefreshReducer.data)
   const[appverify,setAppverify]=useState(false)
 
-
-  let local_user_id = localStorage.getItem("user_id")
   const[user_id,setUser_id]=useState("")
-  // setInterval(()=>{
-  //   setUser_id(local_user_id)
-  // },1000)
-  // useEffect(()=>{
-  //   if(!user_id){
-  //     localStorage.removeItem('token')
-  //   }
-  // },[user_id])
+
   useEffect(() => {
     const User_details = async () => {
       try {
@@ -62,7 +57,7 @@ export default function AppRoutes() {
          if(res){
           setUser_id(res.data.user_id)
           setAppverify(true)
-          navigate("/")
+          // navigate("/")
          }
       } catch (err) {
         
@@ -81,6 +76,14 @@ export default function AppRoutes() {
   }, [token,user_id])
   const navigate = useNavigate()
 
+  // useEffect(() => {
+  //   if(user_id!==""){
+  //   socket.current = io(process.env.REACT_APP_SOCKET_URL);
+  //   socket.current.emit("add-user",user_id);
+  // }
+  
+  // }, [user_id]);
+  
   return (
     <div>
      {token ?(<Topbar /> ):""} 
@@ -92,14 +95,18 @@ export default function AppRoutes() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/otherprofile/:post_id" element={<OtherUserProfile />} />
               <Route path="/post" element={<Post />} />
-              <Route path="/message" element={<Message />} />
+              <Route path="/message/:id" element={<Message socket={socket} />} />
+              <Route path="/message" element={<Message socket={socket} />} />
               <Route path="/location" element={<Location />} />
-              <Route path="/chats" element={<ChatMessage />} />
+              <Route path="/chats" element={<ChatMessage socket={socket} messageid={"hffhhghghg"}/>} />
+              <Route path="*" element={<ErrorPage />} />
             </>
           ) : (
             <>
               <Route path="/" element={<Login setToken={setToken}/>} />
               <Route path="/register" element={<Register setToken={setToken}/>} />
+              <Route path="*" element={<ErrorPage />} />
+
 
             </>
           )}

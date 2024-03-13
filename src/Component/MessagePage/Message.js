@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import "./Message.css"
 import Discussion from './Discussion '
 import ChatMessage from './ChatMessage '
-export default function Message() {
+export default function Message({socket}) {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
@@ -33,10 +33,10 @@ export default function Message() {
   
     <>
 
-      <div class="massagecontainer" style={{marginTop:!isMobile?"-17px":""}}> 
+      <div class="massagecontainer" style={{marginTop:!isMobile?"-39px":""}}> 
         <Discussion isMobile={isMobile}/>
         {!isMobile &&(
-          <ChatMessage  />
+          <ChatMessage socket={socket} />
         )}
         
 

@@ -56,29 +56,24 @@ console.log(page,"page");
     }
   }, [data]);
     
-  useEffect(() => {
-    const socket = io(process.env.REACT_APP_SOCKET_URL); // Connect to the backend WebSocket server
-    // if (userlogin?.user_id) {
-      socket.emit("add-user", "Mriisisid");
-    // }
+  // useEffect(() => {
+  //   const socket = io(process.env.REACT_APP_SOCKET_URL); // Connect to the backend WebSocket server
+  //   // if (userlogin?.user_id) {
+  //     socket.emit("add-user", "Mriisisid");
+  //   // }
 
-    socket.on("get-users", (users) => {
-      console.log("Active Users:", users);
-      // Update your UI with the active users
-    });
+  //   socket.on("get-users", (users) => {
+  //     console.log("Active Users:", users);
+  //     // Update your UI with the active users
+  //   });
 
 
-    return () => {
-      socket.disconnect(); // Disconnect the socket when component unmounts
-    };
-  }, [userlogin?.user_id]);
+  //   return () => {
+  //     socket.disconnect(); // Disconnect the socket when component unmounts
+  //   };
+  // }, [userlogin?.user_id]);
   
-    // useEffect(()=>{
-    //   if (userlogin?.user_id) {
-    //     socket.current = io("localhost:9000");
-    //     socket.current.emit("add-user",userlogin?.user_id);
-    //   } 
-    // },[])
+
     console.log(userlogin?.user_id,"user_id");
   return (
     <div>

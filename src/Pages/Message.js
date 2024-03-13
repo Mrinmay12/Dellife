@@ -1,9 +1,11 @@
-import React from 'react'
+import React,{useRef} from 'react'
 import MessageComponent from '../Component/MessagePage/Message'
-export default function Message() {
+
+export default function Message({socket}) {
+
   return (
     <div>
-      <MessageComponent/>
+      <MessageComponent socket={socket}/>
     </div>
   )
 }

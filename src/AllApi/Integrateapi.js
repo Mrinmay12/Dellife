@@ -31,3 +31,10 @@ export const SeeOtherUserProfile=(post_id,user_id)=>apiUrl.get(`/api/another_use
 export const UserPostGet=(user_id,page)=>apiUrl.get(`/api/userpost/user/${user_id}?page=${page}`)
 
 export const AnotherUserPostGet=(post_id,page)=>apiUrl.get(`/api/another_user/post_details/${post_id}?page=${page}`)
+
+//Message Api
+export const sendMessage=(json)=>apiUrl.post(`/api/user/sendmessage`,json)
+export const getMessage=(messageId)=>apiUrl.get(`/api/user/recivemessage/${messageId}`)
+export const addTwoUser=(data)=>apiUrl.post(`/api/user/useradd`,data)
+export const userfriend=(userid)=>apiUrl.get(`/api/user/userfriend/${userid}`)
+export const userProfile=(userid)=>apiUrl.get(`/api/user/userprofile/${userid}`)
