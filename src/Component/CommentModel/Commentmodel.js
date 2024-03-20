@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import InputArea from '../UploadPost/InputArea';
 import "./Comment.css"
+import { userComment } from '../../AllApi/Integrateapi';
 const Commentmodel = ({ onClose,postId }) => {
   const userlogin = useSelector(state => state.myReducer.data)
   const [inputValue, setInputValue] = useState('');
@@ -25,15 +26,23 @@ const Commentmodel = ({ onClose,postId }) => {
     setInputValue(e.target.value);
   };
 
-  const handleSubmit = () => {
-    // Handle submission logic
+  const handleSubmit =async () => {
+    const json=JSON.stringify({
+      post_id:postId,
+      user_id: userlogin.user_id,
+      user_comment:inputValue
+  })
+  const response=await userComment(json)
+  if(response){
+    onClose();
+  }
   };
 
   return (
     <div className="modal-container" ref={modalRef}>
       <img className="round-img" src={userlogin.user_pic} alt="Profile" />
       <div style={{paddingTop:"2px"}}/>
-      {postId}
+
       {/* <InputArea/> */}
 <textarea  type="text" className={"textarea" } style={{color:"black"}} value={inputValue}  placeholder="Enter Tittle" onChange={handleChange}/>
 {/* <div> */}

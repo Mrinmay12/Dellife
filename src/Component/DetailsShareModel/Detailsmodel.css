@@ -100,3 +100,17 @@
     font-weight: 600;
     font-family: 'Montserrat';
   }
+
+  .shareuserscroll{
+    max-height: 100px;
+    overflow: scroll;
+}
+
+  /* .shareuserscroll::-webkit-scrollbar {
+    display: none;
+}
+
+.shareuserscroll {
+  -ms-overflow-style: none; 
+  scrollbar-width: none;  
+} */

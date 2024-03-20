@@ -57,7 +57,7 @@ const ShareDetailsmodel = ({ onClose,postId }) => {
       </div>
      </div>
 <hr/>
-<div>
+<div className="shareuserscroll">
 {data.map((item) => (
   <div style={{marginTop:"2px"}}>
   <div className="shareuserinfo">

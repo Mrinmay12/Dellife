@@ -5,6 +5,7 @@ import { faEdit, faUser, faSave, faPencil } from '@fortawesome/free-solid-svg-ic
 import ImageModelPopup from '../Component/ImageModelPopup/ImageModelPopup';
 import Button from '../Component/Button/Button';
 import Postcard from '../Component/AllPostCard/Postcard';
+import SavePostcard from '../Component/AllPostCard/SavePostcard';
 import { useSelector, useDispatch } from 'react-redux';
 import Loder from '../Component/LoderComponent/Loder';
 import { ProfilePicUpdate, SeeOtherUserProfile, UserProfilePic } from "../AllApi/Integrateapi"
@@ -260,7 +261,7 @@ const[show,setShow]=useState("post")
             </div>
           ):(
             <div className='centerpostcard'>
-            <Postcard user_id={userlogin.user_id}/>
+            <SavePostcard user_id={userlogin.user_id}/>
             </div>
           )}
         </>

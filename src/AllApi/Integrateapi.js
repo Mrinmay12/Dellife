@@ -38,3 +38,22 @@ export const getMessage=(messageId)=>apiUrl.get(`/api/user/recivemessage/${messa
 export const addTwoUser=(data)=>apiUrl.post(`/api/user/useradd`,data)
 export const userfriend=(userid)=>apiUrl.get(`/api/user/userfriend/${userid}`)
 export const userProfile=(userid)=>apiUrl.get(`/api/user/userprofile/${userid}`)
+
+//post comment Api
+export const userComment=(json)=>apiUrl.post(`/api/userpost/user/commentpost`,json)
+export const userCommentget=(post_id,user_id,page)=>apiUrl.get(`/api/userpost/user/commentget/${post_id}/${user_id}?page=${page}`)
+
+//post Like APi
+export const postLike=(post_id,json)=>apiUrl.post(`/post/like/${post_id}`,json)
+export const getLike=(post_id,user_id)=>apiUrl.get(`/post/likecount/${post_id}?user_id=${user_id}`)
+
+export const disLike=(post_id,user_id)=>apiUrl.delete(`/post/dislike?post_id=${post_id}&user_id=${user_id}`)
+
+
+//user save post
+export const UserSavePost=(post_id,json)=>apiUrl.post(`/post/usersave_post/${post_id}`,json)
+
+export const User_post_save_or_not=(post_id,user_id)=>apiUrl.get(`/post/user_post_save_or_not?user_id=${user_id}&post_id=${post_id}`)
+
+//User save post get
+export const UserSavePostGet=(user_id,page)=>apiUrl.get(`/post/user_all_save_post?user_id=${user_id}&page=${page}&pageSize=7`)
