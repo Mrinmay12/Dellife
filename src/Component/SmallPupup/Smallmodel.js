@@ -39,6 +39,7 @@ export default function Smallmodel({post_id}) {
     <div class="dropdown-btn icon clickable fa fa-ellipsis-h right"></div>
     <div class="dropdown-content">
     <a onClick={handleSave}><img style={{height:"17px",marginRight:"19px"}} src={save}/>{usersavepost?"Unsave":"Saved"}</a>
+    <a href="#about"><i class="fa fa-copy" style={{marginRight:"19px"}}></i>copy</a>
 <a href="#about"><i class="fa fa-flag-o" style={{marginRight:"19px"}}></i>Report</a>
     </div>
   </div>

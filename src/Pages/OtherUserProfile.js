@@ -9,13 +9,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loder from '../Component/LoderComponent/Loder';
 import { addTwoUser, ProfilePicUpdate, SeeOtherUserProfile, UserProfilePic } from "../AllApi/Integrateapi"
 import { setRefresh } from "../redux/action/RefreshAction";
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams,useNavigate,useSearchParams,useLocation } from 'react-router-dom';
 import { setData } from '../redux/action/LoginAction';
 import EditProfile from '../Component/ProfileEdit/EditProfile';
 import save from "../Images/save.jpg"
 import card from "../Images/card.jpg"
 export default function OtherUserProfile() {
   const navigate=useNavigate()
+  const location = useLocation();
   let { post_id } = useParams();
   const dispatch = useDispatch()
   const userlogin = useSelector(state => state.myReducer.data)
@@ -33,8 +34,8 @@ export default function OtherUserProfile() {
 //       setPopupImageUrl(userlogin.user_pic)
 //     }
 //   }, [userlogin])
-
-
+const [searchParams] = useSearchParams();
+const queryParam = searchParams.get('user_id');
 
   const handleClosePopup = () => {
     // setPopupImageUrl('');
@@ -51,13 +52,14 @@ export default function OtherUserProfile() {
     alert(b)
   }
 
- 
+ const [data,setData]=useState("")
   useEffect(() => {
 
     const Data = async () => {
       try {
-        let response = await SeeOtherUserProfile(post_id, userlogin.user_id)
+        let response = await SeeOtherUserProfile(post_id, queryParam)
         // dispatch(setData(response.data.data))
+        setData(response.data.data)
         setPopupImageUrl(response.data.data.user_pic)
         setUsername(response.data.data.user_name)
         setUserid(response.data.data.user_id)
@@ -134,11 +136,27 @@ const[show,setShow]=useState("post")
   
           {show==="post"?(
             <div className='centerpostcard'>
-            <OtherPostcard post_id={post_id}/>
+            <OtherPostcard post_id={post_id} user_id={queryParam}/>
             </div>
           ):(
             <div className='centerpostcard'>
-            <OtherPostcard post_id={post_id}/>
+            <div className='aboutdetails'>
+            <p className='pratitle'>About:</p>
+            <p className='anstitle'>{data.about}</p>
+            </div>
+            <div className='aboutdetails'>
+            <p className='pratitle'>Profession:</p>
+            <p className='anstitle'>{data.work_title}</p>
+            </div>
+            <div className='aboutdetails'>
+            <p className='pratitle'>Phone:</p>
+            <p className='anstitle'>{data.phone_number}</p>
+            </div>
+            <div className='aboutdetails'>
+            <p className='pratitle'>Website:</p>
+            <p className='anstitle'><a href={data.sitelink} style={{color:"blue"}}>{data.sitelink}</a></p>
+            </div>
+           
             </div>
           )}
         

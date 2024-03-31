@@ -30,7 +30,7 @@ export const SeeOtherUserProfile=(post_id,user_id)=>apiUrl.get(`/api/another_use
 
 export const UserPostGet=(user_id,page)=>apiUrl.get(`/api/userpost/user/${user_id}?page=${page}`)
 
-export const AnotherUserPostGet=(post_id,page)=>apiUrl.get(`/api/another_user/post_details/${post_id}?page=${page}`)
+export const AnotherUserPostGet=(post_id,page,user_id)=>apiUrl.get(`/api/another_user/post_details/${post_id}?page=${page}&user_id=${user_id}`)
 
 //Message Api
 export const sendMessage=(json)=>apiUrl.post(`/api/user/sendmessage`,json)
@@ -57,3 +57,18 @@ export const User_post_save_or_not=(post_id,user_id)=>apiUrl.get(`/post/user_pos
 
 //User save post get
 export const UserSavePostGet=(user_id,page)=>apiUrl.get(`/post/user_all_save_post?user_id=${user_id}&page=${page}&pageSize=7`)
+
+//Search Api integrate
+
+export const SearchUser_and_Post=(query,user_id,page)=>apiUrl.get(`/api/user/search/profile?q=${query}&user_id=${user_id}&page=${page}`)
+
+
+//Update user
+export const UpdateUser=(json)=>apiUrl.put(`/api/user/updateuser`,json)
+
+//get perticular post
+export const getPerticular_post=(post_id,user_id,action)=>apiUrl.get(`/api/userpost/getperticular_post/${post_id}?user_id=${user_id}&action=${action}`)
+
+
+//Delete prifile
+export const Delete_profile=(user_id)=>apiUrl.delete(`/api/user/delete/${user_id}`)

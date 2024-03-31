@@ -1,11 +1,24 @@
-import React ,{useState}from 'react'
+import React ,{useState,useEffect}from 'react'
 import "./Search.css"
 import searchicon from "./search.png"
+import { useSearchParams } from 'react-router-dom';
+import { useSelector,useDispatch } from 'react-redux';
+import { setSearchdata } from '../../redux/action/SearchAction';
 export default function Search() {
+  const dispatch=useDispatch()
     const[search,setSearch]=useState("")
     const handleClear=()=>{
         setSearch("")
     }
+    const otherUserid = sessionStorage.getItem("other_user")
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    // useEffect(() => {
+    //   setSearchParams({ query: search });
+    // }, [search, searchParams]);
+ useEffect(()=>{
+  dispatch(setSearchdata(search))
+ },[search])
   return (
     <div>
         {/* <div class="title-container">

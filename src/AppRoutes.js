@@ -25,6 +25,7 @@ import { Userdetails, verifytoken } from "./AllApi/Integrateapi"
 import ErrorPage from "./Pages/ErrorPage";
 //socket
 import { io } from "socket.io-client"
+import Perticularpost from "./Pages/Perticularpost";
 export default function AppRoutes() {
   const dispatch = useDispatch()
   const socket = useRef();
@@ -105,6 +106,8 @@ export default function AppRoutes() {
             <>
               <Route path="/" element={<Login setToken={setToken}/>} />
               <Route path="/register" element={<Register setToken={setToken}/>} />
+            
+
               <Route path="*" element={<ErrorPage />} />
 
 
@@ -112,7 +115,7 @@ export default function AppRoutes() {
           )}
 
 
-
+          <Route path="/sharepost/:post_id" element={<Perticularpost/>} />
 
         </Routes>
       </div>

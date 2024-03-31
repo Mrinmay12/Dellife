@@ -118,6 +118,7 @@ export default function Topbar() {
     // setBorderPosition(position);
   };
 
+console.log(splitLocation[1],"pathname");
   return (
     <main>
       <header className="clearfix">
@@ -148,8 +149,8 @@ export default function Topbar() {
           </li>
             
           </ul>
-          {pathname!=="/location" && <span className='linebar2' style={{ left: `${borderPosition}%` }}></span>}
-          
+          {pathname!=="/location" && splitLocation[1]!=="otherprofile"? <span className='linebar2' style={{ left: `${borderPosition}%` }}></span>:""}
+         
         </nav>
         </>
 ):(

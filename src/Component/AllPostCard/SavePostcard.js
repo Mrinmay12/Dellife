@@ -11,7 +11,10 @@ import { UserSavePostGet } from '../../AllApi/Integrateapi'
 import "./Postcard.css"
 import { useSelector } from 'react-redux';
 import BlurredUpImage from '../ImageLoad/BlurredUpImage';
+import { useNavigate } from 'react-router-dom';
+import { removeDuplicates } from '../../Utiles';
 export default function SavePostcard({user_id,post_id}) { 
+  const navigate=useNavigate()
   const userlogin = useSelector(state => state.myReducer.data)
   const [page, setPage] = useState(1);
   const [postdata,setPostdata]=useState([])
@@ -46,8 +49,10 @@ console.log(page,"page",postdata,data);
     }
   }, [data]);
   const handlePostid=(id)=>{
-alert(id)
+    navigate(`/sharepost/${id}`)
   }
+ let uniqueIds= removeDuplicates(postdata,"_id")
+
   return (
     <div>
        <InfiniteScroll
@@ -58,7 +63,7 @@ alert(id)
       > 
 <div class="gallery">
 
-{postdata?.map((item)=>(
+{uniqueIds?.map((item)=>(
   <>
     {item.post_img?(
       <div class="gallery-item" onClick={()=>handlePostid(item._id)}>

@@ -7,7 +7,7 @@ import { faComment, faCommentSms, faHeart, faShare } from '@fortawesome/free-sol
 import message from "../Images/message.png"
 import greenTick from "../Images/green_tick.png"
 import { useSelector } from 'react-redux';
-export default function UserComment({ postid }) {
+export default function UserComment({ postid ,user_post_or_not,user_present}) {
   const userlogin = useSelector(state => state.myReducer.data)
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -26,7 +26,7 @@ export default function UserComment({ postid }) {
       navigator.share({
         title: 'Image Sharing',
         text: 'Check out this image!',
-        url: "/postid",
+        url: `/sharepost${postid}`,
       })
         .then(() => console.log('Shared successfully'))
         .catch((error) => console.error('Error sharing:', error));
@@ -69,8 +69,13 @@ export default function UserComment({ postid }) {
       Likeget()
     }
   },[postid])
+  const [isBouncing, setIsBouncing] = useState(false);
   const handleLike = async () => {
     setLike((pre) => pre + 1)
+    setIsBouncing(true);
+    setTimeout(() => {
+      setIsBouncing(false);
+     }, 1000);
     setUserlike(!userlike)
     try {
       let json = JSON.stringify({
@@ -83,6 +88,10 @@ export default function UserComment({ postid }) {
   }
   const handleDislike = async () => {
     setLike((pre) => pre -1)
+    setIsBouncing(true);
+    setTimeout(() => {
+      setIsBouncing(false);
+     }, 1000);
     setUserlike(!userlike)
     try {
   
@@ -109,32 +118,36 @@ export default function UserComment({ postid }) {
         </>
       ))}
       <div style={{ color: "blue" ,cursor:"pointer"}} onClick={() => handleShow()}>{dataslice === Infinity ? "Hide" : "Show more"}</div>
-
+{user_present &&(
       <div className='bottomstyle'>
+      {!user_post_or_not &&  (
         <div className='profiletag2' style={{ width: "66px", marginRight: "12px" }}>
           {userlike ? (
             <>
-              <FontAwesomeIcon icon={faHeart} style={{ color: "red" }} className="iconstyle" onClick={()=>handleDislike()}/> {like!==0 && like}
+              <FontAwesomeIcon icon={faHeart} style={{ color: "red" }} className={ `heart ${isBouncing ? 'bounce' : ''}`} onClick={()=>handleDislike()}/> {like!==0 && like}
             </>
 
           ) : (
             <>
-              <FontAwesomeIcon icon={faHeart} style={{ color: "gray" }} className="iconstyle" onClick={() => handleLike()} /> {like!==0 && like}
+              <FontAwesomeIcon icon={faHeart} style={{ color: "gray" }}  className={ `heart ${isBouncing ? 'bounce' : ''}`} onClick={() => handleLike()} /> {like!==0 && like}
             </>
 
           )}
         </div>
-
+      )}
+     
+{!user_post_or_not && (
         <div className='shairicone3'>
           <FontAwesomeIcon icon={faComment} className="iconstyle" onClick={() => handleOpenComment(postid)} /> {commentdata.length > 0 && commentdata.length}
         </div>
-
+)}
         <div className='shairicone3' onClick={handleShareImage}>
           <FontAwesomeIcon icon={faShare} style={{ color: "black" }} className="iconstyle" />
 
         </div>
 
       </div>
+)}
       {isModalOpen && <Commentmodel onClose={closeModal} postId={postId} />}
     </div>
   )

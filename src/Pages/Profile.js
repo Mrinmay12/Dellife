@@ -8,7 +8,7 @@ import Postcard from '../Component/AllPostCard/Postcard';
 import SavePostcard from '../Component/AllPostCard/SavePostcard';
 import { useSelector, useDispatch } from 'react-redux';
 import Loder from '../Component/LoderComponent/Loder';
-import { ProfilePicUpdate, SeeOtherUserProfile, UserProfilePic } from "../AllApi/Integrateapi"
+import { ProfilePicUpdate, SeeOtherUserProfile, UpdateUser, UserProfilePic } from "../AllApi/Integrateapi"
 import { setRefresh } from "../redux/action/RefreshAction";
 import { useParams } from 'react-router-dom';
 import { setData } from '../redux/action/LoginAction';
@@ -16,6 +16,7 @@ import EditProfile from '../Component/ProfileEdit/EditProfile';
 import save from "../Images/save.jpg"
 import card from "../Images/card.jpg"
 import ShareDetailsmodel from '../Component/DetailsShareModel/ShareDetailsmodel';
+import Advancesetting from '../Component/ProfileEdit/Advancesetting';
 export default function Profile() {
   let { post_id } = useParams();
   const dispatch = useDispatch()
@@ -28,6 +29,7 @@ export default function Profile() {
   const [pofileuploadstatus, setpofileuploadstatus] = useState(false)
   const ProfileImageRef = useRef()
   const [hidden, setHidden] = useState(false)
+  const [setting_ope,setSetting_ope]=useState(false)
   useEffect(() => {
     if (userlogin) {
       setPopupImageUrl(userlogin.user_pic)
@@ -58,8 +60,30 @@ export default function Profile() {
   const [userid, setUserid] = useState("")
   const [disable, setDisable] = useState(true)
   const [editshow, setEditshow] = useState(false)
-  const handleEdit = () => {
+  const [editjson,setEditejson]=useState({})
+  const [loding,setLoding]=useState(false)
+  const handleEdit = async() => {
     setEditshow((pre) => !pre)
+    setSetting_ope(false)
+  }
+  const handleEdit2 = async() => {
+    setLoding(true)
+    setEditshow((pre) => !pre)
+    try {
+      const response = await UpdateUser(editjson);
+
+      if (response) {
+        setLoding(false)
+
+      }
+    } catch (error) {
+      console.error(error);
+      setLoding(false)
+    } finally {
+      dispatch(setRefresh(new Date().getMilliseconds()))
+      // setrefress(new Date().getMilliseconds())
+    }
+   
 
   }
 
@@ -185,9 +209,12 @@ export default function Profile() {
 
   }, [post_id])
   console.log(userlogin.user_id, "userlogin.user_id", hidden);
+
 const[show,setShow]=useState("post")
   const handleShow=(e)=>{
     setShow(e)
+    setEditshow(false)
+    setSetting_ope(false)
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -195,6 +222,10 @@ const[show,setShow]=useState("post")
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const handleSetting=()=>{
+    setSetting_ope(true)
+  }
   return (
     <div>
 
@@ -225,14 +256,19 @@ const[show,setShow]=useState("post")
           <div style={{ justifyContent: "center", display: "flex" }}>
             <Button value="Edit" handleClick={handleEdit} backcolor={"dimgray"} />
             <div style={{ marginLeft: "29px" }}>
-              <Button value="Advance setting" handleClick={handleEdit} />
+              <Button value="Advance setting" handleClick={handleSetting} />
             </div>
             <button onClick={()=>setIsModalOpen(true)}>Permition</button>
           </div>
 
         ):(
           <div>
-          <p style={{color:"#4caf50",fontSize:"22px",textAlign:"end",paddingRight:"36px",marginTop:"2px",cursor:"pointer"}} onClick={handleEdit}><button className='postbtn'>Save</button></p>
+          {loding?(
+            <p style={{color:"#4caf50",fontSize:"22px",textAlign:"end",paddingRight:"36px",marginTop:"2px",cursor:"pointer"}} ><button className='postbtn'>Saved....</button></p>
+          ):(
+            <p style={{color:"#4caf50",fontSize:"22px",textAlign:"end",paddingRight:"36px",marginTop:"2px",cursor:"pointer"}} onClick={()=>handleEdit2()}><button className='postbtn'>Save</button></p>
+          )}
+          
           </div>
         )}
         <br />
@@ -240,20 +276,28 @@ const[show,setShow]=useState("post")
     
           <>
 
-            <div className='twobottom'>
+            {/* <div className='twobottom'>
               <p className='makeprofile'>Make your Profile profession</p>
               <Button value="Convert" handleClick={() => handleConvert("mm", "11")} />
-            </div>
+            </div> */}
           </>
+          {!setting_ope &&(
+          <>
+          {!editshow ?(
       <div className='profilediv'>
         <div className='profilebottom'>
           <p  className={show==="post"?'profilebottomtext':"profilebottomtext2"} onClick={()=>handleShow("post")} style={{color:show==="post"?"red":"black"}}><img style={{height:"18px" ,marginRight:"4px"}} src={card}/>Posts</p>
           <p className={show==="save"?'profilebottomtext':"profilebottomtext2"} style={{color:show==="save"?"red":"black"}} onClick={()=>handleShow("save")}><img style={{height:"18px"}} src={save}/> Saved</p>
         </div>
         </div>
-     
+          ):null}
+          </>
+          )}
       </div>
-      {!editshow ? (
+      <>
+        { !setting_ope ?(
+<>
+{!editshow ? (
         <>
           {show==="post"?(
             <div className='centerpostcard'>
@@ -268,9 +312,20 @@ const[show,setShow]=useState("post")
         
       ) : (
       <div className='editprofile'>
-        <EditProfile />
+        <EditProfile setEditejson={setEditejson} userlogin={userlogin}/>
         </div>
       )}
+</>
+        ):(
+          <>
+          <div className='editprofile'>
+          <Advancesetting userlogin={userlogin} setSetting_ope={setSetting_ope}/>
+          </div>
+          </>
+
+        )}
+      </>
+    
 
       {/* pupup */}
       {showPopup && (

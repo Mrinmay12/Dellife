@@ -11,13 +11,16 @@ import { UserPostGet,AnotherUserPostGet } from '../../AllApi/Integrateapi'
 import "./Postcard.css"
 import { useSelector } from 'react-redux';
 import BlurredUpImage from '../ImageLoad/BlurredUpImage';
-export default function OtherPostcard({post_id}) { 
+import { useNavigate } from 'react-router-dom';
+import { removeDuplicates } from '../../Utiles';
+export default function OtherPostcard({post_id,user_id}) { 
+  const navigate=useNavigate()
   const userlogin = useSelector(state => state.myReducer.data)
   const [page, setPage] = useState(1);
   const [postdata,setPostdata]=useState([])
   const fetchAllPost = async (page) => {
    
-      const res = await AnotherUserPostGet(post_id,page)
+      const res = await AnotherUserPostGet(post_id,page,user_id)
     return res.data.postdetails;
   }
   const { data, isFetching, isPreviousData } = useQuery({
@@ -43,8 +46,10 @@ export default function OtherPostcard({post_id}) {
     }
   }, [data]);
   const handlePostid=(id)=>{
-alert(id)
+    navigate(`/sharepost/${id}`)
   }
+  let uniqueIds= removeDuplicates(postdata,"_id")
+
   return (
     <div>
        <InfiniteScroll
@@ -54,7 +59,7 @@ alert(id)
         // loader={data?.length!==0 &&<h4>Loading...</h4>}
       > 
 <div class="gallery">
-{postdata?.map((item)=>(
+{uniqueIds?.map((item)=>(
   <>
     {item.post_img?(
       <div class="gallery-item" onClick={()=>handlePostid(item._id)}>

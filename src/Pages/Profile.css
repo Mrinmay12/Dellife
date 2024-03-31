@@ -231,3 +231,20 @@ body {
   font-size: 20px;
   font-family: -webkit-body;
 }
+
+.aboutdetails{
+  justify-content: center;
+  display: flex;
+  margin-top: 20px;
+}
+.pratitle{
+  font-size: 17px;
+    font-family: monospace;
+    font-weight: 800;
+}
+
+.anstitle{
+  margin-left: 5px;
+  font-size: medium;
+  font-family: sans-serif;
+}

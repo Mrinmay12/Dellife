@@ -3,7 +3,7 @@ import "./TextShow.css"
 import message from "./Images/message.png"
 import greenTick from "./Images/green_tick.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faCommentSms, faHeart, faShare } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import platform from 'platform';
 import Smallmodel from "./SmallPupup/Smallmodel"
 import {
@@ -12,11 +12,14 @@ import {
 import BlurredUpImage from './ImageLoad/BlurredUpImage';
 import Commentmodel from './CommentModel/Commentmodel';
 import UserComment from './UserPostComment/UserComment';
-
+import { useSelector,useDispatch } from 'react-redux';
+import { getPerticular_post } from '../AllApi/Integrateapi';
+import { setRefresh } from '../redux/action/RefreshAction';
 export default function TextShow({ item }) {
   const navigate=useNavigate()
+const dispatch=useDispatch()
   const [imageLoaded, setImageLoaded] = useState(false);
-
+  const userlogin = useSelector(state => state.myReducer.data)
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
@@ -50,7 +53,17 @@ const[postId,setPostId]=useState("")
     setPostId(postid)
   };
 
-
+const handlDelete=async()=>{
+  try{
+  const res = await getPerticular_post(item.post_id,userlogin.user_id,"delete")
+  if(res){
+    dispatch(setRefresh(new Date().getMilliseconds()))
+    navigate(`/profile`)
+  }
+}catch{
+  navigate(`/profile`)
+}
+}
 
   return (
     <div>
@@ -67,9 +80,17 @@ const[postId,setPostId]=useState("")
           <i className="icon clickable fa fa-ellipsis-h right" aria-hidden="true" style={{fontSize:"21px"}}></i>
          
           </div> */}
+          {item.user_present &&(
             <div className='shairicone2'>
+            {item.user_post_or_not?(
+              <FontAwesomeIcon icon={faTrash} style={{ color: "red" }}  onClick={()=>handlDelete()}/>
+            ):(
               <Smallmodel post_id={item.post_id}/>
+
+            )}
             </div>
+          )}
+           
           </div>
 
           <h3 style={{ color: item.Color, whiteSpace: "break-spaces" }}>{item.Title}</h3>
@@ -85,7 +106,7 @@ const[postId,setPostId]=useState("")
 
           {/* Comment model start */}
 <>
-<UserComment postid={item.post_id}/>
+<UserComment postid={item.post_id} user_post_or_not={item.user_post_or_not} user_present={item.user_present}/>
          
           </>
           {/* Comment model end */}
@@ -101,16 +122,24 @@ const[postId,setPostId]=useState("")
                   <span class="user-name" onClick={handleProfile}>{item.user_name}</span>
                 </div>
               </div>
-              <div className='shairicone2'>
-                <Smallmodel post_id={item.post_id}/>
+              {item.user_present &&(
+                <div className='shairicone2'>
+              {item.user_post_or_not?(
+              <FontAwesomeIcon icon={faTrash} style={{ color: "red" }}  onClick={()=>handlDelete()}/>
+            ):(
+              <Smallmodel post_id={item.post_id}/>
+
+            )}
               </div>
+              )}
+          
             </div>
 
             <h3 style={{ color: item.Color, whiteSpace: "break-spaces" }}>{item.Title}</h3>
 
           {/* Comment model start */}
           <>
-<UserComment postid={item.post_id}/>
+<UserComment postid={item.post_id} user_post_or_not={item.user_post_or_not} user_present={item.user_present}/>
          
           </>
           {/* Comment model end */}
