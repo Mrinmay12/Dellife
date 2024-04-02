@@ -54,3 +54,12 @@ return `${month}/${day}/${year} ${" "} ${time} ${period}`
 // }
 
 }
+
+
+export function removeDuplicates(array, property) {
+  return array.filter((obj, index, self) =>
+      index === self.findIndex((t) => (
+          t[property] === obj[property]
+      ))
+  );
+}
