@@ -158,6 +158,17 @@ body {
   margin-top: 4px;
   border-radius: 16px;
 }
+.profilelocked{
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  width: 100% !important;
+  background-color: aliceblue;
+  margin-top: 4px;
+  border-radius: 16px;
+  background-color: rgb(30 232 102 / 91%);
+  height: 41px;
+}
 .centerpostcard{
   padding-left:0px !important
 }
@@ -183,6 +194,17 @@ body {
   margin-top: 4px;
   border-radius: 16px;
 }
+.profilelocked{
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  width: 100% !important;
+  background-color: aliceblue;
+  margin-top: 4px;
+  border-radius: 16px;
+  background-color: rgb(30 232 102 / 91%);
+  height: 41px;
+}
 .centerpostcard{
   padding-left:0px !important
 }
@@ -201,6 +223,17 @@ body {
   background-color: aliceblue;
   margin-top: 4px;
   border-radius: 16px;
+}
+.profilelocked{
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  width: 40% ;
+  background-color: aliceblue;
+  margin-top: 4px;
+  border-radius: 16px;
+  background-color: rgb(30 232 102 / 91%);
+  height: 41px;
 }
 .profilediv{
   justify-content: center;
@@ -247,4 +280,10 @@ body {
   margin-left: 5px;
   font-size: medium;
   font-family: sans-serif;
+}
+.profilelocktext{
+  color: aliceblue;
+    font-size: large;
+    font-family: 'Montserrat';
+    font-weight: bolder;
 }

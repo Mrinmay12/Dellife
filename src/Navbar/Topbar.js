@@ -15,6 +15,7 @@ import { faSearch, faSignOutAlt, faArrowLeft, faHome, faUserFriends, faUser, faL
 import Search from "../Component/SearchInput/Search"
 import { useDispatch } from 'react-redux';
 import { setRefresh } from '../redux/action/RefreshAction';
+import uploadblack from "./uploadblack.png"
 export default function Topbar() {
   const dispatch = useDispatch()
   const [borderPosition, setBorderPosition] = useState(0);
@@ -141,7 +142,10 @@ console.log(splitLocation[1],"pathname");
           </li> 
           <li className='numicon'>
           <li><a href="#one" className={pathname === '/' ? 'activ' : ''} style={{ color: pathname === '/' ? "red" : "black" }} onClick={(e) => handleLinkClick(e, 0, '#one')}><FontAwesomeIcon icon={faHome} style={{ color: pathname === '/' ? "red" : "black" }} className="iconstyle" /></a></li>
-            <li><a href="#three" className={pathname === '/post' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 2, '#three')}><FontAwesomeIcon icon={faUpload} style={{ color: pathname === '/post' ? "red" : "black" }} className="iconstyle" /></a></li>
+            <li><a href="#three" className={pathname === '/post' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 2, '#three')}>
+            {/* <FontAwesomeIcon icon={faUpload} style={{ color: pathname === '/post' ? "red" : "black" }} className="iconstyle" /> */}
+            <img src={pathname === '/post' ?uploadblack:uploadblack} className="iconstyle"/>
+            </a></li>
 
             <li><a href="#five" className={pathname === '/profile' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 4, '#five')}><FontAwesomeIcon icon={faUser} style={{ color: pathname === '/profile' ? "red" : "black" }} className="iconstyle" /></a></li>
 
@@ -187,7 +191,10 @@ console.log(splitLocation[1],"pathname");
               <li><a href="#two" className={pathname === '/location' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 1, '#two')}>
                 <FontAwesomeIcon icon={faSearch} style={{ color: pathname === '/location' ? "red" : "black" }} className="iconstyle" />
               </a></li>
-            <li><a href="#three" className={pathname === '/post' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 2, '#three')}><FontAwesomeIcon icon={faUpload} style={{ color: pathname === '/post' ? "red" : "black" }} className="iconstyle" /></a></li>
+            <li><a href="#three" className={pathname === '/post' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 2, '#three')}>
+            {/* <FontAwesomeIcon icon={faUpload} style={{ color: pathname === '/post' ? "red" : "black" }} className="iconstyle" /> */}
+            <img src={pathname === '/post' ?uploadblack:uploadblack} className="iconstyle"/>
+            </a></li>
 
             <li><a href="#five" className={pathname === '/profile' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 4, '#five')}><FontAwesomeIcon icon={faUser} style={{ color: pathname === '/profile' ? "red" : "black" }} className="iconstyle" /></a></li>
 

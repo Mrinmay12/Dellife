@@ -28,11 +28,11 @@ export default function Home() {
 const [postdata,setPostdata]=useState([])
 
 const fetchAllPost = async (page) => {
-  const res = await userAllPost(page)
+  const res = await userAllPost(page,userlogin?.user_id)
   return res.data.data;
 };
 const { data, isFetching, isPreviousData } = useQuery({
-  queryKey: ['projects', page],
+  queryKey: ['projects', page,userlogin?.user_id],
   queryFn: () => fetchAllPost(page),
   keepPreviousData: true,
   staleTime: Infinity,

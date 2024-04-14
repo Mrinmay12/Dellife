@@ -5,6 +5,7 @@ export default function EditProfile({setEditejson,userlogin}) {
     const[about,setAbout]=useState("")
     const[phone,setPhone]=useState("") 
     const [link,setLink]=useState("")
+    const[email,setEmail]=useState("")
     const [selectedOption, setSelectedOption] = useState("");
     useEffect(()=>{
       if(userlogin){
@@ -12,6 +13,7 @@ export default function EditProfile({setEditejson,userlogin}) {
         setPhone(userlogin.phone_number)
         setLink(userlogin.sitelink)
         setSelectedOption(userlogin.work_title)
+        setEmail(userlogin.email)
       }
     },[userlogin])
     const Json={ 
@@ -19,7 +21,8 @@ export default function EditProfile({setEditejson,userlogin}) {
       phone_number:phone,
         sitelink:link,
         work_title:selectedOption,
-        user_id:userlogin?.user_id
+        user_id:userlogin?.user_id,
+        email:email
     }
     useEffect(()=>{
       setEditejson(Json)
@@ -78,6 +81,7 @@ export default function EditProfile({setEditejson,userlogin}) {
         <Input placeholder="About" onchange={setAbout} value={about} inputtype="text"/>
         <Input placeholder="link" onchange={setLink} value={link} inputtype="url"/>
         <Input placeholder="phone" onchange={setPhone} value={phone} inputtype="tel"/>
+        <Input placeholder="email" onchange={setEmail} value={email} inputtype="email"/>
         <Select
       options={options}
       onChange={handleChange}

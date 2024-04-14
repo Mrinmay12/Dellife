@@ -7,6 +7,11 @@ const[disabled,setdisabled]=useState(false)
     setLoading((prevLoading) => !prevLoading);
     handleClickbtn()
   }; 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleClick();
+    }
+  };
 useEffect(()=>{
   if(loader){
     setdisabled(true) 
@@ -18,7 +23,7 @@ useEffect(()=>{
 },[loader])
   return (
     <div style={{marginTop:"4px"}}>
-      <button className={loading ? 'button loading' : 'button'} onClick={handleClick} disabled={disabled}>
+      <button className={loading ? 'button loading' : 'button'} onClick={handleClick} disabled={disabled} onKeyPress={handleKeyPress}>
         {loading ? <span className="spinner"></span> :<span className='clickbtn'>{name}</span> }
       </button>
     </div>

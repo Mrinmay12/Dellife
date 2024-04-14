@@ -40,6 +40,7 @@ export default function AppRoutes() {
         let user_data = await Userdetails(user_id)
         dispatch(setData(user_data.data.data))
       } catch (err) {
+        window.location.reload()
         console.log(err);
       }
     }
@@ -74,7 +75,7 @@ export default function AppRoutes() {
     }
     User_Token()
 
-  }, [token,user_id])
+  }, [token,user_id,refreshdata])
   const navigate = useNavigate()
 
   // useEffect(() => {

@@ -9,6 +9,8 @@ export default function Search() {
     const[search,setSearch]=useState("")
     const handleClear=()=>{
         setSearch("")
+  dispatch(setSearchdata(""))
+
     }
     const otherUserid = sessionStorage.getItem("other_user")
     const [searchParams, setSearchParams] = useSearchParams();
@@ -30,9 +32,9 @@ export default function Search() {
     <input type="text" placeholder="Search..." class="field" value={search} onChange={(e)=>setSearch(e.target.value)}/>
     <div class="icons-container">
       <div class="icon-search"><img src={searchicon} style={{width:"28px"}}/></div>
-      <div class="icon-close" onClick={handleClear}>
-        <div class="x-up"></div>
-        <div class="x-down"></div>
+      <div class="icon-close" onClick={()=>handleClear()}>
+        <div class="x-up" onClick={()=>handleClear()}></div>
+        <div class="x-down" onClick={()=>handleClear()} ></div>
       </div>
     </div>
   </fieldset>

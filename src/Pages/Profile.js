@@ -254,9 +254,9 @@ const[show,setShow]=useState("post")
         <p className='user_name'>{userlogin.user_name}</p>
         {!editshow ? (
           <div style={{ justifyContent: "center", display: "flex" }}>
-            <Button value="Edit" handleClick={handleEdit} backcolor={"dimgray"} />
+            <Button value="Edit" handleClick={handleEdit} backcolor={"dimgray"} icon={<i class="fa fa-pencil"></i>}/>
             <div style={{ marginLeft: "29px" }}>
-              <Button value="Advance setting" handleClick={handleSetting} />
+              <Button value="Setting" handleClick={handleSetting} icon={<i class="fa fa-gear"></i>}/>
             </div>
             <button onClick={()=>setIsModalOpen(true)}>Permition</button>
           </div>
@@ -319,7 +319,7 @@ const[show,setShow]=useState("post")
         ):(
           <>
           <div className='editprofile'>
-          <Advancesetting userlogin={userlogin} setSetting_ope={setSetting_ope}/>
+          <Advancesetting userlogin={userlogin} setSetting_ope={setSetting_ope} profile_lock={userlogin.profile_lock}/>
           </div>
           </>
 

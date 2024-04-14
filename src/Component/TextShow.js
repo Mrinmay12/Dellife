@@ -106,7 +106,7 @@ const handlDelete=async()=>{
 
           {/* Comment model start */}
 <>
-<UserComment postid={item.post_id} user_post_or_not={item.user_post_or_not} user_present={item.user_present}/>
+<UserComment postid={item.post_id} user_post_or_not={item.user_post_or_not} user_present={item.user_present} countlike={item.total_like} user_like={item.user_like}/>
          
           </>
           {/* Comment model end */}
@@ -139,7 +139,7 @@ const handlDelete=async()=>{
 
           {/* Comment model start */}
           <>
-<UserComment postid={item.post_id} user_post_or_not={item.user_post_or_not} user_present={item.user_present}/>
+<UserComment postid={item.post_id} user_post_or_not={item.user_post_or_not} user_present={item.user_present} countlike={item.total_like} count={item.user_like}/>
          
           </>
           {/* Comment model end */}

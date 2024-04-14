@@ -7,7 +7,7 @@ import { faComment, faCommentSms, faHeart, faShare } from '@fortawesome/free-sol
 import message from "../Images/message.png"
 import greenTick from "../Images/green_tick.png"
 import { useSelector } from 'react-redux';
-export default function UserComment({ postid ,user_post_or_not,user_present}) {
+export default function UserComment({ postid ,user_post_or_not,user_present,countlike,user_like}) {
   const userlogin = useSelector(state => state.myReducer.data)
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -54,21 +54,21 @@ export default function UserComment({ postid ,user_post_or_not,user_present}) {
       setDataslice(1)
     }
   }
-  const [like, setLike] = useState(0)
-  const [userlike, setUserlike] = useState(false)
+  const [like, setLike] = useState(countlike)
+  const [userlike, setUserlike] = useState(user_like)
 
-  useEffect(()=>{
-    const Likeget=async()=>{
-      let res=await getLike(postid,userlogin.user_id)
-      if(res){
-        setLike(res.data.like)
-        setUserlike(res.data.user_like)
-      }
-    }
-    if(postid){
-      Likeget()
-    }
-  },[postid])
+  // useEffect(()=>{
+  //   const Likeget=async()=>{
+  //     let res=await getLike(postid,userlogin.user_id)
+  //     if(res){
+  //       setLike(res.data.like)
+  //       setUserlike(res.data.user_like)
+  //     }
+  //   }
+  //   if(postid){
+  //     Likeget()
+  //   }
+  // },[postid])
   const [isBouncing, setIsBouncing] = useState(false);
   const handleLike = async () => {
     setLike((pre) => pre + 1)

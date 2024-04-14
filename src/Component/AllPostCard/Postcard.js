@@ -92,7 +92,7 @@ console.log(page,"page",postdata,data);
 </div>
 </InfiniteScroll>  
  <div style={{textAlign:"center",paddingTop:"9px"}}>
-    {isFetching ?<Loder/>:"No more data"}
+ {isFetching ?<Loder/>:uniqueIds.length===0 &&"No more data"}
     </div>
     </div>
   )

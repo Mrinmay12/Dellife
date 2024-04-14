@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import "./Profile.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faUser, faSave, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faUser, faSave, faPencil, faLock } from '@fortawesome/free-solid-svg-icons';
 import ImageModelPopup from '../Component/ImageModelPopup/ImageModelPopup';
 import Button from '../Component/Button/Button';  
 import OtherPostcard from '../Component/AllPostCard/OtherPostcard';
@@ -57,7 +57,7 @@ const queryParam = searchParams.get('user_id');
 
     const Data = async () => {
       try {
-        let response = await SeeOtherUserProfile(post_id, queryParam)
+        let response = await SeeOtherUserProfile(post_id, queryParam||"")
         // dispatch(setData(response.data.data))
         setData(response.data.data)
         setPopupImageUrl(response.data.data.user_pic)
@@ -112,7 +112,7 @@ const[show,setShow]=useState("post")
           </div>
         </div>
         <p className='user_name'>{user_name}</p>
-        
+        <p>50 % user like this profile</p>
           <div style={{ justifyContent: "center", display: "flex" }}>
             <Button value="Connect" backcolor={"dimgray"} />
             <div style={{ marginLeft: "29px" }}>
@@ -123,20 +123,33 @@ const[show,setShow]=useState("post")
     
         <br />
         <hr />
-    
-         
-      
-        <div className='profilediv'>
+    {data.profile_lock ?(
+      <div className='profilediv'>
+        <div className='profilelocked'>
+        <div style={{marginTop:"10px",display:"flex"}}>
+        <FontAwesomeIcon icon={faLock} style={{ color: "white" ,height:"18px",paddingRight:"9px"}}  /> 
+        <p className='profilelocktext'>User profile private</p>
+        </div>
+        </div>
+        </div>
+    ):(
+      <div className='profilediv'>
         <div className='profilebottom'>
           <p  className={show==="post"?'profilebottomtext':"profilebottomtext2"} onClick={()=>handleShow("post")} style={{color:show==="post"?"red":"black"}}><img style={{height:"18px" ,marginRight:"4px"}} src={card}/>Posts</p>
           <p className={show==="about"?'profilebottomtext':"profilebottomtext2"} style={{color:show==="about"?"red":"black"}} onClick={()=>handleShow("about")}><FontAwesomeIcon icon={faUser} style={{ color: "black" ,height:"18px"}}  /> About</p>
         </div>
      </div>
+    )}
+        
+      
+       
       </div>
   
-          {show==="post"?(
+      {!data.profile_lock &&(
+        <>
+        {show==="post"?(
             <div className='centerpostcard'>
-            <OtherPostcard post_id={post_id} user_id={queryParam}/>
+            <OtherPostcard post_id={post_id} user_id={queryParam} profile_lock={data.profile_lock}/>
             </div>
           ):(
             <div className='centerpostcard'>
@@ -150,15 +163,22 @@ const[show,setShow]=useState("post")
             </div>
             <div className='aboutdetails'>
             <p className='pratitle'>Phone:</p>
-            <p className='anstitle'>{data.phone_number}</p>
+            <p className='anstitle' href={`tel:${data.phone_number}`} style={{color:"blue"}}>{data.phone_number}</p>
+            </div>
+            <div className='aboutdetails'>
+            <p className='pratitle'>Email:</p>
+            <p className='anstitle' href={`mailto:${data.email}`} style={{color:"blue"}}>{data.email}</p>
             </div>
             <div className='aboutdetails'>
             <p className='pratitle'>Website:</p>
-            <p className='anstitle'><a href={data.sitelink} style={{color:"blue"}}>{data.sitelink}</a></p>
+            <p className='anstitle'><a href={data.sitelink} style={{color:"blue"}} target="_blank">{data.sitelink}</a></p>
             </div>
            
             </div>
           )}
+        </>
+      )}
+          
         
   
       

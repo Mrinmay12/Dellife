@@ -12,7 +12,7 @@ export const userNewPost=(data)=>apiUrl.post(`/api/userpost/newpost`,data,{
         'Content-Type': 'multipart/form-data',
       },
 })
-export const userAllPost=(page)=>apiUrl.get(`/api/userpost/getallpost?page=${page}`)
+export const userAllPost=(page,user_id)=>apiUrl.get(`/api/userpost/getallpost?page=${page}&user_id=${user_id}`)
 
 // export const ProfilePicUpdate=(user_id,data)=>apiUrl.put(`/api/user/profilepic/${user_id}`,data,{
 //   headers: {
@@ -60,7 +60,7 @@ export const UserSavePostGet=(user_id,page)=>apiUrl.get(`/post/user_all_save_pos
 
 //Search Api integrate
 
-export const SearchUser_and_Post=(query,user_id,page)=>apiUrl.get(`/api/user/search/profile?q=${query}&user_id=${user_id}&page=${page}`)
+export const SearchUser_and_Post=(query,user_id,page,user_work)=>apiUrl.get(`/api/user/search/profile?q=${query}&user_id=${user_id}&page=${page}&user_work=${user_work}`)
 
 
 //Update user
@@ -72,3 +72,7 @@ export const getPerticular_post=(post_id,user_id,action)=>apiUrl.get(`/api/userp
 
 //Delete prifile
 export const Delete_profile=(user_id)=>apiUrl.delete(`/api/user/delete/${user_id}`)
+
+//Profile lock and unlock
+
+export const Profile_Lock_Unlock=(user_id)=>apiUrl.put(`/api/user/lock_unlock/${user_id}`)

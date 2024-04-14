@@ -7,6 +7,8 @@ import { useSelector,useDispatch } from 'react-redux';
 import { SearchUser_and_Post } from '../../AllApi/Integrateapi';
   import InfiniteScroll from "react-infinite-scroll-component";
 import { setRefresh } from '../../redux/action/RefreshAction';
+import { removeDuplicates } from '../../Utiles';
+import Loder from '../LoderComponent/Loder';
 export default function UserCard() {
      const navigate=useNavigate()
      const dispatch=useDispatch()
@@ -23,27 +25,31 @@ export default function UserCard() {
 const searchQuery=useSelector(state => state.SearchReducer.data)
         const[alldata,setAlldata]=useState([])
         const[alldata2,setAlldata2]=useState([])
-        const[alldata3,setAlldata3]=useState([])
+    const [search,setSearch]=useState(false)
         useEffect(() => {
           setPage(1)
           setAlldata([])
+          setAlldata2([])
+          setSearch(true)
           const timer = setTimeout(() => {
    
           const getAlldata = async () => {
           try {
             
-          const response = await SearchUser_and_Post(searchQuery,userlogin.user_id,page)
+          const response = await SearchUser_and_Post(searchQuery,userlogin.user_id,page,"")
           // setAlldata(response.data)
           setAlldata(response.data)
+       
           } catch (e) {
           // setAlldata(e.response.data.data);
           setAlldata([])
           }
           
           }
-          if(searchQuery){
+          // if(searchQuery){
           getAlldata()
-          }
+          setSearch(false)
+          // }
           }, 1000); 
           
           return () => clearTimeout(timer); 
@@ -55,22 +61,25 @@ const searchQuery=useSelector(state => state.SearchReducer.data)
         
                const getAlldata = async () => {
                try {
-               const response = await SearchUser_and_Post(searchQuery,userlogin.user_id,page)
+               const response = await SearchUser_and_Post(searchQuery,userlogin.user_id,page,"")
                // setAlldata(response.data)
-               setAlldata2(response.data)
+               setAlldata(response.data)
+               // setAlldata2(response.data)
                } catch (e) {
                // setAlldata(e.response.data.data);
-               setAlldata2([])
+               setAlldata([])
                }
                
                }
-              if(page>1){
+          //     if(page>1){
+               if(userlogin.user_id){
                getAlldata()
+          }
                
-              }
+          //     }
            
                
-               }, [page])
+               }, [page,userlogin.user_id])
 
       const loadMore = () => {
           // if (!isFetching && !isPreviousData) {
@@ -80,31 +89,30 @@ const searchQuery=useSelector(state => state.SearchReducer.data)
         };
 
         useEffect(() => {
-          if (alldata.length!==0) {
-               setAlldata3((prevData) => [...prevData, ...alldata,...alldata2]);
-          }else{
-               setAlldata3([])   
-          }
+    if(alldata){
+          setAlldata2((prevData) => [...prevData, ...alldata]);
+    }
         }, [alldata]);
 
-     
+        let uniqueIds= removeDuplicates(alldata2,"_id")
         const handleProfile = (id) => {
  
           navigate(`/otherprofile/${new Date().getMilliseconds()}?user_id=${id}`);
 
   
         };
+     //    console.log(alldata2);
   return (
     <div>
      <InfiniteScroll
-        dataLength={alldata.length}
+        dataLength={alldata2.length}
         next={loadMore}
         hasMore={true}
         // loader={data?.length!==0 &&<h4>Loading...</h4>}
       >
    <body> 
      <div class="wrapper">
-     {alldata3.map((item) => (
+     {uniqueIds.map((item) => (
                               <>
                                    {item.user_details ? (
                                         <>
@@ -143,6 +151,10 @@ const searchQuery=useSelector(state => state.SearchReducer.data)
      </div>
      </body>
      </InfiniteScroll>
+     <div style={{alignItems:"center",textAlign:"center"}}>
+     {search &&<Loder/>}
+     {uniqueIds.length===0 && !search?<div>No data found</div>:""}
+     </div>
     </div>
 
   )

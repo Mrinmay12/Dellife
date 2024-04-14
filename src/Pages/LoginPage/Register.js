@@ -56,11 +56,13 @@ export default function Register({setToken}) {
      
         }
     }
-    console.log(loader,"loaderloader");  
+ 
+    
   return (
     <div>
         <div className="containerlogin">
         <div className='submitbtn'> 
+        <img src="https://img.freepik.com/free-vector/bird-colorful-logo-gradient-vector_343694-1365.jpg?size=338&ext=jpg&ga=GA1.1.1700460183.1713052800&semt=sph" alt='logo' style={{width:"100px"}}/>
         <h2>Register</h2>
         </div>
     <InputField name={"Full name"} onChange={handlename} id={"name"}/>
@@ -68,7 +70,7 @@ export default function Register({setToken}) {
     <InputField name={"age"} onChange={handleage} id={"age"}/>
     <Password onChange={handlepassword}/>
     <div className='submitbtn'>
-    <Button handleClickbtn={handleSubmit} loader={loader} name="Register"/>
+    <Button handleClickbtn={handleSubmit} loader={loader} name="Register" />
     </div>
     </div>
     </div>
