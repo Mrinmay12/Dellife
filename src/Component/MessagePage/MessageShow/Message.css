@@ -39,3 +39,20 @@
     background-color: #e3effd !important;
       color: black;
   }
+
+  .messageicon{
+    margin-left: 20px;
+    display: block;
+    width: 45px;
+    height: 45px;
+    background: #E6E7ED;
+    border-radius: 34px;
+    margin-top: 21px;
+  }
+
+  .letschat{
+    padding-left: 243px;
+    font-size: x-large;
+    font-family: emoji;
+    color: initial;
+  }

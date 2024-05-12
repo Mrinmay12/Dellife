@@ -1,5 +1,5 @@
 import React,{useState,useEffect, useRef} from 'react'
-import { getMessage, sendMessage } from '../../AllApi/Integrateapi';
+import { getMessage, get_Perticular_user, sendMessage } from '../../AllApi/Integrateapi';
 import AutoGrowTextarea from '../AutogrowInput/AutoGrowTextarea';
 import "./Message.css"
 import Messageshow from './MessageShow/Messageshow';
@@ -36,18 +36,18 @@ export default function ChatMessage ({ messageid}) {
   const socket = useRef(); 
   
   useEffect(() => {
-    if(userId.user_id){
+    if(userId.message_id){
     socket.current = io(process.env.REACT_APP_SOCKET_URL);
-      socket.current.emit("add-user", userId.user_id);
+      socket.current.emit("add-user", userId.message_id);
     }
   
-      socket.current.on('get-users', (users) => {
+      socket.current?.on('get-users', (users) => {
         console.log(users, "myUSers");
         setOnlineUsers(users)
       })
    
    
-    },[userId.user_id]);
+    },[userId.message_id]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [messagedata, setmessagedata] = useState([])
   const [Messagestatus, setMessagestatus] = useState("")
@@ -104,11 +104,11 @@ console.log(messagetext,messageid,"messagetext,messageid")
         // // setDisable(true)
         socket.current.emit("send-msg", {
           to: connect_userId,
-          from: userId.user_id, 
+          from: userId.message_id, 
           messagetext:base64,
           messageid:id
         });
-        setArrivalMessage({ messageId:id,sender:userId.user_id, messagetext: base64 });
+        setArrivalMessage({ messageId:id,sender:userId.message_id, messagetext: base64 });
        await sendMessage(json).then((response)=>{
         if(response.status===201){
           setMessagestatus(new Date().getMilliseconds())
@@ -127,12 +127,32 @@ console.log(messagetext,messageid,"messagetext,messageid")
     }
    
   }
+const[sender_info,setSenderInfo]=useState([])
+  useEffect(()=>{
+    const data=async()=>{
+      let res =await get_Perticular_user(id,userId.message_id)
+      if(res){
+        let data = res.data.data;
+        setSenderInfo(data)
+      } 
+    }
+    if(userId.message_id && id ){
+      data()
+    }
+  },[id,userId.message_id])
   return (
+    <>
+    {id?(
     <div className={isMobile?"showchat":`chat`}>
     {!isMobile &&(
       <div className="header-chat">
-      <i className="icon fa fa-user-o" aria-hidden="true"></i>
-      <p className="name">Megan Leib</p>
+      
+      {/* <i className="icon fa fa-user-o" aria-hidden="true"></i> */}
+      <div>
+      <img src={sender_info.user_pic} className="messageicon"/>
+      {/* <div className="icon" style={{ backgroundImage: `url(${sender_info.user_pic})` }}></div> */}
+      </div>
+      <p className="name">{sender_info.user_name}</p>
       {/* <i className="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i> */}
     </div>
     )}
@@ -147,5 +167,11 @@ console.log(messagetext,messageid,"messagetext,messageid")
     </div>
     <div ref={scrollRef}></div>
   </div>
+    ):(
+      <div className={isMobile?"showchat":`chat`} style={{display:"flex",alignItems:"center"}}>
+      <h4 className='letschat'>Let's Chat</h4>
+      </div>
+    )}
+  </>
   )
 }

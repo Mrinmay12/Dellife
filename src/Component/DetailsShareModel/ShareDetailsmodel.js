@@ -1,11 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import "./Detailsmodel.css"
+import { NearUsers } from '../../AllApi/Integrateapi';
+import "./Detailsmodel.css";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useNavigate } from 'react-router-dom';
 const ShareDetailsmodel = ({ onClose,postId }) => {
+  const navigate=useNavigate()
   const userlogin = useSelector(state => state.myReducer.data)
+  const near_user = useSelector(state => state.NearuserReducer.data)
+  const location_data = useSelector(state => state.UserLocation.data)
+  // console.log(userlogin,"myuserlog");
   const [inputValue, setInputValue] = useState('');
   const modalRef = useRef(null);
-
+  const [page, setPage] = useState(1)
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -41,6 +48,66 @@ const ShareDetailsmodel = ({ onClose,postId }) => {
       return item;
     }));
   };
+
+  const loadMore = () => {
+    // if (!isFetching && !isPreviousData) {
+      setPage((prevPage) => prevPage + 1);
+    // }
+  };
+
+  useEffect(()=>{
+    const Users=async()=>{
+      let users=await NearUsers(userlogin.latitude,userlogin.longitude,userlogin.
+        user_id,page)
+      if(users){
+        console.log(users);
+      }
+    }
+    Users()
+  },[userlogin.user_id])
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    setUsers(prevUsers => {
+        const newUserIds = new Set(near_user.map(item => item.user_id));
+        return [...near_user, ...prevUsers.filter(item => !newUserIds.has(item.user_id))];
+    });
+}, [near_user]);
+  
+
+const uniqueObjects = Object.values(users.reduce((unique, obj) => {
+  if (!unique[obj.user_id]) {
+    unique[obj.user_id] = obj;
+  }
+  return unique;
+}, {}));
+
+const calculateDistance = (coord1, coord2) => {
+  const R = 6371; // Radius of the Earth in km
+  const dLat = (coord2.latitude - coord1.latitude) * (Math.PI / 180);
+  const dLon = (coord2.longitude - coord1.longitude) * (Math.PI / 180);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(coord1.latitude * (Math.PI / 180)) *
+      Math.cos(coord2.latitude * (Math.PI / 180)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c;
+  return distance; // Distance in km
+};
+const nearUsersdata = uniqueObjects.filter((user) => {
+  if(Object.keys(location_data).length !== 0){
+        const distance = calculateDistance(user.location, location_data);
+        return distance <2; 
+  }
+      });
+      
+  console.log(nearUsersdata,"nearUsersdata");
+  const handleOpenProfile=(id)=>{
+    navigate(`/otherprofile/${new Date().getMilliseconds()}?user_id=${id}`)
+  }
   return (
     <div className="modal-container-details" ref={modalRef}>
      <div className="shareuserinfo">
@@ -58,24 +125,35 @@ const ShareDetailsmodel = ({ onClose,postId }) => {
      </div>
 <hr/>
 <div className="shareuserscroll">
-{data.map((item) => (
+{/* <InfiniteScroll
+        dataLength={data.length}
+        next={loadMore}
+        hasMore={true}
+        // loader={data?.length!==0 &&<h4>Loading...</h4>}
+      >  */}
+{nearUsersdata.filter((item)=>item.message_id!==userlogin.message_id).map((item) => (
   <div style={{marginTop:"2px"}}>
+  
   <div className="shareuserinfo">
-   <img className="usershareimg" src={"https://cloudinary-marketing-res.cloudinary.com/images/w_1000,c_scale/v1679921049/Image_URL_header/Image_URL_header-png?_i=AA"} alt={item.name} />
-   <h3 className="usersharename">Mrinmay,a,ama</h3>
-   <div className="usersharename">
-  <label className="toggle-switch">
+   <img className="usershareimg" src={item.user_image} alt={item.name} />
+   <h3 className="usersharename">{item.name}</h3>
+   {/* <div className="usersharename"> */}
+   <div className='viewnearuser' style={{cursor:"pointer"}} onClick={()=>handleOpenProfile(item.user_id)}>
+   <p style={{color:"navy"}}>{"view >>"}</p>
+  {/* <label className="toggle-switch">
   <input
     type="checkbox"
     checked={item.checked}
     onChange={() => handleToggle2(item.id)}
   />
   <span className="slider round"></span>
-</label>
+</label> */}
 </div>
   </div>
+   <p style={{marginTop:"-23px",marginBottom:"9px",textAlign:"center"}}>{item.work_title}</p>
   </div>
 ))}
+ {/* </InfiniteScroll> */}
     </div>
     </div>
   );

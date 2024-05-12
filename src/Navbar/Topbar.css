@@ -29,7 +29,11 @@ ul {
 a {
     text-decoration: none;
     color: #000;
+
 }
+/* ul.clearfix {
+    height: 46px;
+} */
 header{
     width: 100%;
 }
@@ -131,6 +135,7 @@ header.clearfix {
     border-bottom-style: solid;
     /* margin-top: 19px; */
     border-bottom-width: 1px;
+    /* height: 63px; */
 }
 .logo{
     color: red;
@@ -170,6 +175,7 @@ header.clearfix {
         border-bottom-style: solid;
         /* margin-top: 19px; */
         border-bottom-width: 1px;
+        /* height: 63px; */
     }
     nav {
         width: 102%;
@@ -197,3 +203,12 @@ header.clearfix {
     left: 0;
     transition: 0.3s ease-in-out;
 }
+
+.smallnavbar {
+    background-color:white;
+    position: fixed;
+    top: 87px;
+    width: 100%;
+    display: block;
+    transition: top 0.3s;
+  }

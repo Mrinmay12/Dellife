@@ -15,7 +15,8 @@ import { faSearch, faSignOutAlt, faArrowLeft, faHome, faUserFriends, faUser, faL
 import Search from "../Component/SearchInput/Search"
 import { useDispatch } from 'react-redux';
 import { setRefresh } from '../redux/action/RefreshAction';
-import uploadblack from "./uploadblack.png"
+import uploadblack from "./uploadblack.png";
+import uploadred from "./uploadred.png";
 export default function Topbar() {
   const dispatch = useDispatch()
   const [borderPosition, setBorderPosition] = useState(0);
@@ -40,13 +41,13 @@ export default function Topbar() {
   }, []);
   const getInitialPosition = (path, width) => {
     switch (path) {
-      case '/':
+      case '':
         return width * 3.1;
-      case '/post':
+      case 'post':
         return width* 3.7;
-      case '/profile':
+      case 'profile':
         return width * 4.3;
-      case '/message':
+      case 'message':
         return width * 4.9;
       // Add more cases for other routes if needed
       default:
@@ -56,15 +57,15 @@ export default function Topbar() {
 
   const getInitialPosition2 = (path, width) => {
     switch (path) {
-      case '/':
+      case '':
         return 0;
-      case '/location':
+      case 'location':
         return width;
-      case '/post':
+      case 'post':
         return width * 2;
-      case '/profile':
+      case 'profile':
         return width * 3;
-      case '/message':
+      case 'message':
         return width * 4;
       // Add more cases for other routes if needed
       default:
@@ -75,10 +76,10 @@ export default function Topbar() {
     // Set initial borderPosition based on the current route
     const lisLength = document.querySelectorAll('nav ul li').length;
     const lisWidth = 100 / lisLength;  
-    const position = !isMobile?getInitialPosition(pathname, lisWidth):getInitialPosition2(pathname, lisWidth);
+    const position = !isMobile?getInitialPosition(splitLocation[1], lisWidth):getInitialPosition2(splitLocation[1], lisWidth);
     setBorderPosition(position);
     // console.log(lisWidth,"lisWidthlisWidth",position);
-  }, [pathname,isMobile]);
+  }, [splitLocation[1],isMobile]);
 
 //  console.log(borderPosition,"my borderposiyion");
 
@@ -119,7 +120,7 @@ export default function Topbar() {
     // setBorderPosition(position);
   };
 
-console.log(splitLocation[1],"pathname");
+console.log(splitLocation[1],"pathname",pathname);
   return (
     <main>
       <header className="clearfix">
@@ -144,12 +145,13 @@ console.log(splitLocation[1],"pathname");
           <li><a href="#one" className={pathname === '/' ? 'activ' : ''} style={{ color: pathname === '/' ? "red" : "black" }} onClick={(e) => handleLinkClick(e, 0, '#one')}><FontAwesomeIcon icon={faHome} style={{ color: pathname === '/' ? "red" : "black" }} className="iconstyle" /></a></li>
             <li><a href="#three" className={pathname === '/post' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 2, '#three')}>
             {/* <FontAwesomeIcon icon={faUpload} style={{ color: pathname === '/post' ? "red" : "black" }} className="iconstyle" /> */}
-            <img src={pathname === '/post' ?uploadblack:uploadblack} className="iconstyle"/>
+            {pathname === '/post'?<img src={uploadred} style={{width:"54px",height:"48px"}}/>:<img src={uploadblack} style={{width:"54px",height:"48px"}}/>}
+            
             </a></li>
 
             <li><a href="#five" className={pathname === '/profile' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 4, '#five')}><FontAwesomeIcon icon={faUser} style={{ color: pathname === '/profile' ? "red" : "black" }} className="iconstyle" /></a></li>
 
-            <li><a href="#four" className={pathname === '/message' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 3, '#four')}><FontAwesomeIcon icon={faMessage} style={{ color: pathname === '/message' ? "red" : "black" }} className="iconstyle" /></a></li>
+            <li><a href="#four" className={splitLocation[1] === 'message' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 3, '#four')}><FontAwesomeIcon icon={faMessage} style={{ color: splitLocation[1] === 'message' ? "red" : "black" }} className="iconstyle" /></a></li>
           </li>
             
           </ul>
@@ -193,12 +195,12 @@ console.log(splitLocation[1],"pathname");
               </a></li>
             <li><a href="#three" className={pathname === '/post' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 2, '#three')}>
             {/* <FontAwesomeIcon icon={faUpload} style={{ color: pathname === '/post' ? "red" : "black" }} className="iconstyle" /> */}
-            <img src={pathname === '/post' ?uploadblack:uploadblack} className="iconstyle"/>
+            {pathname === '/post'?<img src={uploadred} style={{width:"54px",height:"48px"}}/>:<img src={uploadblack} style={{width:"54px",height:"48px"}}/>}
             </a></li>
 
             <li><a href="#five" className={pathname === '/profile' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 4, '#five')}><FontAwesomeIcon icon={faUser} style={{ color: pathname === '/profile' ? "red" : "black" }} className="iconstyle" /></a></li>
 
-            <li><a href="#four" className={pathname === '/message' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 3, '#four')}><FontAwesomeIcon icon={faMessage} style={{ color: pathname === '/message' ? "red" : "black" }} className="iconstyle" /></a></li>
+            <li><a href="#four" className={splitLocation[1] === 'message' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 3, '#four')}><FontAwesomeIcon icon={faMessage} style={{ color: splitLocation[1] === 'message' ? "red" : "black" }} className="iconstyle" /></a></li>
 
 
           </ul>

@@ -7,7 +7,7 @@ import Button from '../Component/Button/Button';
 import OtherPostcard from '../Component/AllPostCard/OtherPostcard';
 import { useSelector, useDispatch } from 'react-redux';
 import Loder from '../Component/LoderComponent/Loder';
-import { addTwoUser, ProfilePicUpdate, SeeOtherUserProfile, UserProfilePic } from "../AllApi/Integrateapi"
+import { addTwoUser, ProfilePicUpdate, SeeOtherUserProfile, UserProfilePic, User_connect_or_not } from "../AllApi/Integrateapi"
 import { setRefresh } from "../redux/action/RefreshAction";
 import { useParams,useNavigate,useSearchParams,useLocation } from 'react-router-dom';
 import { setData } from '../redux/action/LoginAction';
@@ -62,7 +62,7 @@ const queryParam = searchParams.get('user_id');
         setData(response.data.data)
         setPopupImageUrl(response.data.data.user_pic)
         setUsername(response.data.data.user_name)
-        setUserid(response.data.data.user_id)
+        setUserid(response.data.data.message_id)
         console.log(response.data.data);
       } catch (err) {
         console.log(err)
@@ -73,20 +73,37 @@ const queryParam = searchParams.get('user_id');
     }
 
   }, [post_id])
+
+  //Message user_connect_or not 
+  const[messagedata,setMessagedata]=useState({})
+  useEffect(()=>{
+    const Data=async()=>{
+   let res= await  User_connect_or_not(post_id, queryParam||"",userlogin.message_id)
+   setMessagedata(res.data)
+    }
+    if (post_id && userlogin.message_id) {
+      Data()
+    }
+  },[post_id,userlogin.message_id])
 const[show,setShow]=useState("post")
   const handleShow=(e)=>{
     setShow(e)
   }
-
+console.log(messagedata);
   const handleMessage=async()=>{
+    if(messagedata.present){
+      navigate(`/message/${messagedata.message_id}?userid=${window.btoa(user_id)}`)
+    }else{
   const json=JSON.stringify({
-        senderId: userlogin.user_id,
+        // senderId: userlogin.user_id,
+        senderId: userlogin.message_id,
         receiverId:user_id
     })
     const response=await addTwoUser(json)
     if(response){
         navigate(`/message/${response.data.data._id}?userid=${window.btoa(user_id)}`)
     }
+  }
   }
   return (
     <div>

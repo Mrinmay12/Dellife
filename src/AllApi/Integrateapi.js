@@ -12,7 +12,7 @@ export const userNewPost=(data)=>apiUrl.post(`/api/userpost/newpost`,data,{
         'Content-Type': 'multipart/form-data',
       },
 })
-export const userAllPost=(page,user_id)=>apiUrl.get(`/api/userpost/getallpost?page=${page}&user_id=${user_id}`)
+export const userAllPost=(page,user_id,color)=>apiUrl.get(`/api/userpost/getallpost?page=${page}&user_id=${user_id}&color_code=${color}`)
 
 // export const ProfilePicUpdate=(user_id,data)=>apiUrl.put(`/api/user/profilepic/${user_id}`,data,{
 //   headers: {
@@ -38,7 +38,8 @@ export const getMessage=(messageId)=>apiUrl.get(`/api/user/recivemessage/${messa
 export const addTwoUser=(data)=>apiUrl.post(`/api/user/useradd`,data)
 export const userfriend=(userid)=>apiUrl.get(`/api/user/userfriend/${userid}`)
 export const userProfile=(userid)=>apiUrl.get(`/api/user/userprofile/${userid}`)
-
+export const User_connect_or_not=(post_id,user_id,sender_id)=>apiUrl.get(`/api/user/user_connect_or_not/${post_id}?user_id=${user_id}&sender_id=${sender_id}`)
+export const get_Perticular_user=(message_id,user_id)=>apiUrl.get(`/api/user/get_specific/${message_id}/${user_id}`)
 //post comment Api
 export const userComment=(json)=>apiUrl.post(`/api/userpost/user/commentpost`,json)
 export const userCommentget=(post_id,user_id,page)=>apiUrl.get(`/api/userpost/user/commentget/${post_id}/${user_id}?page=${page}`)
@@ -76,3 +77,10 @@ export const Delete_profile=(user_id)=>apiUrl.delete(`/api/user/delete/${user_id
 //Profile lock and unlock
 
 export const Profile_Lock_Unlock=(user_id)=>apiUrl.put(`/api/user/lock_unlock/${user_id}`)
+
+//user location
+export const UserLocation =(user_id,json)=>apiUrl.patch(`/api/user/user_location/${user_id}`,json)
+
+//Near user list
+
+export const NearUsers=(user_latitude,user_longitude,user_id,page)=>apiUrl.get(`/api/user/get_users_location/${user_latitude}/${user_longitude}?page=1&limit=${page}&user_id=${user_id}`)

@@ -11,6 +11,7 @@ import {
   import { userAllPost } from '../AllApi/Integrateapi';
 import { useSelector, useDispatch } from 'react-redux';
 import { io } from "socket.io-client"
+import SmallTopbar from '../Navbar/SmallTopbar';
 
 export default function Home() {
   const userlogin = useSelector(state => state.myReducer.data)
@@ -26,16 +27,19 @@ export default function Home() {
     }
   };
 const [postdata,setPostdata]=useState([])
-
+const[color,setColor]=useState("red")
+useEffect(() => {
+  setPostdata([]); 
+  setPage(1);
+}, [color]);
 const fetchAllPost = async (page) => {
-  const res = await userAllPost(page,userlogin?.user_id)
+  const res = await userAllPost(page,userlogin?.user_id,color)
   return res.data.data;
 };
 const { data, isFetching, isPreviousData } = useQuery({
-  queryKey: ['projects', page,userlogin?.user_id],
+  queryKey: ['projects', page,userlogin?.user_id,color],
   queryFn: () => fetchAllPost(page),
   keepPreviousData: true,
-  staleTime: Infinity,
 });
   // Mutations
   const mutation = useMutation({
@@ -77,6 +81,8 @@ console.log(page,"page");
     console.log(userlogin?.user_id,"user_id");
   return (
     <div>
+    <SmallTopbar setColor={setColor}/>
+    <div style={{paddingTop:"69px"}}>
      <InfiniteScroll
         dataLength={postdata.length}
         next={loadMore}
@@ -87,7 +93,7 @@ console.log(page,"page");
       <TextShow item={item}/>
     ))}
     </InfiniteScroll>
-
+</div>
     <div style={{textAlign:"center",paddingTop:"9px"}}>
     {isFetching ?<Loder/>:"No more data"}
     </div> 

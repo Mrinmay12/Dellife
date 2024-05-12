@@ -114,3 +114,9 @@
   -ms-overflow-style: none; 
   scrollbar-width: none;  
 } */
+
+.viewnearuser{
+  width: 79px;
+  padding-top: 13px;
+  padding-left: 10px;
+}
