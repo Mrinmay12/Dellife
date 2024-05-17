@@ -15,6 +15,7 @@ import UserComment from './UserPostComment/UserComment';
 import { useSelector,useDispatch } from 'react-redux';
 import { getPerticular_post } from '../AllApi/Integrateapi';
 import { setRefresh } from '../redux/action/RefreshAction';
+import Gallery from './ImageGallery/Gallery';
 export default function TextShow({ item }) {
   const navigate=useNavigate()
 const dispatch=useDispatch()
@@ -97,7 +98,8 @@ const handlDelete=async()=>{
 
           <div class="mainimage-cards-container">
             <div class="">
-            <BlurredUpImage image={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.Postimage}?alt=media`} className="imageshow"/>
+            <Gallery images={item.Postimage}/>
+            {/* <BlurredUpImage image={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.Postimage}?alt=media`} className="imageshow"/> */}
               {/* <img src={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.Postimage}?alt=media`} alt='headerimage' className='imageshow' style={{ display: imageLoaded ? "block" : "none"}}
                 onLoad={handleImageLoad} /> */}
 

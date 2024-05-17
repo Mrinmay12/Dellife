@@ -156,7 +156,7 @@ if(Json.text===""){
                   <span className="file-upload-icon"></span>
                   <span className="file-upload-text">Choose a file</span>
                 </label>
-                <input type="file" name={fimage} ref={fimageRef} className="file-upload-input" multiple
+                <input type="file" name={fimage} ref={fimageRef} className="file-upload-input"
                   id="file-upload"
                   onChange={(e) => setFImage(e.target.files[0])} />
               </>

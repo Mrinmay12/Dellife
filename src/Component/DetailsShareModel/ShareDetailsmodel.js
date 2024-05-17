@@ -69,10 +69,12 @@ const ShareDetailsmodel = ({ onClose,postId }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+    if(Array.isArray(near_user) ){
     setUsers(prevUsers => {
         const newUserIds = new Set(near_user.map(item => item.user_id));
         return [...near_user, ...prevUsers.filter(item => !newUserIds.has(item.user_id))];
     });
+  }
 }, [near_user]);
   
 
@@ -125,13 +127,24 @@ const nearUsersdata = uniqueObjects.filter((user) => {
      </div>
 <hr/>
 <div className="shareuserscroll">
+{nearUsersdata.length===0?(
+  <>
+  <div className="search-container">
+    <div className="search-icon">
+      <img src="https://static.vecteezy.com/system/resources/previews/000/573/624/non_2x/map-pointer-gps-icon-vector.jpg" alt="Search Icon" style={{width:"30px"}}/>
+    </div>
+    <div className="search-text">Searching...</div>
+  </div>
+  </>
+):(
+  <>
 {/* <InfiniteScroll
         dataLength={data.length}
         next={loadMore}
         hasMore={true}
         // loader={data?.length!==0 &&<h4>Loading...</h4>}
       >  */}
-{nearUsersdata.filter((item)=>item.message_id!==userlogin.message_id).map((item) => (
+      {nearUsersdata.filter((item)=>item.message_id!==userlogin.message_id).map((item) => (
   <div style={{marginTop:"2px"}}>
   
   <div className="shareuserinfo">
@@ -154,6 +167,9 @@ const nearUsersdata = uniqueObjects.filter((user) => {
   </div>
 ))}
  {/* </InfiniteScroll> */}
+  </>
+)}
+
     </div>
     </div>
   );

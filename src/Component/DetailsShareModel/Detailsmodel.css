@@ -10,7 +10,20 @@
     z-index: 1;
   }
 
-
+  @media screen and (max-width: 600px) {
+    .modal-container-details {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+      width: 100%;
+    }
+  }
   .usershareimg {
     width: 50px; /* Adjust image size as needed */
     height: 50px;
@@ -103,7 +116,7 @@
 
   .shareuserscroll{
     max-height: 100px;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
   /* .shareuserscroll::-webkit-scrollbar {
@@ -119,4 +132,47 @@
   width: 79px;
   padding-top: 13px;
   padding-left: 10px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.search-icon {
+  display: flex; /* Use flexbox */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+}
+
+.search-icon img {
+  max-width: 100%; /* Ensure the image doesn't exceed the container */
+}
+
+.search-text {
+  font-size: 18px;
+  color: #333;
+  animation: pulse 1.5s infinite alternate, moveUpDown 2s infinite linear;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes moveUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }

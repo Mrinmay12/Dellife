@@ -116,7 +116,8 @@ body {
     height: auto;
     max-width: 500px;
     max-height: 600px;
-    max-width: 74%;
+    max-width: 100%;
+    /* max-width: 74%; */
   }
 @media (max-width: 768px) {
   .containertext {
