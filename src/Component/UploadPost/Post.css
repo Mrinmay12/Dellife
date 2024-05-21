@@ -226,3 +226,26 @@
   color:  #1f57ff;
   cursor: pointer;
 }
+
+.newpoststyle{
+  display: ruby-text;
+    width: 100%;
+    height: 100%;
+}
+
+.image-preview{
+  max-width: 390px;
+max-height: 264px;
+overflow-y: scroll;
+}
+
+.uploadbtn {
+ border: 0px solid gray;
+color:gray;
+background-color: whitesmoke;
+padding: 9px 18px;
+border-radius: 8px;
+font-size: 20px;
+font-weight: 700;
+margin-bottom: 27px;
+}
