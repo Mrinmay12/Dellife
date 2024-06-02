@@ -204,3 +204,17 @@ body {
     transform: scale(1.2);
   }
 }
+.followuser{
+  color: #0038ff;
+  font-style: normal;
+  font-family: emoji;
+
+}
+
+.dot{
+  height: 4px;
+    width: 4px;
+    background-color: black;
+    border-radius: 11px;
+    margin: 3px;
+}

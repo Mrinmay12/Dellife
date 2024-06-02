@@ -7,7 +7,7 @@ const BlurredUpImage = ({image,className}) => {
     <img
       src={src}
       style={{
-        // width: 200,
+        width: '100%',
         filter: blur ? "blur(20px)" : "none",
         transition: blur ? "none" : "filter 0.3s ease-out"
       }}

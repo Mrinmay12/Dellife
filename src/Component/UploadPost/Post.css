@@ -231,12 +231,14 @@
   display: ruby-text;
     width: 100%;
     height: 100%;
+    /* border: 2px solid red;
+    border-radius: 5px; */
 }
 
 .image-preview{
-  max-width: 390px;
-max-height: 264px;
-overflow-y: scroll;
+  /* max-width: 451px; */
+  max-height: 264px; 
+  overflow-y: scroll;
 }
 
 .uploadbtn {
@@ -247,5 +249,25 @@ padding: 9px 18px;
 border-radius: 8px;
 font-size: 20px;
 font-weight: 700;
-margin-bottom: 27px;
+margin-bottom: 5px;
 }
+textarea.inpttextarea {
+  font-size: 24px;
+  font-family: serif;
+}
+
+.subpoststyle{width:52%}
+
+.postuser{
+  text-align: end;
+  width: 343px;
+}
+
+@media screen and (max-width: 600px) {
+  .subpoststyle{width:95%}
+.postuser{
+  text-align: end;
+  width: 241px;
+}
+}
+

@@ -134,14 +134,14 @@
   padding-left: 10px;
 }
 
-.search-container {
+.search-container2 {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
 
-.search-icon {
+.search-icon2 {
   display: flex; /* Use flexbox */
   align-items: center; /* Center vertically */
   justify-content: center; /* Center horizontally */
@@ -149,7 +149,7 @@
   height: 50px; /* Adjust as needed */
 }
 
-.search-icon img {
+.search-icon2 img {
   max-width: 100%; /* Ensure the image doesn't exceed the container */
 }
 

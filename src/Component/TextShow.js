@@ -13,9 +13,11 @@ import BlurredUpImage from './ImageLoad/BlurredUpImage';
 import Commentmodel from './CommentModel/Commentmodel';
 import UserComment from './UserPostComment/UserComment';
 import { useSelector,useDispatch } from 'react-redux';
-import { getPerticular_post } from '../AllApi/Integrateapi';
+import { FollowUser, getPerticular_post } from '../AllApi/Integrateapi';
 import { setRefresh } from '../redux/action/RefreshAction';
 import Gallery from './ImageGallery/Gallery';
+import { ref, deleteObject } from "firebase/storage";
+import { storage } from '../FirebaseConfig/Firebase';
 export default function TextShow({ item }) {
   const navigate=useNavigate()
 const dispatch=useDispatch()
@@ -54,7 +56,20 @@ const[postId,setPostId]=useState("")
     setPostId(postid)
   };
 
-const handlDelete=async()=>{
+  async function deleteFiles(filePaths) {
+    try {
+        const deletePromises = filePaths.map(filePath => {
+            const fileRef = ref(storage, filePath);
+            return deleteObject(fileRef);
+        });
+        await Promise.all(deletePromises);
+        console.log('Files deleted successfully');
+    } catch (error) {
+        console.error('Error deleting files:', error);
+    }
+}
+const handlDelete=async(images)=>{
+  deleteFiles(images)
   try{
   const res = await getPerticular_post(item.post_id,userlogin.user_id,"delete")
   if(res){
@@ -62,10 +77,22 @@ const handlDelete=async()=>{
     navigate(`/profile`)
   }
 }catch{
+  dispatch(setRefresh(new Date().getMilliseconds()))
   navigate(`/profile`)
 }
 }
-
+const HandleFollow=({id,user_follow})=>{
+  const [Follow,setFollow]=useState(user_follow)
+const handleFollowuser=async()=>{
+  setFollow(!Follow)
+  await FollowUser(id,userlogin.user_id)
+}
+return(
+  <>
+<span className='followuser' onClick={()=>handleFollowuser()}>{Follow?('Following' ):"Follow"}</span>
+  </>
+)
+}
   return (
     <div>
       {item.Postimage ? (
@@ -75,6 +102,8 @@ const handlDelete=async()=>{
               <div class="user-info">
                 <img src={item.user_pic} alt="User Image" onClick={handleProfile}/>
                 <span class="user-name" onClick={handleProfile}>{item.user_name}</span>
+                <span className='dot'></span>
+                <HandleFollow id={item.user_id} user_follow={item.user_follow}/>
               </div>
             </div>
             {/* <div className='shairicone' onClick={handleShareImage}>
@@ -84,7 +113,7 @@ const handlDelete=async()=>{
           {item.user_present &&(
             <div className='shairicone2'>
             {item.user_post_or_not?(
-              <FontAwesomeIcon icon={faTrash} style={{ color: "red" }}  onClick={()=>handlDelete()}/>
+              <FontAwesomeIcon icon={faTrash} style={{ color: "red" }}  onClick={()=>handlDelete(item.Postimage)}/>
             ):(
               <Smallmodel post_id={item.post_id}/>
 
@@ -122,6 +151,8 @@ const handlDelete=async()=>{
                 <div class="user-info">
                   <img src={item.user_pic} onClick={handleProfile}/>
                   <span class="user-name" onClick={handleProfile}>{item.user_name}</span>
+                  <span className='dot'></span>
+                <HandleFollow id={item.user_id} user_follow={item.user_follow}/>
                 </div>
               </div>
               {item.user_present &&(

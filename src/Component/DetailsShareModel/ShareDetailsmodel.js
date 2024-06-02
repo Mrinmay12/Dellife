@@ -129,8 +129,8 @@ const nearUsersdata = uniqueObjects.filter((user) => {
 <div className="shareuserscroll">
 {nearUsersdata.length===0?(
   <>
-  <div className="search-container">
-    <div className="search-icon">
+  <div className="search-container2">
+    <div className="search-icon2">
       <img src="https://static.vecteezy.com/system/resources/previews/000/573/624/non_2x/map-pointer-gps-icon-vector.jpg" alt="Search Icon" style={{width:"30px"}}/>
     </div>
     <div className="search-text">Searching...</div>

@@ -33,6 +33,12 @@ export default function Postcard({user_id,post_id}) {
     keepPreviousData: true,
     staleTime: Infinity,
   });
+  console.log('====================================');
+  console.log(refreshdata,"refreshdata");
+  console.log('====================================');
+  useEffect(()=>{
+    setPage(1)
+  },[refreshdata])
   const loadMore = () => {
     // if (!isFetching && !isPreviousData) {
       setPage((prevPage) => prevPage + 1);
@@ -70,7 +76,7 @@ console.log(page,"page",postdata,data);
   <>
     {item.post_img?(
       <div class="gallery-item" onClick={()=>handlePostid(item._id)}>
-      <BlurredUpImage image={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img}?alt=media`}/>
+      <BlurredUpImage image={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img[0]}?alt=media`}/>
     {/* <img src={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img}?alt=media`}  alt="Image 1"/> */}
     <div class="image-title">{item.post_title}</div>
     

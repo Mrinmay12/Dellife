@@ -3,6 +3,7 @@ import "./Smallmodel.css"
 import save from "../../Images/save.jpg"
 import { UserSavePost ,User_post_save_or_not} from '../../AllApi/Integrateapi'
 import { useSelector } from 'react-redux';
+import ReportPostComment from './ReportPostComment';
 export default function Smallmodel({post_id}) {
   const userlogin = useSelector(state => state.myReducer.data)
     const[show,setShow]=useState(false)
@@ -34,14 +35,24 @@ export default function Smallmodel({post_id}) {
       Postsave()
     }
   },[post_id])
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  
   return (
+    <>
     <div class="dropdown">
     <div class="dropdown-btn icon clickable fa fa-ellipsis-h right"></div>
     <div class="dropdown-content">
     <a onClick={handleSave}><img style={{height:"17px",marginRight:"19px"}} src={save}/>{usersavepost?"Unsave":"Saved"}</a>
     <a href="#about"><i class="fa fa-copy" style={{marginRight:"19px"}}></i>copy</a>
-<a href="#about"><i class="fa fa-flag-o" style={{marginRight:"19px"}}></i>Report</a>
+<a onClick={()=>setIsModalOpen(true)}><i class="fa fa-flag-o" style={{marginRight:"19px"}} ></i>Report</a>
     </div>
   </div>
+
+  {isModalOpen && <ReportPostComment onClose={closeModal} postId={post_id}/>}
+  </>
   )
 }

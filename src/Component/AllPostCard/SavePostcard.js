@@ -67,7 +67,7 @@ console.log(page,"page",postdata,data);
   <>
     {item.post_img?(
       <div class="gallery-item" onClick={()=>handlePostid(item._id)}>
-      <BlurredUpImage image={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img}?alt=media`}/>
+      <BlurredUpImage image={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img[0]}?alt=media`}/>
     {/* <img src={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img}?alt=media`}  alt="Image 1"/> */}
     <div class="image-title">{item.post_title}</div>
     

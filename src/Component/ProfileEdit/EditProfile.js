@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import Input from '../PostForm/Input'
 import Select from 'react-select';
+import SelectDropdown from '../../Select_dropdown/SelectDropdown';
 export default function EditProfile({setEditejson,userlogin}) {
     const[about,setAbout]=useState("")
     const[phone,setPhone]=useState("") 
@@ -27,7 +28,7 @@ export default function EditProfile({setEditejson,userlogin}) {
     useEffect(()=>{
       setEditejson(Json)
     },[Json])
-    console.log(Json,"JsonJson");
+    
   
 
   const handleChange = (selectedOption) => {
@@ -82,6 +83,7 @@ export default function EditProfile({setEditejson,userlogin}) {
         <Input placeholder="link" onchange={setLink} value={link} inputtype="url"/>
         <Input placeholder="phone" onchange={setPhone} value={phone} inputtype="tel"/>
         <Input placeholder="email" onchange={setEmail} value={email} inputtype="email"/>
+        <SelectDropdown  options={options} handleOption={handleChange}/>
         <Select
       options={options}
       onChange={handleChange}

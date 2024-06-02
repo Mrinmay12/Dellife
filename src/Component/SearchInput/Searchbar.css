@@ -1,0 +1,81 @@
+
+.search-container {
+    position: relative;
+    width: 400px;
+}
+
+.search-container input {
+    width: 88%;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s;
+}
+
+.search-container input:focus {
+    border-color: #007bff;
+}
+
+.dropdownsearch {
+    position: absolute;
+    top: calc(100% + 3px);
+    left: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.li {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.3s;
+}
+
+.a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+ .img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.li:hover,
+.li.selected {
+    background-color: #ccc;
+}
+
+.li:last-child {
+    border-bottom: none;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 29px; /* Adjust the left position as needed */
+    transform: translateY(-50%);
+    color: #999; /* Icon color */
+    pointer-events: none; /* Ensure the icon does not capture pointer events */
+}
