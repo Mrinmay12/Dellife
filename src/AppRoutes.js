@@ -205,7 +205,7 @@ if (user_id) {
     <div>
      {token ?(<Topbar /> ):""} 
       <div className="maincontant">
-      <WebSocket locationData={location_data} userId={user_id} message_id={message_id}/>
+      {/* <WebSocket locationData={location_data} userId={user_id} message_id={message_id}/> */}
         <Routes>
           {token  ? (
             <>
@@ -230,7 +230,7 @@ if (user_id) {
 
             </>
           )}
-
+          <Route path="/post" element={<Post />} />
 
           <Route path="/sharepost/:post_id" element={<Perticularpost/>} />
 

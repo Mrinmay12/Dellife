@@ -1,0 +1,8 @@
+.select_drop{
+    width: 46%;
+}
+@media screen and (max-width: 600px) {
+    .select_drop{
+        width: 100%;
+    } 
+}

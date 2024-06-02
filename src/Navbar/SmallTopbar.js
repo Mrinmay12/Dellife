@@ -29,7 +29,7 @@ export default function SmallTopbar({setColor}) {
   }
   return (
     
-       <div className="smallnavbar" style={{top: visible ? '87px' : '-50px'}}>
+       <div className="smallnavbar" style={{top: visible ? '87px' : '-50px',zIndex:1}}>
         <div className='profilediv'>
         <div className='profilebottom' style={{width:"30%",backgroundColor:"#d4e2d25c"}}>
           <p  className={show==="near"?'profilebottomtext':"profilebottomtext2"} onClick={()=>handleShow("near")} style={{color:show==="near"?"red":"black"}}><img style={{height:"18px" ,marginRight:"4px"}} src={''}/>Posts</p>

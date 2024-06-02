@@ -7,12 +7,13 @@ export const verifytoken=async(token)=>await apiUrl.get(`/api/user/verifytoken`,
     'Authorization':token,
   },
 })
-export const userNewPost=(data)=>apiUrl.post(`/api/userpost/newpost`,data,{
-    headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-})
-export const userAllPost=(page,user_id,color)=>apiUrl.get(`/api/userpost/getallpost?page=${page}&user_id=${user_id}&color_code=${color}`)
+export const userNewPost=(data)=>apiUrl.post(`/api/userpost/newpost`,data)
+// export const userNewPost=(data)=>apiUrl.post(`/api/userpost/newpost`,data,{
+//     headers: {
+//         'Content-Type': 'multipart/form-data',
+//       },
+// })
+export const userAllPost=(page,user_id,color,latitude,longitude)=>apiUrl.get(`/api/userpost/getallpost?page=${page}&user_id=${user_id}&color_code=${color}&latitude=${latitude}&longitude=${longitude}`)
 
 // export const ProfilePicUpdate=(user_id,data)=>apiUrl.put(`/api/user/profilepic/${user_id}`,data,{
 //   headers: {
@@ -84,3 +85,12 @@ export const UserLocation =(user_id,json)=>apiUrl.patch(`/api/user/user_location
 //Near user list
 
 export const NearUsers=(user_latitude,user_longitude,user_id,page)=>apiUrl.get(`/api/user/get_users_location/${user_latitude}/${user_longitude}?page=1&limit=${page}&user_id=${user_id}`)
+
+
+//Report post 
+
+export const ReportPost=(user_id,post_id,json)=>apiUrl.post(`/report_post/${user_id}/${post_id}`,json)
+
+//Follow user
+
+export const FollowUser=(post_user_id,user_id)=>apiUrl.post(`/follow_users?connect_user_id=${post_user_id}&request_user_id=${user_id}`)
