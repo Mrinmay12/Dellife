@@ -7,6 +7,11 @@ export const verifytoken=async(token)=>await apiUrl.get(`/api/user/verifytoken`,
     'Authorization':token,
   },
 })
+export const forgetPassword=(email)=>apiUrl.post(`/api/user/forgetpassword`,email)
+export const resetPassword=(json)=>apiUrl.post(`/api/user/resetpassword`,json)
+// email, otp, newPassword
+
+//post api
 export const userNewPost=(data)=>apiUrl.post(`/api/userpost/newpost`,data)
 // export const userNewPost=(data)=>apiUrl.post(`/api/userpost/newpost`,data,{
 //     headers: {
@@ -69,7 +74,10 @@ export const SearchUser_and_Post=(query,user_id,page,user_work)=>apiUrl.get(`/ap
 export const UpdateUser=(json)=>apiUrl.put(`/api/user/updateuser`,json)
 
 //get perticular post
-export const getPerticular_post=(post_id,user_id,action)=>apiUrl.get(`/api/userpost/getperticular_post/${post_id}?user_id=${user_id}&action=${action}`)
+export const getPerticular_post=(post_id,user_id)=>apiUrl.get(`/api/userpost/getperticular_post/${post_id}?user_id=${user_id}`)
+
+//delete post
+export const delete_post=(post_id,user_id)=>apiUrl.delete(`/api/userpost/delete_post/${post_id}?user_id=${user_id}`)
 
 
 //Delete prifile
@@ -94,3 +102,8 @@ export const ReportPost=(user_id,post_id,json)=>apiUrl.post(`/report_post/${user
 //Follow user
 
 export const FollowUser=(post_user_id,user_id)=>apiUrl.post(`/follow_users?connect_user_id=${post_user_id}&request_user_id=${user_id}`)
+
+//delete comment 
+
+export const DeleteComment=(comment_id)=>apiUrl.delete(`/api/userpost/user/delete?comment_id=${comment_id}`)
+export const EditComment=(comment_id,user_id,json)=>apiUrl.put(`/api/userpost/user/edit?comment_id=${comment_id}&user_id=${user_id}`,json)

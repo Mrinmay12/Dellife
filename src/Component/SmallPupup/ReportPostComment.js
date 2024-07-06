@@ -2,11 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import "./ReportPost.css"
 import { ReportPost } from '../../AllApi/Integrateapi';
+import { setUpdate } from '../../redux/action/UpdateAction';
 const ReportPostComment = ({ onClose,postId }) => {
   const userlogin = useSelector(state => state.myReducer.data)
   const [inputValue, setInputValue] = useState('');
   const modalRef = useRef(null);
-
+  const dispatch=useDispatch()
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -31,6 +32,7 @@ const ReportPostComment = ({ onClose,postId }) => {
   })
   const response=await ReportPost( userlogin.user_id,postId,json)
   if(response){
+   dispatch(setUpdate(postId))
     onClose();
   }
   };

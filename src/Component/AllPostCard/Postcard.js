@@ -17,6 +17,7 @@ export default function Postcard({user_id,post_id}) {
   const navigate=useNavigate()
   const userlogin = useSelector(state => state.myReducer.data)
   const refreshdata = useSelector(state => state.RefreshReducer.data)
+  const postreff = useSelector(state => state.UpdateReducer.data)
   const [page, setPage] = useState(1);
   const [postdata,setPostdata]=useState([])
   const fetchAllPost = async (page) => {
@@ -61,7 +62,13 @@ console.log(page,"page",postdata,data);
   }
 
   let uniqueIds= removeDuplicates(postdata,"_id")
-  console.log(uniqueIds,"dgfdg");
+  console.log(uniqueIds,"dgfdg",postreff);
+  const[report_postid,setReport_postid]=useState([])
+useEffect(()=>{
+  if(postreff){
+    setReport_postid([...report_postid,postreff])
+  }
+},[postreff])
   return (
     <div>
        <InfiniteScroll
@@ -72,7 +79,7 @@ console.log(page,"page",postdata,data);
       > 
 <div class="gallery">
 
-{uniqueIds?.map((item)=>(
+{uniqueIds?.filter(item => !report_postid.includes(item._id)).map((item)=>(
   <>
     {item.post_img?(
       <div class="gallery-item" onClick={()=>handlePostid(item._id)}>

@@ -11,7 +11,9 @@
   width: 262px;
 }
 .container2{
-  display: table-cell;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
 }
 .radio {
   margin: 0.5rem;

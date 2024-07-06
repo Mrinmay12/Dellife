@@ -15,6 +15,7 @@ import { storage } from '../../FirebaseConfig/Firebase';
 import InputField from '../RegisterInput/InputField';
 import SelectDropdown from '../../Select_dropdown/SelectDropdown';
 import Input from '../PostForm/Input';
+import { isValidLink } from '../../Utiles';
 export default function Post() {
   const userlogin = useSelector(state => state.myReducer.data)
   const userlocation = useSelector(state => state.UserLocation.data)
@@ -33,7 +34,10 @@ export default function Post() {
   const fimageRef = useRef();
   const simageRef = useRef();
   const clickSoundRef = useRef(null);
-  
+  let valid_link=isValidLink(link)
+  console.log('====================================');
+  console.log(valid_link,"valid_link");
+  console.log('====================================');
   const [tagoption,setTagoption]=useState("")
 const handleOption=(e)=>{
   setTagoption(e)
@@ -302,13 +306,33 @@ setlinkshow(!linkshow)
   <div className="image-preview" style={{ display: 'flex', flexWrap: 'wrap' }}>
    
     {files.map((file, index) => (
-      <div key={index} style={{ position: 'relative', margin: '10px' ,marginLeft:"34px"}}>
+        <div key={index} style={{ position: 'relative', margin: '10px', marginLeft:"34px",textAlign: 'center' }}>
         <img
           src={URL.createObjectURL(file)}
           alt={`preview-${index}`}
           style={{ width: '94%', objectFit: 'cover' }}
         />
-        <button
+         <button
+              onClick={() => handleRemove(index)}
+              style={{
+                position: 'absolute',
+                top: '2px',
+                // right: '17px',
+                left:"17px",
+                background: 'red',
+                color: 'white',
+                border: 'none',
+                borderRadius: '50%',
+                width: '25px',
+                height: '25px',
+                textAlign: 'center',
+                lineHeight: '25px',
+                cursor: 'pointer',
+              }}
+            >
+              X
+            </button>
+        {/* <button
           onClick={() => handleRemove(index)}
           style={{
             position: 'absolute',
@@ -330,13 +354,18 @@ setlinkshow(!linkshow)
           }}
         >
           &times;
-        </button>
+        </button> */}
       </div>
     ))}
   </div>
   </div>
   <hr/>
- {linkshow && (<Input placeholder="link" onchange={setLink} value={link} inputtype="url"/>)} 
+ {linkshow && (
+  <>
+  <Input placeholder="link" onchange={setLink} value={link} inputtype="url"/>
+  {!valid_link && link!==""?<span style={{marginTop:"5px",color:"red"}}>Link not valid</span>:""}
+  </>
+  )} 
  {tagshow &&(<SelectDropdown options={options} handleOption={handleOption}/>)} 
   <div style={{ marginTop:"0px",display:"flex",flexDirection:"row" }}>
   <p style={{ color:"black" }}><img src={imagecard} style={{ width:"60px" }} title="Upload images" onClick={handleButtonClick}/></p>

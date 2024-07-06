@@ -7,10 +7,12 @@ import { faComment, faCommentSms, faHeart, faShare } from '@fortawesome/free-sol
 import message from "../Images/message.png"
 import greenTick from "../Images/green_tick.png"
 import { useSelector } from 'react-redux';
+import Smallmodel from '../SmallPupup/Smallmodel';
 export default function UserComment({ postid ,user_post_or_not,user_present,countlike,user_like}) {
   const userlogin = useSelector(state => state.myReducer.data)
+  const editdata = useSelector(state => state.EditReducer.data)
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const postreff = useSelector(state => state.UpdateReducer.data)
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -37,16 +39,23 @@ export default function UserComment({ postid ,user_post_or_not,user_present,coun
   const [commentdata, setCommentdata] = useState([])
   const [dataslice, setDataslice] = useState(1)
   const [page, setPage] = useState(1)
+  const[report_postid,setReport_postid]=useState([])
+useEffect(()=>{
+  if(postreff){
+    setReport_postid([...report_postid,postreff])
+  }
+},[postreff])
   useEffect(() => {
     const getComment = async () => {
       let res = await userCommentget(postid, userlogin.user_id, page)
-      setCommentdata(res.data.postcomment);
+      setCommentdata(res.data.postcomment. filter(item => !report_postid.includes(item.comment_id)));
     }
+   
 
     if (postid) {
       getComment()
     }
-  }, [postid])
+  }, [postid,postreff])
   const handleShow = () => {
     if (dataslice === 1) {
       setDataslice(Infinity)
@@ -101,6 +110,32 @@ export default function UserComment({ postid ,user_post_or_not,user_present,coun
     }
   }
 
+  const updateOrUnshift = (newItem) => {
+    setCommentdata(prevArray => {
+        const index = prevArray.findIndex(item => item.comment_id === newItem.comment_id);
+
+        if (index === -1) {
+            // Item not found, add to the beginning
+            return [newItem, ...prevArray];
+        } else {
+            // Item found, update it
+            const updatedArray = [...prevArray];
+            updatedArray[index] = newItem;
+            return updatedArray;
+        }
+    });
+};
+
+useEffect(()=>{
+  if(Object.keys(editdata).length!==0){
+    if(editdata.comment_id){
+    updateOrUnshift(editdata)
+    }
+  }
+},[editdata])
+console.log('====================================');
+console.log(editdata,"editdata");
+console.log('====================================');
   return (
     <div>
       {commentdata.slice(0, dataslice).map((item) => (
@@ -110,18 +145,28 @@ export default function UserComment({ postid ,user_post_or_not,user_present,coun
             <span class="user-name2">{item.user_name}</span>
 
             <img width="23" height="20" style={{ paddingLeft: "7px" }} src={greenTick} alt="approval--v1" />
-          </div>
+            {item.user_edit &&(
+              <>
+             
+            <Smallmodel comment_id={item.comment_id} edite_text={item.user_comment} showonly={"comment"}/>
+       
+            </>
+            )}
+            </div>
           <div class="slovetext">
             <p>{item.user_comment}
             </p>
           </div>
         </>
       ))}
-      <div style={{ color: "blue" ,cursor:"pointer"}} onClick={() => handleShow()}>{dataslice === Infinity ? "Hide" : "Show more"}</div>
+      {commentdata.length > 0 &&(
+        <div style={{ color: "blue" ,cursor:"pointer"}} onClick={() => handleShow()}>{dataslice === Infinity ? "Hide" : "Show more"}</div>
+      )}
+     
 {user_present &&(
       <div className='bottomstyle'>
       {!user_post_or_not &&  (
-        <div className='profiletag2' style={{ width: "66px", marginRight: "12px" }}>
+        <div >
           {userlike ? (
             <>
               <FontAwesomeIcon icon={faHeart} style={{ color: "red" }} className={ `heart ${isBouncing ? 'bounce' : ''}`} onClick={()=>handleDislike()}/> {like!==0 && like}
@@ -137,11 +182,16 @@ export default function UserComment({ postid ,user_post_or_not,user_present,coun
       )}
      
 {!user_post_or_not && (
-        <div className='shairicone3'>
+  <>
+        <div >
           <FontAwesomeIcon icon={faComment} className="iconstyle" onClick={() => handleOpenComment(postid)} /> {commentdata.length > 0 && commentdata.length}
         </div>
+        <div >
+          <FontAwesomeIcon icon={faComment} className="iconstyle" onClick={() => handleOpenComment(postid)} /> {commentdata.length > 0 && commentdata.length}
+        </div>
+        </>
 )}
-        <div className='shairicone3' onClick={handleShareImage}>
+        <div  onClick={handleShareImage}>
           <FontAwesomeIcon icon={faShare} style={{ color: "black" }} className="iconstyle" />
 
         </div>

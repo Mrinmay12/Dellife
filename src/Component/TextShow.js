@@ -13,8 +13,9 @@ import BlurredUpImage from './ImageLoad/BlurredUpImage';
 import Commentmodel from './CommentModel/Commentmodel';
 import UserComment from './UserPostComment/UserComment';
 import { useSelector,useDispatch } from 'react-redux';
-import { FollowUser, getPerticular_post } from '../AllApi/Integrateapi';
+import { delete_post, FollowUser, getPerticular_post } from '../AllApi/Integrateapi';
 import { setRefresh } from '../redux/action/RefreshAction';
+import { setUpdate } from '../redux/action/UpdateAction';
 import Gallery from './ImageGallery/Gallery';
 import { ref, deleteObject } from "firebase/storage";
 import { storage } from '../FirebaseConfig/Firebase';
@@ -69,16 +70,22 @@ const[postId,setPostId]=useState("")
     }
 }
 const handlDelete=async(images)=>{
-  deleteFiles(images)
+  // deleteFiles(images)
   try{
-  const res = await getPerticular_post(item.post_id,userlogin.user_id,"delete")
-  if(res){
-    dispatch(setRefresh(new Date().getMilliseconds()))
+  const res = await delete_post(item.post_id,userlogin.user_id)
+  if( res.status==200){
+    // dispatch(setRefresh(new Date().getMilliseconds()))
+    deleteFiles(images)
+    dispatch(setUpdate(item.post_id))
     navigate(`/profile`)
   }
-}catch{
-  dispatch(setRefresh(new Date().getMilliseconds()))
+}catch(err){
+  if(err.response.status==300){
+    dispatch(setUpdate(item.post_id))
+  deleteFiles(images)
   navigate(`/profile`)
+  }
+  return
 }
 }
 const HandleFollow=({id,user_follow})=>{

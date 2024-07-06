@@ -28,7 +28,9 @@
 } */
 
 .dropdown:hover .dropdown-content {
-  display: block;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
 }
 
 

@@ -1,0 +1,53 @@
+.phoneselect {
+    width: 242px;
+    height: 47px;
+    margin: auto;
+    font-size: 20px;
+    padding-top: 19px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    outline: none;
+    border-bottom-width: 3px;
+    /* border: solid 3px #98d4f3; */
+    border-bottom-color: #98d4f3;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.phoneclass {
+    display: flex;
+}
+
+.basic-singlephone {
+    width: 200px;
+}
+
+@media screen and (max-width: 600px) {
+    .phoneclass {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .basic-singlephone {
+        width: 100%;
+    }
+
+    .phoneselect {
+        width: 100%;
+        height: 47px;
+        margin: 0;
+        font-size: 20px;
+        padding-top: 19px;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        outline: none;
+        border-bottom-width: 3px;
+        /* border: solid 3px #98d4f3; */
+        border-bottom-color: #98d4f3;
+        box-sizing: border-box;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+}

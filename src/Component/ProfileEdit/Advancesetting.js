@@ -113,11 +113,11 @@ const handleLogout=()=>{
             <>
             <div className="modal-container" ref={modalRef}>
             <p className='sharetext' style={{width:"102%"}}>Are you sure to logout?</p>
-            <div style={{display:"flex",marginTop:"3px"}}>
+            <div style={{display:"flex",marginTop:"3px",justifyContent:"space-between",marginTop:"13px"}}>
             <Button value="Cancel" handleClick={closeModal2} backcolor={"blur"}/>
-            <div style={{paddingLeft:"10px"}}>
-            <Button value="Logout" handleClick={handleLogoutuser} backcolor={"blue"}/>
-            </div>
+            {/* <div style={{paddingLeft:"10px"}}> */}
+            <Button value="Logout" handleClick={handleLogoutuser} backcolor={"red"}/>
+            {/* </div> */}
             </div>
             </div>
             </>
