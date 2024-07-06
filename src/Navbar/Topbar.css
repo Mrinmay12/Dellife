@@ -156,13 +156,25 @@ header.clearfix {
 		width: 95%; 
 	}
     div.home{
-        width: 20%;
+        width: 100%;
         float: left;
         margin-top: 1px;
         font-size: 30px;
         font-family: cursive;
         font-weight: 500;
         margin-left: 7px;
+        display: flex;
+        flex-direction: row;
+    }
+    .logo {
+        color: red;
+        font-style: oblique;
+        padding-left: 6px !important;
+    }
+    .nearshare{
+        width: 61%;
+        justify-content: end;
+        display: flex;
     }
     header.clearfix {
         position: fixed;

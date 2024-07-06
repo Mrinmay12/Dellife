@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { setRefresh } from '../redux/action/RefreshAction';
 import uploadblack from "./uploadblack.png";
 import uploadred from "./uploadred.png";
+import Searchbar from '../Component/SearchInput/Searchbar';
 export default function Topbar() {
   const dispatch = useDispatch()
   const [borderPosition, setBorderPosition] = useState(0);
@@ -139,7 +140,7 @@ console.log(splitLocation[1],"pathname",pathname);
           <nav className="container-fluid">
           <ul className="clearfix">
           <li>
-            <a onClick={(e) =>handleLinkClick(e, 1, '#two')}> <Search/></a>
+            <a > <Searchbar/></a>
           </li> 
           <li className='numicon'>
           <li><a href="#one" className={pathname === '/' ? 'activ' : ''} style={{ color: pathname === '/' ? "red" : "black" }} onClick={(e) => handleLinkClick(e, 0, '#one')}><FontAwesomeIcon icon={faHome} style={{ color: pathname === '/' ? "red" : "black" }} className="iconstyle" /></a></li>

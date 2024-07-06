@@ -4,6 +4,8 @@ import Password from '../../Component/RegisterInput/PasswordInput/Password'
 import Button from "../../Component/LodingButton/Button"
 import { userRegister } from '../../AllApi/Integrateapi'
 import { useNavigate } from 'react-router-dom'
+import DateDropdown from '../../Component/Dobdropdown/DateDropdown'
+import { validateEmail } from '../../Utiles'
 export default function Register({setToken}) {
   const navigate=useNavigate()
   const[name,setName]=useState("")
@@ -33,7 +35,11 @@ export default function Register({setToken}) {
        age,
        name ,
     })
+    const[validation,setValidation]=useState(false)
     const handleSubmit=async(e)=>{
+      // if(!validateEmail(email)){
+      //   setValidation(true)
+      // }
       setLoder(true)
       try {
         let response = await userRegister(json)
@@ -67,7 +73,9 @@ export default function Register({setToken}) {
         </div>
     <InputField name={"Full name"} onChange={handlename} id={"name"}/>
     <InputField name={"Email"} onChange={handleemail} id={"email"}/>
-    <InputField name={"age"} onChange={handleage} id={"age"}/>
+    {/* <InputField name={"age"} onChange={handleage} id={"age"}/> */}
+   
+    <DateDropdown/>
     <Password onChange={handlepassword}/>
     <div className='submitbtn'>
     <Button handleClickbtn={handleSubmit} loader={loader} name="Register" />

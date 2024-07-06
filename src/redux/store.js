@@ -5,13 +5,17 @@ import myReducer from './reducer/LoginReducer';
 import RefreshReducer from "./reducer/RefreshReducer"
 import SearchReducer from "./reducer/SearchReducer"
 import NearuserReducer from './reducer/NearuserReducer';
-import UserLocation from "./reducer/UserLocation"
+import UserLocation from "./reducer/UserLocation";
+import UpdateReducer from "./reducer/UpdateReducer";
+import EditReducer from './reducer/EditReducer';
 const rootReducer = combineReducers({
   myReducer,
   RefreshReducer,
   SearchReducer,
   NearuserReducer,
-  UserLocation
+  UserLocation,
+  UpdateReducer,
+  EditReducer
   // add more reducers here if needed
 });
 

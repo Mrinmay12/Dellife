@@ -12,9 +12,12 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { io } from "socket.io-client"
 import SmallTopbar from '../Navbar/SmallTopbar';
+import Skeleton from '../Component/SkeletonLoder/Skeleton';
 
 export default function Home() {
   const userlogin = useSelector(state => state.myReducer.data)
+  const userlocation = useSelector(state => state.UserLocation.data)
+  const postreff = useSelector(state => state.UpdateReducer.data)
   const socket = useRef();
 
   const queryClient = new QueryClient();
@@ -27,17 +30,22 @@ export default function Home() {
     }
   };
 const [postdata,setPostdata]=useState([])
-const[color,setColor]=useState("red")
+const[color,setColor]=useState("black")
 useEffect(() => {
   setPostdata([]); 
   setPage(1);
 }, [color]);
+let user_latitude=userlocation.latitude||""
+let user_longitude=userlocation.longitude||""
+
 const fetchAllPost = async (page) => {
-  const res = await userAllPost(page,userlogin?.user_id,color)
+  if(userlogin?.user_id){
+  const res = await userAllPost(page,userlogin?.user_id,color,user_latitude,user_longitude)
   return res.data.data;
+  }
 };
 const { data, isFetching, isPreviousData } = useQuery({
-  queryKey: ['projects', page,userlogin?.user_id,color],
+  queryKey: ['projects', page,userlogin?.user_id,color,user_latitude,user_longitude],
   queryFn: () => fetchAllPost(page),
   keepPreviousData: true,
 });
@@ -55,7 +63,7 @@ const { data, isFetching, isPreviousData } = useQuery({
   };
 console.log(page,"page");
   useEffect(() => {
-    if (data) {
+    if (data && userlogin?.user_id) {
       setPostdata((prevData) => [...prevData, ...data]);
     }
   }, [data]);
@@ -77,8 +85,16 @@ console.log(page,"page");
   //   };
   // }, [userlogin?.user_id]);
   
+  console.log(
+    userlocation,"this is userlocation",postdata
+  );
+const[report_postid,setReport_postid]=useState([])
+useEffect(()=>{
+  if(postreff){
+    setReport_postid([...report_postid,postreff])
+  }
+},[postreff])
 
-    console.log(userlogin?.user_id,"user_id");
   return (
     <div>
     <SmallTopbar setColor={setColor}/>
@@ -89,13 +105,16 @@ console.log(page,"page");
         hasMore={true}
         // loader={data?.length!==0 &&<h4>Loading...</h4>}
       >
-    {postdata.map((item)=>(
+    {postdata.filter(item => !report_postid.includes(item.post_id)).map((item)=>(
       <TextShow item={item}/>
     ))}
     </InfiniteScroll>
 </div>
     <div style={{textAlign:"center",paddingTop:"9px"}}>
-    {isFetching ?<Loder/>:"No more data"}
+    {/* {isFetching ?<Loder/>:"No more data"} */}
+    {isFetching  &&postdata?.length>0 ?<Loder/>:""}
+    {isFetching&&postdata?.length===0 ?<Skeleton/>:""}
+    {!isFetching && data?.length===0?"You're all caught up.":""}
     </div> 
     </div>
   )

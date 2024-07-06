@@ -18,6 +18,7 @@ import { setRefresh } from '../redux/action/RefreshAction';
 import uploadblack from "./uploadblack.png";
 import uploadred from "./uploadred.png";
 import Searchbar from '../Component/SearchInput/Searchbar';
+import ShareDetailsmodel from '../Component/DetailsShareModel/ShareDetailsmodel';
 export default function Topbar() {
   const dispatch = useDispatch()
   const [borderPosition, setBorderPosition] = useState(0);
@@ -43,13 +44,13 @@ export default function Topbar() {
   const getInitialPosition = (path, width) => {
     switch (path) {
       case '':
-        return width * 3.1;
+        return width * 3.6;
       case 'post':
-        return width* 3.7;
+        return width* 4.3;
       case 'profile':
-        return width * 4.3;
+        return width * 5.0;
       case 'message':
-        return width * 4.9;
+        return width * 5.7;
       // Add more cases for other routes if needed
       default:
         return 0;
@@ -103,22 +104,12 @@ export default function Topbar() {
       navigate(attr);
     }
 
-    const activLinks = document.querySelector('nav ul li a.activ');
-    const activContent = document.querySelector('section>div.activ');
+  };
 
-    // activLinks.classList.remove('activ');
-    // activContent.classList.remove('activ');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // e.target.classList.add('activ');
-    const activ = document.querySelector(attr);
-
-    // activ.classList.add('activ');
-
-    const lisLength = document.querySelectorAll('nav ul li').length;
-    const lisWidth = 100 / lisLength;
-    const position = i * lisWidth;
-    // console.log(lisLength,lisWidth,position,"newnnn");
-    // setBorderPosition(position);
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
 console.log(splitLocation[1],"pathname",pathname);
@@ -130,6 +121,12 @@ console.log(splitLocation[1],"pathname",pathname);
           <a onClick={() => navigate("/")} className="logo">
             DelLife
           </a>
+          {isMobile &&(
+            <div className='nearshare'>
+          <a href="#five" ><FontAwesomeIcon icon={faMessage} onClick={()=>setIsModalOpen(true)} className="iconstyle" /></a>
+          </div>
+          )}
+       
         </div>
       )}
        
@@ -153,6 +150,7 @@ console.log(splitLocation[1],"pathname",pathname);
             <li><a href="#five" className={pathname === '/profile' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 4, '#five')}><FontAwesomeIcon icon={faUser} style={{ color: pathname === '/profile' ? "red" : "black" }} className="iconstyle" /></a></li>
 
             <li><a href="#four" className={splitLocation[1] === 'message' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 3, '#four')}><FontAwesomeIcon icon={faMessage} style={{ color: splitLocation[1] === 'message' ? "red" : "black" }} className="iconstyle" /></a></li>
+            <li><a href="#five" ><FontAwesomeIcon icon={faMessage} onClick={()=>setIsModalOpen(true)} className="iconstyle" /></a></li>
           </li>
             
           </ul>
@@ -233,6 +231,7 @@ console.log(splitLocation[1],"pathname",pathname);
           {/* Content for Five */}
         </div>
       </section>
+      {isModalOpen && <ShareDetailsmodel onClose={closeModal} />}
     </main>
   );
 }

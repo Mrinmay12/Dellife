@@ -11,6 +11,7 @@ import {
   import { getPerticular_post } from '../AllApi/Integrateapi';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams} from 'react-router-dom';
+import Skeleton from '../Component/SkeletonLoder/Skeleton';
 
 const Perticularpost=()=>{
     const userlogin = useSelector(state => state.myReducer.data)
@@ -36,9 +37,15 @@ const Perticularpost=()=>{
  
       return (
         <div>
- {/* {data.map((item)=>( */}
-      <TextShow item={data}/>
-    {/* ))} */}
+
+{data.length===0 ?<Skeleton/>: <TextShow item={data}/>}
+
+     
+
+
+    <div style={{textAlign:"center",paddingTop:"9px"}}>
+
+    </div>
         </div>
       )
 
