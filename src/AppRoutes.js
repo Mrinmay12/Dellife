@@ -28,6 +28,7 @@ import ErrorPage from "./Pages/ErrorPage";
 import { io } from "socket.io-client"
 import Perticularpost from "./Pages/Perticularpost";
 import WebSocket from "./SocketServer/WebSocket";
+import ForgetPassword from "./Pages/LoginPage/ForgetPassword";
 export default function AppRoutes() {
   const dispatch = useDispatch()
   const socket = useRef();
@@ -223,6 +224,7 @@ if (user_id) {
             <>
               <Route path="/" element={<Login setToken={setToken}/>} />
               <Route path="/register" element={<Register setToken={setToken}/>} />
+              <Route path="/resetpassword" element={<ForgetPassword setToken={setToken}/>} />
             
 
               <Route path="*" element={<ErrorPage />} />

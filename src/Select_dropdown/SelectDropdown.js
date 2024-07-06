@@ -44,7 +44,7 @@ export default function SelectDropdown({options,handleOption}) {
         handleOption(selectedOption.value);
       };
   return (
-  <div className='select_drop'>
+  // <div className='select_drop'>
       <Select
       options={options}
       onChange={handleChange}
@@ -53,6 +53,6 @@ export default function SelectDropdown({options,handleOption}) {
       placeholder={"Search profession"}
       styles={customStyles}
     />
-  </div>
+  // </div>
   )
 }

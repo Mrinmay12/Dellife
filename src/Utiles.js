@@ -63,3 +63,21 @@ export function removeDuplicates(array, property) {
       ))
   );
 }
+
+
+//Link formate check
+export function isValidLink(link) {
+  const pattern = /^(https?:\/\/)?(www\.)?[a-z0-9-]+\.(com|org|net|edu|gov|mil|int|info|biz|co|io|us|uk|ca|de|fr|au|jp|cn|in|br|kr|mx|es|it|nl|se|no|fi|dk|pl|ru|ch|be|gr|pt|cz|hu|tr|ro|sk|si|hr|lt|lv|ee|at|ie|is|my|id|th|sg|nz|sa|ae|za|ar|cl|pe|ve|uy|bg|rs|ba|me|md|mk|am|ge|az|tm|kz|uz|kg|by|ua|lv|lt|ee|mt|cy|lu|li|sm|ad|mc|va|gi|fo|je|gg|im|yt|pm|tf|wf|re|pf|nc|ki|mh|fm|pw|as|mp|gu|vi|um|ck|nz|nu|tk|to|tv|vu|fj|ws|sb|pg|nr|cc|cx|hm|nf|tk|tv|vu|ac|sh|io|ai|ag|vc|kn|ms|sc|mu|mw|ke|tz|ug|zm|zw|na|bw|ls|sz|gm|sl|lr|gh|ng|bj|tg|cv|ml|ne|sn|mr|gm|gw|gn|bi|rw|dj|er|et|so|ke|tz|ug|zm|zw|na|bw|ls|sz|mg|re|yt|mu|io|ax|bl|bq|cw|gf|gp|mq|mf|pm|sx|bv|hm|aq|tf|yt|cc|eu|cat|arpa|asia|aero|coop|museum|name|pro|tel|int|mobi|jobs|travel|xxx|xyz|club|guru|agency|email|solutions|today|technology|directory|company|center|systems|photography|graphics|pictures|photos|media|cab|limo|tattoo|guitars|tips|bike|clothing|estate|ventures|holdings|partners|recipes|singles|properties|shoes|london|kyoto|berlin|wien|nyc|quebec|melbourne|rio|paris|tokyo|jobs|yokohama|nagoya|okinawa|osaka|sapporo|fukuoka|kitakyushu|hamamatsu|saitama|shizuoka|sendai|chiba|kyoto|osaka|kobe|hiroshima|kitakyushu|fukuoka|kawasaki|sagamihara|yokohama|nagoya|sendai|sapporo|saitama|chiba|tokyo|shizuoka|hamamatsu|niigata|kawasaki|sagamihara|yokohama|nagoya|kyoto|osaka|kobe|hiroshima|kitakyushu|fukuoka|kawasaki|sagamihara|yokohama|nagoya|sendai|sapporo|saitama|chiba|tokyo|shizuoka|hamamatsu|niigata|toyama|kanazawa|nagano|gifu|fukuoka|oita|kumamoto|miyazaki|kagoshima|nagasaki|okinawa|aomori|morioka|sendai|akita|yamagata|fukushima|niigata|nagano|gifu|shizuoka|toyama|kanazawa|fukui|yamanashi|nagoya|kyoto|osaka|kobe|hiroshima|kitakyushu|fukuoka|nagasaki|kumamoto|oita|miyazaki|kagoshima|okinawa|saitama|chiba|tokyo|kanagawa|niigata|toyama|ishikawa|fukui|yamanashi|nagano|gifu|shizu)$/i;
+  return pattern.test(link);
+}
+
+//Email formate check
+export const validateEmail = (email) => {
+  let valid= String(email)
+     .toLowerCase()
+     .match(
+       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+     );
+     let valid_data= Array.isArray(valid)?true:false
+     return valid_data
+ };
