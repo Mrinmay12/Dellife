@@ -5,17 +5,22 @@ import InputField from '../../Component/RegisterInput/InputField'
 import Password from '../../Component/RegisterInput/PasswordInput/Password'
 import "./Login.css"
 import { useNavigate } from 'react-router-dom'
+import { OTPInput } from '../../Component/OTPInput/InputOtp'
 export default function ForgetPassword({ setToken }) {
     const navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [otpview, setOtpview] = useState(false)
-
+   const[otp,setOtp]=useState("")
     const handlepassword = (e) => {
         setPassword(e)
     }
     const handleemail = (e) => {
         setEmail(e)
+    }
+
+    const handleOtpChange=(e)=>{
+        setOtp(e)
     }
 
     const [loader, setLoder] = useState(false)
@@ -79,7 +84,7 @@ export default function ForgetPassword({ setToken }) {
                         <img src="https://img.freepik.com/free-vector/bird-colorful-logo-gradient-vector_343694-1365.jpg?size=338&ext=jpg&ga=GA1.1.1700460183.1713052800&semt=sph" alt='logo' style={{ width: "100px" }} />
                         <h2>Login</h2>
                     </div>
-                    <InputField name={"Email"} id={"email"} onChange={handleemail} />
+                    <OTPInput length={6} onChange={handleOtpChange} />
                     <Password onChange={handlepassword} />
                     <div className='submitbtn'>
                         <Button handleClickbtn={handleSubmit} loader={loader} name="Login" />
