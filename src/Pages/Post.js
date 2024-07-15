@@ -1,6 +1,6 @@
 import React ,{useEffect}from 'react'
 import UploadPost from "../Component/UploadPost/Post"
-export default function Post() {
+export default function Post({only_use,onClose}) {
   useEffect(() => {
     const handleReload = (event) => {
       // Prevent the default behavior of the event
@@ -26,7 +26,7 @@ export default function Post() {
   
   return (
     <div >
-  <UploadPost/>
+  <UploadPost only_use={only_use} onClose={onClose}/>
     </div>
   )
 }

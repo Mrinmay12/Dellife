@@ -19,6 +19,7 @@ import uploadblack from "./uploadblack.png";
 import uploadred from "./uploadred.png";
 import Searchbar from '../Component/SearchInput/Searchbar';
 import ShareDetailsmodel from '../Component/DetailsShareModel/ShareDetailsmodel';
+import PostPopUp from '../Component/Postpopup/PostPopUp';
 export default function Topbar() {
   const dispatch = useDispatch()
   const [borderPosition, setBorderPosition] = useState(0);
@@ -111,6 +112,11 @@ export default function Topbar() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
+
+  const closeModal2 = () => {
+    setIsModalOpen2(false);
+  };
 
 console.log(splitLocation[1],"pathname",pathname);
   return (
@@ -141,9 +147,11 @@ console.log(splitLocation[1],"pathname",pathname);
           </li> 
           <li className='numicon'>
           <li><a href="#one" className={pathname === '/' ? 'activ' : ''} style={{ color: pathname === '/' ? "red" : "black" }} onClick={(e) => handleLinkClick(e, 0, '#one')}><FontAwesomeIcon icon={faHome} style={{ color: pathname === '/' ? "red" : "black" }} className="iconstyle" /></a></li>
-            <li><a href="#three" className={pathname === '/post' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 2, '#three')}>
-            {/* <FontAwesomeIcon icon={faUpload} style={{ color: pathname === '/post' ? "red" : "black" }} className="iconstyle" /> */}
-            {pathname === '/post'?<img src={uploadred} style={{width:"54px",height:"48px"}}/>:<img src={uploadblack} style={{width:"54px",height:"48px"}}/>}
+            <li>
+              {/* <a href="#three" className={pathname === '/post' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 2, '#three')}> */}
+              <a href="#three" className={pathname === '/post' ? 'activ' : ''} onClick={(e) => ()=>setIsModalOpen(true)}>
+           
+            {pathname === '/post'?<img src={uploadred} style={{width:"54px",height:"48px"}} alt=''/>:<img src={uploadblack} style={{width:"54px",height:"48px"}} alt=''/>}
             
             </a></li>
 
@@ -154,7 +162,7 @@ console.log(splitLocation[1],"pathname",pathname);
           </li>
             
           </ul>
-          {pathname!=="/location" && splitLocation[1]!=="otherprofile" && splitLocation[1]!=="sharepost" ? <span className='linebar2' style={{ left: `${borderPosition}%` }}></span>:""}
+          {pathname!=="/location" && splitLocation[1]!=="otherprofile" && splitLocation[1]!=="sharepost" && splitLocation[1]!=="searchuser" ? <span className='linebar2' style={{ left: `${borderPosition}%` }}></span>:""}
          
         </nav>
         </>
@@ -232,6 +240,7 @@ console.log(splitLocation[1],"pathname",pathname);
         </div>
       </section>
       {isModalOpen && <ShareDetailsmodel onClose={closeModal} />}
+      {isModalOpen2 && <PostPopUp onClose={closeModal2} />}
     </main>
   );
 }

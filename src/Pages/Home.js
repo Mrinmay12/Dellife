@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { io } from "socket.io-client"
 import SmallTopbar from '../Navbar/SmallTopbar';
 import Skeleton from '../Component/SkeletonLoder/Skeleton';
-
+import checkImg from "../Images/check.svg"
 export default function Home() {
   const userlogin = useSelector(state => state.myReducer.data)
   const userlocation = useSelector(state => state.UserLocation.data)
@@ -110,11 +110,14 @@ useEffect(()=>{
     ))}
     </InfiniteScroll>
 </div>
-    <div style={{textAlign:"center",paddingTop:"9px"}}>
+    <div style={{textAlign:"center",paddingTop:"69px"}}>
     {/* {isFetching ?<Loder/>:"No more data"} */}
     {isFetching  &&postdata?.length>0 ?<Loder/>:""}
     {isFetching&&postdata?.length===0 ?<Skeleton/>:""}
-    {!isFetching && data?.length===0?"You're all caught up.":""}
+    {!isFetching && data?.length===0?<>
+    <img src={checkImg} width="30px"/>
+    <p style={{ fontSize:"large" ,fontFamily:'Montserrat'}}>You're all caught up.</p>
+    </>:""}
     </div> 
     </div>
   )

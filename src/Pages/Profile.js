@@ -258,7 +258,7 @@ const[show,setShow]=useState("post")
             <div style={{ marginLeft: "29px" }}>
               <Button value="Setting" handleClick={handleSetting} icon={<i class="fa fa-gear"></i>}/>
             </div>
-            <button onClick={()=>setIsModalOpen(true)}>Permition</button>
+            {/* <button onClick={()=>setIsModalOpen(true)}>Permition</button> */}
           </div>
 
         ):(
@@ -332,7 +332,7 @@ const[show,setShow]=useState("post")
         <ImageModelPopup imageUrl={popupImageUrl} onClose={handleClosePopup} setrefress={setrefress} />
       )}
 
-      {isModalOpen && <ShareDetailsmodel onClose={closeModal} />}
+      {/* {isModalOpen && <ShareDetailsmodel onClose={closeModal} />} */}
     </div>
   )
 }

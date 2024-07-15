@@ -224,3 +224,11 @@ header.clearfix {
     display: block;
     transition: top 0.3s;
   }
+.smallnavbarmobile {
+    background-color:white;
+    position: fixed;
+    top: 130px;
+    width: 100%;
+    display: block;
+    transition: top 0.3s;
+  }
