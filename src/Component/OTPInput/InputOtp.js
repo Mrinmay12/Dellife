@@ -2,7 +2,7 @@ import { useState,useRef,useEffect } from "react";
 import "./Otp.css"
 export const OTPInput = ({ length, onChange }) => {
   const [otp, setOtp] = useState(Array(length).fill(""));
-  const inputRefs = React.useRef([]);
+  const inputRefs = useRef([]);
 
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return;

@@ -16,7 +16,7 @@ import InputField from '../RegisterInput/InputField';
 import SelectDropdown from '../../Select_dropdown/SelectDropdown';
 import Input from '../PostForm/Input';
 import { isValidLink } from '../../Utiles';
-export default function Post() {
+export default function Post({only_use,onClose}) {
   const userlogin = useSelector(state => state.myReducer.data)
   const userlocation = useSelector(state => state.UserLocation.data)
   const navigate=useNavigate();
@@ -173,10 +173,16 @@ const handleSubmit = async (e) => {
 
     if (text === '') {
       navigate("/");
+      if(only_use==="destop"){
+        onClose()
+      }
     } else {
       try {
         await userNewPost(formData);
         navigate("/");
+        if(only_use==="destop"){
+          onClose()
+        }
         setFImage(null);
       } catch (error) {
         console.error(error);

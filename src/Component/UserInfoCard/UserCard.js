@@ -2,47 +2,42 @@ import React,{useState,useEffect} from 'react'
 import "./UserCard.css"
 import MessageIcon from "./message.png" 
 import ConnectIcon from "./connection.png"
-import { useSearchParams,useNavigate,useLocation } from 'react-router-dom';
+import { useSearchParams,useNavigate,useLocation,useParams } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
-import { SearchUser_and_Post } from '../../AllApi/Integrateapi';
+import { SearchUser_and_Post,SearchTags } from '../../AllApi/Integrateapi';
   import InfiniteScroll from "react-infinite-scroll-component";
 import { setRefresh } from '../../redux/action/RefreshAction';
 import { removeDuplicates } from '../../Utiles';
 import Loder from '../LoderComponent/Loder';
-export default function UserCard() {
+
+export default function UserCard({searchby_data}) {
      const navigate=useNavigate()
      const dispatch=useDispatch()
-     const [searchParams,setSearchParams] = useSearchParams();
-     const location = useLocation();
-     // const [searchQuery, setSearchQuery] = useState('');
+     const { title } = useParams();
+   
      const[page,setPage]=useState(1)
      const userlogin = useSelector(state => state.myReducer.data)
-     // useEffect(() => {
-     //      const queryParam = searchParams.get('query');
-     //      setSearchQuery(queryParam || ''); 
-     //    }, [searchParams]);
-
+     const userlocation = useSelector(state => state.UserLocation.data)
 const searchQuery=useSelector(state => state.SearchReducer.data)
+let query=title||searchQuery
         const[alldata,setAlldata]=useState([])
         const[alldata2,setAlldata2]=useState([])
     const [search,setSearch]=useState(false)
         useEffect(() => {
           setPage(1)
-          setAlldata([])
           setAlldata2([])
           setSearch(true)
           const timer = setTimeout(() => {
    
           const getAlldata = async () => {
           try {
-            
-          const response = await SearchUser_and_Post(searchQuery,userlogin.user_id,page,"")
+          const response = await SearchUser_and_Post(query,userlogin.user_id,page,userlogin.work_title||"",userlocation.latitude,userlocation.longitude,searchby_data)
           // setAlldata(response.data)
-          setAlldata(response.data)
+          setAlldata2(response.data)
        
           } catch (e) {
           // setAlldata(e.response.data.data);
-          setAlldata([])
+          setAlldata2([])
           }
           
           }
@@ -54,47 +49,58 @@ const searchQuery=useSelector(state => state.SearchReducer.data)
           
           return () => clearTimeout(timer); 
           
-          }, [ searchQuery])
+          }, [ searchQuery,title])
 
-          useEffect(() => {
-        
-        
-               const getAlldata = async () => {
-               try {
-               const response = await SearchUser_and_Post(searchQuery,userlogin.user_id,page,"")
-               // setAlldata(response.data)
-               setAlldata(response.data)
-               // setAlldata2(response.data)
-               } catch (e) {
-               // setAlldata(e.response.data.data);
-               setAlldata([])
-               }
-               
-               }
-          //     if(page>1){
-               if(userlogin.user_id){
-               getAlldata()
-          }
-               
-          //     }
-           
-               
-               }, [page,userlogin.user_id])
+        console.log(alldata2,"alldata2");
 
-      const loadMore = () => {
-          // if (!isFetching && !isPreviousData) {
+      const loadMore = async() => {
+       
             setPage((prevPage) => prevPage + 1);
-          //   setAlldata((prevData) => [...prevData, ...alldata2]);
-          // }
+            setSearch(true)
+            try {
+            
+              const response = await SearchUser_and_Post(query,userlogin.user_id,page,userlogin.work_title||"",userlocation.latitude,userlocation.longitude,searchby_data)
+        
+              setAlldata2((prevData) => [...prevData, ...response.data]);
+              setSearch(false)
+              } catch (e) {
+              // setAlldata(e.response.data.data);
+              setAlldata2([])
+              setSearch(false)
+              }
+          
         };
 
-        useEffect(() => {
-    if(alldata){
-          setAlldata2((prevData) => [...prevData, ...alldata]);
-    }
-        }, [alldata]);
+ 
 
-        let uniqueIds= removeDuplicates(alldata2,"_id")
+useEffect(() => {
+        
+     const timer = setTimeout(() => {
+     const getAlldata = async () => {
+     try {
+          setSearch(true)
+     const response = await SearchTags(searchQuery)
+  
+     setAlldata(response.data)
+    
+     } catch (e) {
+         setSearch(false)
+     setAlldata([])
+     }finally{
+     setSearch(false)
+     }
+     
+     }
+     if(userlogin.user_id && searchQuery.trim() && searchQuery.length > 0){
+         getAlldata()
+     }
+ }, 1000); 
+           
+ return () => clearTimeout(timer); 
+   
+     }, [searchQuery])
+
+        let uniqueIds= removeDuplicates(alldata,"_id")
         const handleProfile = (id) => {
  
           navigate(`/otherprofile/${new Date().getMilliseconds()}?user_id=${id}`);
@@ -112,7 +118,21 @@ const searchQuery=useSelector(state => state.SearchReducer.data)
       >
    <body> 
      <div class="wrapper">
-     {uniqueIds.map((item) => (
+     {uniqueIds.map((item, index) => (
+              <div
+                key={index}
+                className="li"
+               
+              >
+              
+                <a onClick={()=>handleProfile(item.tages)} className='a'>
+                <i class="fa fa-search" style={{ marginRight:"2px" }}></i>
+                  {item.tages}
+                </a>
+               
+              </div>
+            ))}
+     {/* {uniqueIds.map((item) => (
                               <>
                                    {item.user_details ? (
                                         <>
@@ -145,7 +165,7 @@ const searchQuery=useSelector(state => state.SearchReducer.data)
                                    )}
 
                               </>
-                         ))}
+                         ))} */}
        
         
      </div>
