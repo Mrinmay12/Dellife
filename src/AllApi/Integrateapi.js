@@ -67,7 +67,9 @@ export const UserSavePostGet=(user_id,page)=>apiUrl.get(`/post/user_all_save_pos
 
 //Search Api integrate
 
-export const SearchUser_and_Post=(query,user_id,page,user_work)=>apiUrl.get(`/api/user/search/profile?q=${query}&user_id=${user_id}&page=${page}&user_work=${user_work}`)
+export const SearchTags=(query)=>apiUrl.get(`/api/user/search/tags?q=${query}`)
+export const SearchUser_and_Post=(query,user_id,page,user_work,latitude,longitude,searchby_data)=>apiUrl.get(`/api/user/search/profile?q=${query}&user_id=${user_id}&page=${page}&user_work=${user_work}&latitude=${latitude}&longitude=${longitude}&searchby_data=${searchby_data}`)  
+
 
 
 //Update user
