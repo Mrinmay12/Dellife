@@ -5,9 +5,9 @@ export default function SearchPage() {
 
   const[searchby_data,setsearchby_data]=useState("profile")
 const handleSearch=(e)=>{
-  alert(e)
   setsearchby_data(e)
 }
+
   return (
     <div>
     <div style={{ position:"relative" }}>

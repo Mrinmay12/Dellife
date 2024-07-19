@@ -118,7 +118,9 @@ export default function Topbar() {
     setIsModalOpen2(false);
   };
 
-console.log(splitLocation[1],"pathname",pathname);
+
+
+
   return (
     <main>
       <header className="clearfix">
@@ -147,13 +149,15 @@ console.log(splitLocation[1],"pathname",pathname);
           </li> 
           <li className='numicon'>
           <li><a href="#one" className={pathname === '/' ? 'activ' : ''} style={{ color: pathname === '/' ? "red" : "black" }} onClick={(e) => handleLinkClick(e, 0, '#one')}><FontAwesomeIcon icon={faHome} style={{ color: pathname === '/' ? "red" : "black" }} className="iconstyle" /></a></li>
-            <li>
-              {/* <a href="#three" className={pathname === '/post' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 2, '#three')}> */}
-              <a href="#three" className={pathname === '/post' ? 'activ' : ''} onClick={(e) => ()=>setIsModalOpen(true)}>
-           
-            {pathname === '/post'?<img src={uploadred} style={{width:"54px",height:"48px"}} alt=''/>:<img src={uploadblack} style={{width:"54px",height:"48px"}} alt=''/>}
             
-            </a></li>
+            <li>
+              <div onClick={()=>setIsModalOpen2(true)}>
+              <a href="#three" >
+              <img src={uploadblack} style={{width:"54px",height:"48px"}} alt=''/>
+              </a>
+              </div>
+              </li>
+
 
             <li><a href="#five" className={pathname === '/profile' ? 'activ' : ''} onClick={(e) => handleLinkClick(e, 4, '#five')}><FontAwesomeIcon icon={faUser} style={{ color: pathname === '/profile' ? "red" : "black" }} className="iconstyle" /></a></li>
 
