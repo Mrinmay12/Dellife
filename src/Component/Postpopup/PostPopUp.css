@@ -1,0 +1,14 @@
+.closemodel{
+    width: 25px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    background-color: #ccc;
+    height: 25px;
+    border-radius: 15px;
+    cursor: pointer;
+ 
+}
+.Xicon{
+    margin: 3px;
+}

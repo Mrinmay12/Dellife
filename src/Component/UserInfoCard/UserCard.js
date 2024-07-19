@@ -100,7 +100,8 @@ useEffect(() => {
    
      }, [searchQuery])
 
-        let uniqueIds= removeDuplicates(alldata,"_id")
+        let uniqueIds= removeDuplicates(alldata2,"_id")
+        console.log(uniqueIds,"uniqueIds");
         const handleProfile = (id) => {
  
           navigate(`/otherprofile/${new Date().getMilliseconds()}?user_id=${id}`);
@@ -118,7 +119,7 @@ useEffect(() => {
       >
    <body> 
      <div class="wrapper">
-     {uniqueIds.map((item, index) => (
+     {/* {uniqueIds.map((item, index) => (
               <div
                 key={index}
                 className="li"
@@ -131,8 +132,8 @@ useEffect(() => {
                 </a>
                
               </div>
-            ))}
-     {/* {uniqueIds.map((item) => (
+            ))} */}
+     {uniqueIds.map((item) => (
                               <>
                                    {item.user_details ? (
                                         <>
@@ -142,8 +143,8 @@ useEffect(() => {
                                                   <h1 class="name">{item.user_name}</h1>
                                                   <p class="description">My name is not Keith, but I am a Kitten. This is just basically dummy text. Do not be fooled by the dogs - Cats rule, dogs drool  mrinmay!</p>
                                                   <div class="bottonbtn">
-                                                       <p><img src={ConnectIcon} style={{ height: "31px" }} onClick={()=>handleProfile(item.user_id)}/>Connect</p>
-                                                       <p><img src={MessageIcon} style={{ height: "25px" }} />Message</p>
+                                                       <p><img src={ConnectIcon} style={{ height: "31px" }} onClick={()=>handleProfile(item.user_id)} alt=''/>Connect</p>
+                                                       <p><img src={MessageIcon} style={{ height: "25px" }} alt=''/>Message</p>
                                                   </div>
 
                                              </div>
@@ -155,7 +156,7 @@ useEffect(() => {
                                                   <img src={item.user_pic} alt="" class="profile-image" />
                                                   <h1 class="name">{item.user_name}</h1>
                                                 {item.post_img &&(
-                                                  <img src={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img}?alt=media`} className="searchpostimg"/>
+                                                  <img src={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img}?alt=media`} className="searchpostimg" alt=''/>
                                                 )}  
                                                   <p class="description">{item.post_title?.length>30?item.post_title?.slice(0,30):item.post_title}</p>
                                                   
@@ -165,7 +166,7 @@ useEffect(() => {
                                    )}
 
                               </>
-                         ))} */}
+                         ))}
        
         
      </div>
