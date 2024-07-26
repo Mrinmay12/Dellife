@@ -1,0 +1,30 @@
+.settingcard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.settingdescription {
+    flex: 1;
+}
+
+.settingdescription h3 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+}
+
+.settingdescription p {
+    margin: 0;
+    color: #666;
+}
+
+.arrow {
+    font-size: 1.5em;
+    color: #888;
+    margin-left: 20px;
+}
