@@ -89,21 +89,51 @@ const[show,setShow]=useState("post")
   const handleShow=(e)=>{
     setShow(e)
   }
-console.log(messagedata);
+// console.log(messagedata);
+const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  window.addEventListener('resize', handleResize);
+
+  return () => {
+    window.removeEventListener('resize', handleResize);
+  };
+}, []);
   const handleMessage=async()=>{
-    if(messagedata.present){
-      navigate(`/message/${messagedata.message_id}?userid=${window.btoa(user_id)}`)
-    }else{
-  const json=JSON.stringify({
-        // senderId: userlogin.user_id,
-        senderId: userlogin.message_id,
-        receiverId:user_id
-    })
-    const response=await addTwoUser(json)
-    if(response){
-        navigate(`/message/${response.data.data._id}?userid=${window.btoa(user_id)}`)
+    if(isMobile){
+      if(messagedata.present){
+        navigate(`/chats/${messagedata.message_id}?userid=${window.btoa(user_id)}`)
+      }else{
+    const json=JSON.stringify({
+          // senderId: userlogin.user_id,
+          senderId: userlogin.message_id,
+          receiverId:user_id
+      })
+      const response=await addTwoUser(json)
+      if(response){
+          navigate(`/chats/${response.data.data._id}?userid=${window.btoa(user_id)}`)
+      }
     }
-  }
+    }else{
+      if(messagedata.present){
+        navigate(`/message/${messagedata.message_id}?userid=${window.btoa(user_id)}`)
+      }else{
+    const json=JSON.stringify({
+          // senderId: userlogin.user_id,
+          senderId: userlogin.message_id,
+          receiverId:user_id
+      })
+      const response=await addTwoUser(json)
+      if(response){
+          navigate(`/message/${response.data.data._id}?userid=${window.btoa(user_id)}`)
+      }
+    }
+    }
+ 
   }
   return (
     <div>

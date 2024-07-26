@@ -29,11 +29,12 @@ import { io } from "socket.io-client"
 import Perticularpost from "./Pages/Perticularpost";
 import WebSocket from "./SocketServer/WebSocket";
 import ForgetPassword from "./Pages/LoginPage/ForgetPassword";
+import SearchPage from "./Pages/SearchPage";
 export default function AppRoutes() {
   const dispatch = useDispatch()
   const socket = useRef();
   const refreshdata = useSelector(state => state.RefreshReducer.data)
-  const[appverify,setAppverify]=useState(false)
+  const[appverify,setAppverify]=useState(false)  
 
   const[user_id,setUser_id]=useState("")
   const[message_id,setMessage_id]=useState("")
@@ -206,7 +207,7 @@ if (user_id) {
     <div>
      {token ?(<Topbar /> ):""} 
       <div className="maincontant">
-      {/* <WebSocket locationData={location_data} userId={user_id} message_id={message_id}/> */}
+      <WebSocket locationData={location_data} userId={user_id} message_id={message_id}/>
         <Routes>
           {token  ? (
             <>
@@ -217,7 +218,8 @@ if (user_id) {
               <Route path="/message/:id" element={<Message socket={socket} />} />
               <Route path="/message" element={<Message socket={socket} />} />
               <Route path="/location" element={<Location />} />
-              <Route path="/chats" element={<ChatMessage socket={socket} messageid={"hffhhghghg"}/>} />
+              <Route path="/searchuser/:title" element={<SearchPage />} />
+              <Route path="/chats/:id" element={<ChatMessage socket={socket} />} />
               <Route path="*" element={<ErrorPage />} />
             </>
           ) : (
@@ -232,7 +234,6 @@ if (user_id) {
 
             </>
           )}
-          <Route path="/post" element={<Post />} />
 
           <Route path="/sharepost/:post_id" element={<Perticularpost/>} />
 

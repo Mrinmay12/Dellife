@@ -136,7 +136,12 @@ body {
     padding-left: 8px;
     border-radius: 17px;
 }
-
+.filtericon{
+  width: 24px;
+    margin-top: 27px;
+    height: 27px;
+    margin-left: 11px;
+}
 @media (max-width: 768px) {
   .profileinput {
     background-size: 20px;
@@ -171,6 +176,12 @@ body {
 }
 .centerpostcard{
   padding-left:0px !important
+}
+.filtericon{
+  width: 24px;
+  margin-top: 47px;
+  height: 24px;
+  margin-left: 11px;
 }
 }
 @media (max-width: 740px) {
@@ -207,6 +218,12 @@ body {
 }
 .centerpostcard{
   padding-left:0px !important
+}
+.filtericon{
+  width: 24px;
+  margin-top: 47px;
+  height: 24px;
+  margin-left: 11px;
 }
 }
 /*  */

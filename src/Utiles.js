@@ -1,3 +1,4 @@
+import moment from "moment";
 export function encryptText(inputText, secretCode) {
     let encryptedText = '';
     for (let i = 0; i < inputText.length; i++) {
@@ -12,6 +13,7 @@ export function encryptText(inputText, secretCode) {
 
 
   export function decryptText(encryptedText, secretCode) {
+    if(encryptedText){
     let decryptedText = '';
     for (let i = 0; i < encryptedText.length; i++) { 
       const char = encryptedText[i];
@@ -27,6 +29,7 @@ export function encryptText(inputText, secretCode) {
       decryptedText += String.fromCodePoint(decryptedCharCode);
     }
     return decryptedText;
+  }
   }
 
 
@@ -54,6 +57,47 @@ return `${month}/${day}/${year} ${" "} ${time} ${period}`
 // }
 
 }
+export const UserDate=(date)=>{
+  if(date){
+// Get the timezone dynamically from the client's browser
+const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+// Get current date and time in the specified timezone
+let currentDate = new Date(date).toLocaleString("en-US", { timeZone });
+// Extract date and time components
+let [datePart, timePart] = currentDate.split(", "); // Splitting date and time
+let [month, day, year] = datePart.split("/"); // Extracting month, day, year
+let [time, period] = timePart.split(" "); // Extracting time and period (AM/PM)
+
+// Output the result
+return `${month}/${day}/${year}` 
+  }
+// return{
+//   date:`${month}/${day}/${year}`,
+//   time:time, period
+// }
+
+}
+export const UserTime = (date) => {
+  if (date) {
+    // Get the timezone dynamically from the client's browser
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    // Get current date and time in the specified timezone
+    let currentDate = new Date(date).toLocaleString("en-US", { timeZone });
+
+    let [, timePart] = currentDate.split(", "); // Splitting date and time
+    let [time, period] = timePart.split(" "); // Extracting time and period (AM/PM)
+    let [hours, minutes] = time.split(":"); // Splitting hours and minutes
+
+    // Output the result
+    console.log(`${hours}:${minutes} ${period}`, "timetimetime");
+    return `${hours}:${minutes} ${period}`;
+  }
+
+  return '';
+}
+
 
 
 export function removeDuplicates(array, property) {
@@ -81,3 +125,25 @@ export const validateEmail = (email) => {
      let valid_data= Array.isArray(valid)?true:false
      return valid_data
  };
+
+ export const TimeMoment=(date)=>{
+
+  const currentTime = moment();
+        const uploadTime = moment(date);
+        const duration = moment.duration(currentTime.diff(uploadTime))
+        let formattedTime;
+        if (duration.asSeconds() < 60) {
+          formattedTime = Math.floor(duration.asSeconds()) + ' seconds ago';
+        } else if (duration.asMinutes() < 60) {
+          formattedTime = Math.floor(duration.asMinutes()) + ' minutes ago';
+        } else if (duration.asHours() < 24) {
+          formattedTime = Math.floor(duration.asHours()) + ' hours ago';
+        } else if (duration.asDays() < 30) {
+          formattedTime = Math.floor(duration.asDays()) + ' days ago';
+        } else if (duration.asMonths() < 12) {
+          formattedTime = Math.floor(duration.asMonths()) + ' months ago';
+        } else {
+          formattedTime = Math.floor(duration.asYears()) + ' years ago';
+        }
+        return formattedTime
+ }
