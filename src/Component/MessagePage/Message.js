@@ -33,7 +33,7 @@ export default function Message({socket}) {
   
     <>
 
-      <div class="massagecontainer" style={{marginTop:!isMobile?"-39px":""}}> 
+      <div class="massagecontainer" style={{marginTop:!isMobile?"22px":""}}> 
         <Discussion isMobile={isMobile}/>
         {!isMobile &&(
           <ChatMessage socket={socket} />

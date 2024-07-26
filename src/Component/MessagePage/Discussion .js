@@ -5,26 +5,37 @@ import {
 } from "react-router-dom";
 import { userfriend ,userProfile} from '../../AllApi/Integrateapi';
 import { useSelector } from 'react-redux';
-export default function Discussion({ photo, name, message, timer, isMobile }) {
+import { decryptText,UserTime } from "../../Utiles";
+export default function Discussion({ photo, name, message, timer }) {
   const userId = useSelector(state => state.myReducer.data.message_id)
-  const backgroundImageStyle = {
-    backgroundImage: 'url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80)',
-    // Add any additional styles if needed
-  };
+
   const navigate = useNavigate();
-  const handleOpen = () => {
-    if (isMobile) {
-      navigate("/chats")
-    } else {
-      alert("hello")
-    }
-  }
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const handleMesage=(e,id)=>{
-    navigate("/message/"+e+"?userid="+window.btoa(id))
+    if(isMobile){
+      navigate("/chats/"+e+"?userid="+window.btoa(id))
+    }else{
+navigate("/message/"+e+"?userid="+window.btoa(id))
+    }
+    
+    
   }
-console.log(userId,"userId");
+// console.log(userId,"userId");
   const [memberslist, setMemberlist] = useState([]);
-  const [userProfiles, setUserProfiles] = useState({});
+
 
   useEffect(() => {
     const data = async () => {
@@ -46,7 +57,7 @@ console.log(userId,"userId");
       data();
     }
   }, [userId]);
-
+  const correctSecretCode = "MessageApp123"; 
   // useEffect(() => {
   //   const fetchUserProfile = async (memberId) => {
   //     try {
@@ -94,9 +105,9 @@ console.log(userId,"userId");
         </div>
         <div className="desc-contact">
           <p className="name">{item.user_name}</p>
-          <p className="message">Let's meet for a coffee or something today ?</p>
+          <p className="message">{decryptText(item.last_message,correctSecretCode)}</p>
         </div>
-        <div className="timer">3 min</div>
+        <div className="timer">{UserTime(item.last_message_time)}</div>
       </div>
       ))}
       

@@ -1,4 +1,4 @@
-import React ,{useState,useEffect}from 'react'
+import React ,{useState,useEffect,useRef}from 'react'
 import "./Search.css"
 import searchicon from "./search.png"
 import { useSearchParams } from 'react-router-dom';
@@ -21,6 +21,14 @@ export default function Search() {
  useEffect(()=>{
   dispatch(setSearchdata(search))
  },[search])
+
+ const emailInput = useRef(null);
+
+ useEffect(() => {
+   if (emailInput.current) {
+     emailInput.current.focus();
+   }
+ }, []);
   return (
     <div>
         {/* <div class="title-container">
@@ -29,7 +37,7 @@ export default function Search() {
   </div> */}
   
   <fieldset class="field-container">
-    <input type="text" placeholder="Search..." class="field" value={search} onChange={(e)=>setSearch(e.target.value)}/>
+    <input type="text" ref={emailInput} placeholder="Search..." class="field" value={search} onChange={(e)=>setSearch(e.target.value)}/>
     <div class="icons-container">
       <div class="icon-search"><img src={searchicon} style={{width:"28px"}}/></div>
       <div class="icon-close" onClick={()=>handleClear()}>

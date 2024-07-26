@@ -106,7 +106,7 @@ const nearUsersdata = uniqueObjects.filter((user) => {
   }
       });
       
-  console.log(nearUsersdata,"nearUsersdata");
+  // console.log(nearUsersdata,"nearUsersdata");
   const handleOpenProfile=(id)=>{
     navigate(`/otherprofile/${new Date().getMilliseconds()}?user_id=${id}`)
   }
@@ -115,14 +115,14 @@ const nearUsersdata = uniqueObjects.filter((user) => {
      <div className="shareuserinfo">
      <div className='sharealldetails'>
        <p className='sharetext'>Share your details</p>
-         <label className="toggle-switch">
+         {/* <label className="toggle-switch">
         <input
           type="checkbox"
           checked={isChecked}
           onChange={handleToggle}
         />
         <span className="slider round"></span>
-      </label>
+      </label> */}
       </div>
      </div>
 <hr/>

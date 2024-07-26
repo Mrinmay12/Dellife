@@ -8,6 +8,7 @@ import message from "../Images/message.png"
 import greenTick from "../Images/green_tick.png"
 import { useSelector } from 'react-redux';
 import Smallmodel from '../SmallPupup/Smallmodel';
+import SendIcon from "../CommentModel/Send.svg"
 export default function UserComment({ postid ,user_post_or_not,user_present,countlike,user_like}) {
   const userlogin = useSelector(state => state.myReducer.data)
   const editdata = useSelector(state => state.EditReducer.data)
@@ -133,12 +134,12 @@ useEffect(()=>{
     }
   }
 },[editdata])
-console.log('====================================');
-console.log(editdata,"editdata");
-console.log('====================================');
+const handleSubmit = async () => {
+
+}
   return (
     <div>
-      {commentdata.slice(0, dataslice).map((item) => (
+      {commentdata.filter((item)=>item.post_id===postid).slice(0, dataslice).map((item) => (
         <>
           <div class="user-info2">
             <img className='user-info2_img' src={item.user_pic} alt="User Image" />
@@ -148,7 +149,7 @@ console.log('====================================');
             {item.user_edit &&(
               <>
              
-            <Smallmodel comment_id={item.comment_id} edite_text={item.user_comment} showonly={"comment"}/>
+            <Smallmodel post_id={postid} comment_id={item.comment_id} edite_text={item.user_comment} showonly={"comment"}/>
        
             </>
             )}
@@ -159,7 +160,7 @@ console.log('====================================');
           </div>
         </>
       ))}
-      {commentdata.length > 0 &&(
+      {commentdata.filter((item)=>item.post_id===postid).slice(0, dataslice).length > 0 &&(
         <div style={{ color: "blue" ,cursor:"pointer"}} onClick={() => handleShow()}>{dataslice === Infinity ? "Hide" : "Show more"}</div>
       )}
      
@@ -198,6 +199,11 @@ console.log('====================================');
 
       </div>
 )}
+<div style={{ display:"flex",flexDirection:"row" }}>
+<input className='inputcomment' placeholder='Write your comment'/><div onClick={handleSubmit}  className='sendcomment'>
+          <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
+          </div>
+        </div>
       {isModalOpen && <Commentmodel onClose={closeModal} postId={postId} />}
     </div>
   )

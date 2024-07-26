@@ -128,7 +128,6 @@ const [searchdata,setSearchdata]=useState("")
   }, []);
   const handleProfile = (id) => {
     setSearchdata(id)
-    alert(id)
     navigate(`/searchuser/${id}`)
     setResults([]);
     setQuery('')

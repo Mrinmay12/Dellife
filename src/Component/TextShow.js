@@ -19,6 +19,8 @@ import { setUpdate } from '../redux/action/UpdateAction';
 import Gallery from './ImageGallery/Gallery';
 import { ref, deleteObject } from "firebase/storage";
 import { storage } from '../FirebaseConfig/Firebase';
+import HandleFollow from './HandleFollow';
+import { Date_and_Time, TimeMoment, UserDate } from '../Utiles';
 export default function TextShow({ item }) {
   const navigate=useNavigate()
 const dispatch=useDispatch()
@@ -88,35 +90,81 @@ const handlDelete=async(images)=>{
   return
 }
 }
-const HandleFollow=({id,user_follow})=>{
-  const [Follow,setFollow]=useState(user_follow)
-const handleFollowuser=async()=>{
-  setFollow(!Follow)
-  await FollowUser(id,userlogin.user_id)
-}
-return(
-  <>
-<span className='followuser' onClick={()=>handleFollowuser()}>{Follow?('Following' ):"Follow"}</span>
-  </>
-)
-}
+// const [Follow,setFollow]=useState(false)
+// console.log(Follow,"my_follow");
+// const handleFollowuser=async(id)=>{
+// setFollow(!Follow)
+// try{
+//   await FollowUser(id,userlogin.user_id)
+// }catch(err){
+//   setFollow(false)
+// }
+
+// }
+// const HandleFollow=({id,user_follow})=>{
+//   const [Follow,setFollow]=useState(user_follow)
+//   console.log(Follow,"my_follow");
+// const handleFollowuser=async()=>{
+//   setFollow(!Follow)
+//   try{
+//     await FollowUser(id,userlogin.user_id)
+//   }catch(err){
+//     setFollow(false)
+//   }
+
+// }
+// return(
+//   <>
+//    <div className="btn-theme icon-left" onClick={()=>handleFollowuser()}>{Follow?('Following' ):"+Follow"}</div>
+// {/* <span className='followuser' onClick={()=>handleFollowuser()}>{Follow?('Following' ):"Follow"}</span> */}
+//   </>
+// )
+// }
   return (
     <div>
       {item.Postimage ? (
         <div class="containertext">
-          <div className='topstyle'>
+           {item.user_present &&(
+            <div className='shairicone2'>
+            {item.user_post_or_not?(
+              <FontAwesomeIcon icon={faTrash} style={{ color: "red" }}  onClick={()=>handlDelete(item.Postimage)}/>
+            ):(
+              <Smallmodel post_id={item.post_id}/>
+
+            )}
+            </div>
+          )}
+          <div style={{ display:"flex",justifyContent:"space-between" }}>
+           <div class="user-info">
+                <img src={item.user_pic} alt="User_Image" onClick={handleProfile}/>
+                <div style={{ display:"flex",flexDirection:"column",marginTop:"20px" }}>
+                <span class="user-name" onClick={handleProfile}>{item.user_name}  kkkk</span>
+                
+                <span >{item.work_title||'gggg'}</span>
+                </div>
+                <div style={{ marginLeft:"-25px" }}>
+                <span className='dot'></span>
+                {/* <div className="btn-theme icon-left" onClick={()=>handleFollowuser(item.user_id)}>{Follow?('Following' ):"+Follow"}</div> */}
+                <span>{TimeMoment(item.createdAt)}</span>
+                </div>
+          </div>
+          <div style={{ textAlign:"end" }}>
+                <HandleFollow id={item.user_id} user_follow={item.user_follow} user_id={userlogin.user_id}/> 
+              </div>
+              </div>
+          {/* <div className='topstyle'>
             <div className='profiletag'>
-              <div class="user-info">
+            <div class="user-info">
+              Doctor
+              </div>
+             <div class="user-info">
                 <img src={item.user_pic} alt="User Image" onClick={handleProfile}/>
                 <span class="user-name" onClick={handleProfile}>{item.user_name}</span>
                 <span className='dot'></span>
-                <HandleFollow id={item.user_id} user_follow={item.user_follow}/>
-              </div>
+                <span>22/30/2001</span>
+              </div> 
             </div>
-            {/* <div className='shairicone' onClick={handleShareImage}>
-          <i className="icon clickable fa fa-ellipsis-h right" aria-hidden="true" style={{fontSize:"21px"}}></i>
-         
-          </div> */}
+          
           {item.user_present &&(
             <div className='shairicone2'>
             {item.user_post_or_not?(
@@ -128,7 +176,7 @@ return(
             </div>
           )}
            
-          </div>
+          </div> */}
 
           <h3 style={{ color: item.Color, whiteSpace: "break-spaces" }}>{item.Title}</h3>
 
@@ -159,7 +207,8 @@ return(
                   <img src={item.user_pic} onClick={handleProfile}/>
                   <span class="user-name" onClick={handleProfile}>{item.user_name}</span>
                   <span className='dot'></span>
-                <HandleFollow id={item.user_id} user_follow={item.user_follow}/>
+                <HandleFollow id={item.user_id} user_follow={item.user_follow} user_id={userlogin.user_id}/>
+                {/* <div className="btn-theme icon-left" onClick={()=>handleFollowuser(item.user_id)}>{Follow?('Following' ):"+Follow"}</div> */}
                 </div>
               </div>
               {item.user_present &&(

@@ -14,6 +14,7 @@
   /* Remove #react-slick selector */
   .slidergallery {
     width: 396px;
+    /* width: 724px; */
     position: relative;
   }
   

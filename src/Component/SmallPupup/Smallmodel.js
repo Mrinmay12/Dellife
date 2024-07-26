@@ -77,7 +77,7 @@ export default function Smallmodel({post_id,showonly,comment_id,edite_text}) {
 
   {isModalOpen && <ReportPostComment onClose={closeModal} postId={post_id}/>}
 
-  {isModalOpen2 && <Commentmodel onClose={closeModal2} postId={comment_id} edite_text={edite_text}/>}
+  {isModalOpen2 && <Commentmodel onClose={closeModal2} commentId={comment_id} postId={post_id} edite_text={edite_text}/>}
   </>
   )
 }

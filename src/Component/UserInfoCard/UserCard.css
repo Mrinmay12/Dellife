@@ -23,6 +23,9 @@ body {
     justify-content: center;
     gap: 2rem;
     margin: 2rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .containeruser {
@@ -33,6 +36,7 @@ body {
     overflow: hidden;
     border: 1px solid #333; 
     height: min-content;
+    width: 27%;
 }
 
 .banner-image {
@@ -50,6 +54,7 @@ body {
     clip-path: circle(39px at center);
     /* margin-top: -0.5rem; */
     transition: all 0.5s ease 0;
+    object-fit: contain;
 }
 
 /* .profile-image:hover {
@@ -58,6 +63,10 @@ body {
 
 .name {
     font-size: 1.5rem !important;
+    max-width: 96%;
+    word-wrap: break-word;
+    margin: 3px;
+    word-break: break-word;
 }
 
 /* .description {
@@ -102,10 +111,62 @@ body {
     aspect-ratio: 3 / 2;
     object-fit: contain;
 }
-@media screen and (min-width: 650px) {
+.topbotton_bar{
+    display: flex;
+    flex-direction: row;
+    margin-left: 11px;
+    margin-top: 4px;
+}
+.jobtitle{
+    width: 80%;
+    align-items: start;
+    display: flex;
+    font-family: 'Montserrat';
+    font-weight: 900;
+}
+@media screen and (max-width: 650px) {
     .wrapper {
-         grid-template-columns: repeat(2, minmax(250px, 300px));
+        /* border: 2px solid red; */
+         grid-template-columns: repeat(1, minmax(250px, 300px)) !important;
+         display: grid;
     }
+}
+
+
+.btn-theme {
+    background: #1c95de;
+    font-size: 12px !important;
+    /* margin-top: 0% !important; */
+   
+}
+
+.btn-theme {
+    color: #FFF !important;
+    padding: 0.7rem 2.9rem;
+    font-weight: 400;
+    font-size: 0.875rem;
+    display: inline-block;
+    display: inline-flex;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    margin-bottom: 34px;
+    margin-top: 29px !important;
+    z-index: 0;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-bottom: 34px;
+    margin-top: 29px !important;
+    -webkit-box-shadow: 0px 14px 47px 0px rgba(28, 28, 28, 0.24);
+    -moz-box-shadow: 0px 14px 47px 0px rgba(28, 28, 28, 0.24);
+    box-shadow: 0px 14px 47px 0px rgba(28, 28, 28, 0.24);
+    -webkit-border-radius: 70px;
+    -moz-border-radius: 70px;
+    border-radius: 70px;
+    -ms-border-radius: 70px;
+    -o-border-radius: 70px;
 }
 
 @media screen and (min-width: 960px) {

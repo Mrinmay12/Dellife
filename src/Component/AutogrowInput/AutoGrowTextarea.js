@@ -49,13 +49,13 @@ const AutoGrowTextarea = ({setMessage,id,setmessagedata,messagedata,setMessagest
 //     console.log(err);
 //   }
 // }
-const correctSecretCode = "MessageApp123";
-const base64 = encryptText(text,correctSecretCode)
-useEffect(()=>{
-  setmessagedata([...messagedata,{  messageId:id,
-      sender:userId.user_id,
-      messagetext:base64}])
-},[messageref])
+// const correctSecretCode = "MessageApp123";
+// const base64 = encryptText(text,correctSecretCode)
+// useEffect(()=>{
+//   setmessagedata([...messagedata,{  messageId:id,
+//       sender:userId.message_id,
+//       messagetext:base64}])
+// },[messageref])
 
 const [disable,setDisable]=useState(false)
   const handlesend=async()=>{

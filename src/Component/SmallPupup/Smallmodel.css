@@ -13,7 +13,7 @@
   min-width: 130px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  margin-left: 41px;
+  margin-left: 596px;
 }
 
 .dropdown-content a {
@@ -42,7 +42,7 @@
     min-width: 116px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    margin-left: -46px;
+    margin-left: 318px;
   }
 
 }

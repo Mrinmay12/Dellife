@@ -5,7 +5,7 @@ import "./Comment.css"
 import { EditComment, userComment } from '../../AllApi/Integrateapi';
 import { setEditdata } from '../../redux/action/EditAction';
 import SendIcon from "./Send.svg"
-const Commentmodel = ({ onClose, postId, edite_text }) => {
+const Commentmodel = ({ onClose, postId,commentId, edite_text }) => {
   const userlogin = useSelector(state => state.myReducer.data)
   const [inputValue, setInputValue] = useState('');
   const modalRef = useRef(null);
@@ -38,6 +38,7 @@ const Commentmodel = ({ onClose, postId, edite_text }) => {
     if (response) {
       dispatch(setEditdata({
         comment_id: response.data.id,
+        post_id: postId,
         user_pic: userlogin.user_pic,
         user_name: "You",
         user_comment: inputValue,
@@ -54,10 +55,11 @@ const Commentmodel = ({ onClose, postId, edite_text }) => {
       const json = JSON.stringify({
         user_comment: inputValue
       })
-      const response = await EditComment(postId, userlogin.user_id, json)
+      const response = await EditComment(commentId, userlogin.user_id, json)
       if (response) {
         dispatch(setEditdata({
-          comment_id:postId,
+          comment_id:commentId,
+          post_id: postId,
           user_pic: userlogin.user_pic,
           user_name: "You",
           user_comment: inputValue,
@@ -93,7 +95,7 @@ const Commentmodel = ({ onClose, postId, edite_text }) => {
         </div>
         
       ) : (
-        <div onClick={handleSubmit2} className="commentbtn">
+        <div onClick={handleSubmit} className="commentbtn">
           <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
         </div>
       )}
