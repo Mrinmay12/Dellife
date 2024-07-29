@@ -231,6 +231,8 @@ body {
 .editprofile{
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .profilebottom{
   flex-direction: row;
@@ -303,4 +305,32 @@ body {
     font-size: large;
     font-family: 'Montserrat';
     font-weight: bolder;
+}
+
+.edit-profile-btn {
+  padding: 5px 10px;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #dbdbdb;
+  background-color: #fafafa;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  border-top: 1px solid #dbdbdb;
+  border-bottom: 1px solid #dbdbdb;
+  margin-top: 14px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.number {
+  font-size: 18px;
+  font-weight: 600;
 }

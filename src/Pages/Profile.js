@@ -17,6 +17,8 @@ import save from "../Images/save.jpg"
 import card from "../Images/card.jpg"
 import ShareDetailsmodel from '../Component/DetailsShareModel/ShareDetailsmodel';
 import Advancesetting from '../Component/ProfileEdit/Advancesetting';
+import CardSetting from '../Component/SettingCard/CardSetting';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 export default function Profile() {
   let { post_id } = useParams();
   const dispatch = useDispatch()
@@ -62,9 +64,12 @@ export default function Profile() {
   const [editshow, setEditshow] = useState(false)
   const [editjson,setEditejson]=useState({})
   const [loding,setLoding]=useState(false)
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const handleEdit = async() => {
-    setEditshow((pre) => !pre)
-    setSetting_ope(false)
+    // setEditshow((pre) => !pre)
+    // setSetting_ope(false)
+    setIsModalOpen(true)
   }
   const handleEdit2 = async() => {
     setLoding(true)
@@ -88,7 +93,7 @@ export default function Profile() {
   }
 
   const handleConvert = (a, b) => {
-    alert(b)
+
   }
   const handleSave = () => {
     setDisable(true)
@@ -208,7 +213,7 @@ export default function Profile() {
     }
 
   }, [post_id])
-  console.log(userlogin.user_id, "userlogin.user_id", hidden);
+
 
 const[show,setShow]=useState("post")
   const handleShow=(e)=>{
@@ -217,7 +222,6 @@ const[show,setShow]=useState("post")
     setSetting_ope(false)
   }
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -225,6 +229,9 @@ const[show,setShow]=useState("post")
 
   const handleSetting=()=>{
     setSetting_ope(true)
+  }
+  const handleEdite=()=>{
+    alert(1)
   }
   return (
     <div>
@@ -252,13 +259,33 @@ const[show,setShow]=useState("post")
           </div>
         </div>
         <p className='user_name'>{userlogin.user_name}</p>
-        {!editshow ? (
+        <div style={{ justifyContent: "center", display: "flex" }}>
+              <button class="edit-profile-btn" onClick={handleEdit}>Edit Profile</button>
+              <button class="edit-profile-btn" onClick={handleSetting} style={{ marginLeft:"19px" }}>Setting</button>
+              </div>
+              <div class="profile-stats">
+            <div class="stat">
+                <span class="number">150</span>
+                <span class="label">Posts</span>
+            </div>
+            <div class="stat">
+                <span class="number">300</span>
+                <span class="label">Followers</span>
+            </div>
+            <div class="stat">
+                <span class="number">180</span>
+                <span class="label">Following</span>
+            </div>
+        </div>
+        {/* {!editshow ? (
           <div style={{ justifyContent: "center", display: "flex" }}>
-            <Button value="Edit" handleClick={handleEdit} backcolor={"dimgray"} icon={<i class="fa fa-pencil"></i>}/>
-            <div style={{ marginLeft: "29px" }}>
+              <button class="edit-profile-btn" onClick={handleEdit}>Edit Profile</button>
+              <button class="edit-profile-btn" onClick={handleSetting}>Setting</button>
+            <Button value="Edit" handleClick={handleEdit} backcolor={"dimgray"} icon={<i class="fa fa-pencil"></i>}/> 
+           <div style={{ marginLeft: "29px" }}>
               <Button value="Setting" handleClick={handleSetting} icon={<i class="fa fa-gear"></i>}/>
             </div>
-            {/* <button onClick={()=>setIsModalOpen(true)}>Permition</button> */}
+        
           </div>
 
         ):(
@@ -270,9 +297,9 @@ const[show,setShow]=useState("post")
           )}
           
           </div>
-        )}
+        )} */}
         <br />
-        <hr />
+        {/* <hr /> */}
     
           <>
 
@@ -295,6 +322,7 @@ const[show,setShow]=useState("post")
           )}
       </div>
       <>
+    
         { !setting_ope ?(
 <>
 {!editshow ? (
@@ -312,13 +340,22 @@ const[show,setShow]=useState("post")
         
       ) : (
       <div className='editprofile'>
-        <EditProfile setEditejson={setEditejson} userlogin={userlogin}/>
+    
+      
         </div>
       )}
 </>
         ):(
           <>
           <div className='editprofile'>
+          <div style={{ display:"flex",marginTop:"12px" }}>
+        <FontAwesomeIcon icon={faArrowLeft} onClick={()=>setSetting_ope(false)} style={{ padding: "3px",width:"25px",cursor:"pointer" }} />
+        <h3>Setting</h3>
+        </div>
+         <CardSetting title={'mmm1'} onClickSetting={handleEdite}/>
+         <CardSetting title={'mmm1'} onClickSetting={handleEdite}/>
+         <CardSetting title={'mmm1'} onClickSetting={handleEdite}/>
+      
           <Advancesetting userlogin={userlogin} setSetting_ope={setSetting_ope} profile_lock={userlogin.profile_lock}/>
           </div>
           </>
@@ -332,6 +369,7 @@ const[show,setShow]=useState("post")
         <ImageModelPopup imageUrl={popupImageUrl} onClose={handleClosePopup} setrefress={setrefress} />
       )}
 
+<EditProfile setEditejson={setEditejson} userlogin={userlogin} isOpen={isModalOpen} onClose={closeModal}/>
       {/* {isModalOpen && <ShareDetailsmodel onClose={closeModal} />} */}
     </div>
   )
