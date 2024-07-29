@@ -36,9 +36,9 @@ const AutoGrowTextarea = ({setMessage,id,setmessagedata,messagedata,setMessagest
   };
 
   // UseEffect to resize the textarea whenever the text changes
-  useEffect(() => {
-    resizeTextarea();
-  }, [text]);
+  // useEffect(() => {
+  //   resizeTextarea();
+  // }, [text]);
 // const UpdateLastUpdateMessage=async()=>{
 //   try{
 //     let res=await UpdateLastMessage(id).then((res)=>{
@@ -61,6 +61,9 @@ const [disable,setDisable]=useState(false)
   const handlesend=async()=>{
     Onsubmit()
     setText("")
+    const textarea = textareaRef.current;
+    textarea.style.height = 'auto';
+    textarea.style.height = `50px`;
   //  socket.current.emit("sendMessage", {
   //   senderId: userId,
   //   receiverId:connect_userId,
@@ -69,15 +72,44 @@ const [disable,setDisable]=useState(false)
 
   }
 
-  function handleEnterPress(event){
-    if (event.key === 'Enter' && event.shiftKey) {
-      resizeTextarea();
+  console.log("mmmmdjdjdjdjdjd",text);
 
-    }else if(event.key=== 'Enter'){
-      handlesend()
-         }
+  function handleEnterPress(event){
+    if (event.key === 'Enter') {
+      if (event.shiftKey) {
+        resizeTextarea();
+      } else {
+        handlesend()
+        event.preventDefault();
+      }
+    }
+
  }
-  console.log(connect_userId,"connect_userId");
+
+ const handleKeyDown = (event) => {
+  if (event.key === 'Enter') {
+    if (event.shiftKey) {
+      // // Insert a newline at the current cursor position
+      // const cursorPosition = event.target.selectionStart;
+      // const newValue = 
+      //   text.slice(0, cursorPosition) + 
+      //   '\n' + 
+      //   text.slice(cursorPosition);
+        resizeTextarea();
+      // setText(newValue);
+
+      // setTimeout(() => {
+      //   event.target.selectionStart = cursorPosition + 1;
+      //   event.target.selectionEnd = cursorPosition + 1;
+      // }, 0);
+    } else {
+      event.preventDefault();
+      setText(''); // Clear the input value
+      handlesend()
+    }
+  }
+};
+  // console.log(connect_userId,"connect_userId");
   return (
     <div className="textarea-container">
     <div className="textarea-wrapper">

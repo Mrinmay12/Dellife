@@ -3,12 +3,19 @@ import Input from '../PostForm/Input'
 import Select from 'react-select';
 import SelectDropdown from '../../Select_dropdown/SelectDropdown';
 import PhoneSelect from './PhoneSelect';
-export default function EditProfile({setEditejson,userlogin}) {
+import "../FilterModel/Filtermodel.css"
+import { UpdateUser } from '../../AllApi/Integrateapi';
+import { setRefresh } from '../../redux/action/RefreshAction';
+import { useDispatch } from 'react-redux';
+export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
+  const dispatch=useDispatch()
     const[about,setAbout]=useState("")
     const[phone,setPhone]=useState("") 
     const [link,setLink]=useState("")
     const[email,setEmail]=useState("")
     const [selectedOption, setSelectedOption] = useState("");
+    const [loding,setLoding]=useState(false)
+  
     useEffect(()=>{
       if(userlogin){
         setAbout(userlogin.about)
@@ -26,11 +33,30 @@ export default function EditProfile({setEditejson,userlogin}) {
         user_id:userlogin?.user_id,
         email:email
     }
-    useEffect(()=>{
-      setEditejson(Json)
-    },[Json])
+    // useEffect(()=>{
+    //   setEditejson(Json)
+    // },[Json])
     
+    const handleEdit2 = async() => {
+      setLoding(true)
+      try {
+        const response = await UpdateUser(Json);
   
+        if (response) {
+          setLoding(false)
+  
+        }
+      } catch (error) {
+        console.error(error);
+        setLoding(false)
+      } finally {
+        dispatch(setRefresh(new Date().getMilliseconds()))
+        onClose()
+        // setrefress(new Date().getMilliseconds())
+      }
+     
+  
+    }
 
   const handleChange = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -44,6 +70,12 @@ export default function EditProfile({setEditejson,userlogin}) {
   ];
 
   const customStyles = {
+    menu: (provided, state) => ({
+      ...provided, 
+      marginBottom: 'auto', // This is important to prevent the dropdown from pushing the input field up
+      marginTop: '0',       // Ensures no additional margin at the top
+    }),
+    menuPortal: base => ({ ...base, zIndex: 9999 }),
     control: (provided, state) => ({
       ...provided,
       borderColor: state.isFocused ? '#007bff' : '#ced4da', // border color when focused
@@ -78,7 +110,17 @@ export default function EditProfile({setEditejson,userlogin}) {
 
 
   return (
-    <div>
+    <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={onClose}>
+    <div
+      className={`modal-content ${isOpen ? 'slide-up' : 'slide-down'}`}
+      onClick={e => e.stopPropagation()}
+    >
+    {loding?(
+            <p style={{marginTop:"2px",cursor:"pointer"}} ><button className='postbtn'>Saved....</button></p>
+          ):(
+            <p style={{marginTop:"2px",cursor:"pointer"}} onClick={()=>handleEdit2()}><button className='postbtn'>Save</button></p>
+          )}
+      <span className="close-button" onClick={onClose}>&times;</span>
      {/* <textarea id="message" className="input" value={about} placeholder="About" onChange={(e)=>setAbout(e.target.value)}></textarea> */}
         <Input placeholder="About" onchange={setAbout} value={about} inputtype="text"/>
         <Input placeholder="link" onchange={setLink} value={link} inputtype="url"/>
@@ -94,7 +136,10 @@ export default function EditProfile({setEditejson,userlogin}) {
       isSearchable={true}
       placeholder={"Search profession"}
       styles={customStyles}
+      menuPlacement="top"  // Set the placement of the menu
+    menuPortalTarget={document.body}  // Renders the dropdown in the portal
     />
+    </div>
     </div>
   )
 }

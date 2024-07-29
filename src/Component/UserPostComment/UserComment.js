@@ -200,7 +200,8 @@ const handleSubmit = async () => {
       </div>
 )}
 <div style={{ display:"flex",flexDirection:"row" }}>
-<input className='inputcomment' placeholder='Write your comment'/><div onClick={handleSubmit}  className='sendcomment'>
+<input className='inputcomment' placeholder='Write your comment'/>
+<div onClick={handleSubmit}  className='sendcomment'>
           <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
           </div>
         </div>

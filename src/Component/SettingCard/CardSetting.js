@@ -1,15 +1,19 @@
-import React from 'react'
+import React,{useState} from 'react'
 import "./CardSetting.css"
-export default function CardSetting() {
+import ArrowIcon from "./arrow.png"
+export default function CardSetting({title,onClickSetting}) {
+  const handleClick=()=>{
+    onClickSetting()
+  }
   return (
     <div>
-        <div class="settingcard">
+        <div class="settingcard" onClick={()=>handleClick()}>
         <div class="settingdescription">
-            <h3>Card Title</h3>
+            <h3>{title}</h3>
         
         </div>
         <div class="arrow">
-            &rarr;
+         <img width='20px' src={ArrowIcon}/>
         </div>
     </div>
     </div>
