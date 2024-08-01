@@ -147,3 +147,15 @@ export const validateEmail = (email) => {
         }
         return formattedTime
  }
+
+ export const DateShowMonth=(dateString)=>{
+
+  const date = new Date(dateString);
+
+const day = date.getUTCDate();
+const month = date.toLocaleString('default', { month: 'long' });
+const year = date.getUTCFullYear();
+
+const formattedDate = `${day<=9?`0${day}`:day}-${month}-${year}`;
+return formattedDate
+ }

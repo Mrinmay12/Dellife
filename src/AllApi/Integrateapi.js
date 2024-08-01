@@ -105,6 +105,12 @@ export const ReportPost=(user_id,post_id,json)=>apiUrl.post(`/report_post/${user
 
 export const FollowUser=(post_user_id,user_id)=>apiUrl.post(`/follow_users?connect_user_id=${post_user_id}&request_user_id=${user_id}`)
 
+export const FollowUserList=(user_id,page,debouncedValue)=>apiUrl.get(`/follow_users_list?user_id=${user_id}&q=${debouncedValue}&limit=10&page=${page}`)
+
+export const FollowersUserList=(message_id,page,debouncedValue)=>apiUrl.get(`/followers_users_list?message_id=${message_id}&q=${debouncedValue}&limit=10&page=${page}`)
+
+
+
 //delete comment 
 
 export const DeleteComment=(comment_id)=>apiUrl.delete(`/api/userpost/user/delete?comment_id=${comment_id}`)

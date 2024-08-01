@@ -30,6 +30,8 @@ import Perticularpost from "./Pages/Perticularpost";
 import WebSocket from "./SocketServer/WebSocket";
 import ForgetPassword from "./Pages/LoginPage/ForgetPassword";
 import SearchPage from "./Pages/SearchPage";
+import LandingPage from "./Component/Landing/LandingPage";
+import PrivacyPolicy from "./Pages/PrivacyPolicy";
 export default function AppRoutes() {
   const dispatch = useDispatch()
   const socket = useRef();
@@ -38,15 +40,23 @@ export default function AppRoutes() {
 
   const[user_id,setUser_id]=useState("")
   const[message_id,setMessage_id]=useState("")
-
+   const[Landing_show,setLanding_show]=useState(true)
   useEffect(() => {
     const User_details = async () => {
       try {
+        setLanding_show(true)
         let user_data = await Userdetails(user_id)
         dispatch(setData(user_data.data.data))
         setMessage_id(user_data.data.data.message_id)
+        setTimeout(()=>{
+       setLanding_show(false)
+        },3000)
+       
       } catch (err) {
         window.location.reload()
+        setTimeout(()=>{
+          setLanding_show(false)
+           },3000)
         console.log(err);
       }
     }
@@ -65,10 +75,15 @@ export default function AppRoutes() {
          if(res){
           setUser_id(res.data.user_id)
           setAppverify(true)
+          setTimeout(()=>{
+            setLanding_show(false)
+             },3000)
           // navigate("/")
          }
       } catch (err) {
-        
+        setTimeout(()=>{
+          setLanding_show(false)
+           },3000)
         localStorage.removeItem('user_id');
         localStorage.removeItem("token")
         setToken("")
@@ -205,7 +220,9 @@ if (user_id) {
   
   return (
     <div>
-     {token ?(<Topbar /> ):""} 
+      {Landing_show ? <LandingPage/>:(
+        <>
+      {token ?(<Topbar /> ):""} 
       <div className="maincontant">
       <WebSocket locationData={location_data} userId={user_id} message_id={message_id}/>
         <Routes>
@@ -236,9 +253,12 @@ if (user_id) {
           )}
 
           <Route path="/sharepost/:post_id" element={<Perticularpost/>} />
+          <Route path="/Privacy-policy" element={<PrivacyPolicy/>} />
 
         </Routes>
       </div>
+      </>)}
+     
     </div>
   )
 }

@@ -19,11 +19,20 @@ import ShareDetailsmodel from '../Component/DetailsShareModel/ShareDetailsmodel'
 import Advancesetting from '../Component/ProfileEdit/Advancesetting';
 import CardSetting from '../Component/SettingCard/CardSetting';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import SideModel from '../Component/SidePopup/SideModel';
+import SideModel2 from '../Component/SidePopup/SideModel2';
+import { useNavigate } from 'react-router-dom';
+import userIcon from "../Component/Images/userIcon.svg"
+import lockIcon from "../Component/Images/lockIcon.svg"
+import SecurityIcon from '../Component/Images/cyber-security-Icon.svg'
+import blockIcon from '../Component/Images/blockIcon.svg'
+import AboutModel from '../Component/SettingAllModel/AboutModel';
+import AccountPoliceModel from '../Component/SettingAllModel/AccountPoliceModel';
 export default function Profile() {
   let { post_id } = useParams();
   const dispatch = useDispatch()
+  const navigator=useNavigate()
   const userlogin = useSelector(state => state.myReducer.data)
-  console.log(userlogin, "userId");
   const [showPopup, setShowPopup] = useState(false);
   const [popupImageUrl, setPopupImageUrl] = useState("");
   const [refress, setrefress] = useState("")
@@ -216,6 +225,13 @@ export default function Profile() {
 
 
 const[show,setShow]=useState("post")
+
+const [isSidebarOpen2, setSidebarOpen2] = useState(false);
+const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+const [isSettingOpen, setisSettingOpen] = useState(false);
+const [isSettingOpen1, setisSettingOpen1] = useState(false);
+
   const handleShow=(e)=>{
     setShow(e)
     setEditshow(false)
@@ -230,9 +246,37 @@ const[show,setShow]=useState("post")
   const handleSetting=()=>{
     setSetting_ope(true)
   }
-  const handleEdite=()=>{
-    alert(1)
+  const handleBlock=()=>{
+ 
   }
+  const handlePrivacy=()=>{
+  //  navigator('/Privacy-policy')
+  window.open('/Privacy-policy', '_blank')
+  }
+
+  const handleAbout=()=>{
+    setisSettingOpen(true)
+  }
+  const handleAccount=()=>{
+    setisSettingOpen1(true)
+  }
+
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
+
+  const toggleSidebar2 = () => {
+    setSidebarOpen2(!isSidebarOpen2);
+  };
+
+  const toggSetting = () => {
+    setisSettingOpen(!isSettingOpen);
+  };
+  const toggSetting1 = () => {
+    setisSettingOpen1(!isSettingOpen1);
+  };
   return (
     <div>
 
@@ -258,22 +302,22 @@ const[show,setShow]=useState("post")
             </div>
           </div>
         </div>
-        <p className='user_name'>{userlogin.user_name}</p>
+        <p className='user_name user_name_name' >{userlogin.user_name}</p>
         <div style={{ justifyContent: "center", display: "flex" }}>
               <button class="edit-profile-btn" onClick={handleEdit}>Edit Profile</button>
               <button class="edit-profile-btn" onClick={handleSetting} style={{ marginLeft:"19px" }}>Setting</button>
               </div>
               <div class="profile-stats">
             <div class="stat">
-                <span class="number">150</span>
+                <span class="number">{userlogin.total_post}</span>
                 <span class="label">Posts</span>
             </div>
-            <div class="stat">
-                <span class="number">300</span>
+            <div class="stat" onClick={()=>toggleSidebar ()}>
+                <span class="number">{userlogin.total_follow}</span>
                 <span class="label">Followers</span>
             </div>
-            <div class="stat">
-                <span class="number">180</span>
+            <div class="stat" onClick={()=>toggleSidebar2 ()}>
+                <span class="number">{userlogin.total_following}</span>
                 <span class="label">Following</span>
             </div>
         </div>
@@ -352,9 +396,10 @@ const[show,setShow]=useState("post")
         <FontAwesomeIcon icon={faArrowLeft} onClick={()=>setSetting_ope(false)} style={{ padding: "3px",width:"25px",cursor:"pointer" }} />
         <h3>Setting</h3>
         </div>
-         <CardSetting title={'mmm1'} onClickSetting={handleEdite}/>
-         <CardSetting title={'mmm1'} onClickSetting={handleEdite}/>
-         <CardSetting title={'mmm1'} onClickSetting={handleEdite}/>
+         <CardSetting title={'About your account'} onClickSetting={handleAbout} img={userIcon}/>
+         <CardSetting title={'Account policy'} onClickSetting={handleAccount} img={lockIcon} profile_lock={userlogin.profile_lock?'private':'public'}/>
+         <CardSetting title={'Privacy policy'} onClickSetting={handlePrivacy} img={SecurityIcon} />
+         <CardSetting title={'Blocked'} onClickSetting={handleBlock} img={blockIcon}/>
       
           <Advancesetting userlogin={userlogin} setSetting_ope={setSetting_ope} profile_lock={userlogin.profile_lock}/>
           </div>
@@ -371,6 +416,14 @@ const[show,setShow]=useState("post")
 
 <EditProfile setEditejson={setEditejson} userlogin={userlogin} isOpen={isModalOpen} onClose={closeModal}/>
       {/* {isModalOpen && <ShareDetailsmodel onClose={closeModal} />} */}
+      <SideModel isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
+      <SideModel2 isOpen={isSidebarOpen2} toggleSidebar={toggleSidebar2}/>
+
+      {/* Setting all model */}
+      <AboutModel isOpen={isSettingOpen} onClose={toggSetting}/>
+      <AccountPoliceModel isOpen={isSettingOpen1} onClose={toggSetting1}/>
+
+
     </div>
   )
 }

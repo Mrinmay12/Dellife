@@ -132,7 +132,7 @@ export default function Topbar() {
   const userId = useSelector((state) => state.myReducer.data.message_id);
   const [memberslist, setMemberlist] = useState([]);
   useEffect(() => {
-    setBorderPosition(51.42857142857143);
+    // setBorderPosition(51.42857142857143);
     const data = async () => {
       try {
         const response = await userfriend(userId);

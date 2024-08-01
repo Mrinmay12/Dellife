@@ -328,9 +328,14 @@ body {
 
 .stat {
   text-align: center;
+  cursor:context-menu;
 }
 
 .number {
   font-size: 18px;
   font-weight: 600;
+}
+.user_name_name{
+  font-size: x-large !important;
+  font-family: 'Montserrat' !important;
 }

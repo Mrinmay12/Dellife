@@ -135,6 +135,10 @@ useEffect(() => {
     }
  
   }
+
+  const handleFollow=()=>{
+
+  }
   return (
     <div>
 
@@ -158,13 +162,15 @@ useEffect(() => {
             </div>
           </div>
         </div>
-        <p className='user_name'>{user_name}</p>
+        <p className='user_name user_name_name'>{user_name}</p>
         <p>50 % user like this profile</p>
           <div style={{ justifyContent: "center", display: "flex" }}>
-            <Button value="Connect" backcolor={"dimgray"} />
+          <button class="edit-profile-btn" onClick={handleFollow}>Follow</button>
+          <button class="edit-profile-btn" onClick={handleMessage} style={{ marginLeft:"19px" }}>Message</button>
+            {/* <Button value="Connect" backcolor={"dimgray"} />
             <div style={{ marginLeft: "29px" }}>
               <Button value="Message" handleClick={handleMessage} />
-            </div>
+            </div> */}
           </div>
 
     
