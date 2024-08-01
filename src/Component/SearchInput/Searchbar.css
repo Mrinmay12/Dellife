@@ -79,3 +79,12 @@
     color: #999; /* Icon color */
     pointer-events: none; /* Ensure the icon does not capture pointer events */
 }
+
+.search-icon2 {
+    position: absolute;
+    top: 50%;
+    left: -14px; /* Adjust the left position as needed */
+    transform: translateY(-50%);
+    color: #999; /* Icon color */
+    pointer-events: none; /* Ensure the icon does not capture pointer events */
+}

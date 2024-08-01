@@ -1,0 +1,17 @@
+.landingepage{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    height: 79vh;
+    overflow: hidden;
+    flex-direction: column;
+}
+.landinglogoimg{
+    width: 309px;
+    margin: 51px;
+    border-radius: 31px
+}
+.landingtext{
+    font-family: "Sofia", sans-serif;
+}

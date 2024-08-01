@@ -1,0 +1,6 @@
+.model_user_image{
+    width: 93px;
+    height: 93px;
+    border-radius: 95px;
+    object-fit: cover;
+}

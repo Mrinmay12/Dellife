@@ -1,0 +1,47 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -298px; /* Width of the sidebar */
+    width: 298px;
+    height: 100%;
+    background-color:#171717;
+    color: white;
+    transition: right 0.3s ease;
+    z-index: 1000;
+    padding: 20px;
+    overflow-y: scroll;
+  }
+  
+  .sidebar.open {
+    right: 0;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .sidebar-content {
+    margin-top: 50px;
+  }
+    .edit-content {
+    margin-left: 10px;
+}
+
+.side-model-name {
+  width: 107px;
+  white-space: break-spaces;
+  word-wrap: break-word;
+}
+
+.sidemodel-loader{
+  display: flex;
+    justify-content: center;
+}
+  

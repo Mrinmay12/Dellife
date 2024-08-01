@@ -14,6 +14,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { setRefresh } from "../../redux/action/RefreshAction";
 import { removeDuplicates } from "../../Utiles";
 import Loder from "../LoderComponent/Loder";
+import { setData } from "../../redux/action/LoginAction";
+import HandleFollow from "../HandleFollow";
 
 export default function UserCard({ searchby_data }) {
   const navigate = useNavigate();
@@ -188,25 +190,43 @@ export default function UserCard({ searchby_data }) {
     navigate(`/otherprofile/${new Date().getMilliseconds()}?user_id=${id}`);
   };
 
-  const HandleFollow=({id,user_follow})=>{
-    const [Follow,setFollow]=useState(user_follow)
-  const handleFollowuser=async()=>{
-    setFollow(!Follow)
-    try{
-      await FollowUser(id,userlogin.user_id)
-    }catch(err){
-      setFollow(false)
-    }
-    
-  }
 
-  return(
-    <>
-     <div className="btn-theme icon-left" onClick={()=>handleFollowuser()}>{Follow?('Following' ):"+Follow"}</div>
-  {/* <span className='followuser' onClick={()=>handleFollowuser()}>{Follow?('Following' ):"Follow"}</span> */}
-    </>
-  )
-  }
+
+
+  // const HandleFollow=({id,user_follow})=>{
+  //   const [Follow,setFollow]=useState(user_follow)
+  //  console.log(Follow,"FollowFollowFollowFollow");
+  // const handleFollowuser=async()=>{
+  //   setFollow(!Follow)
+  //   try{
+  //    let res= await FollowUser(id,userlogin.user_id)
+  //    if(res ){
+  //     if(!Follow){
+  //       dispatch(setData({...userlogin,total_following:userlogin.total_following+1}))
+  //       setFollow(!Follow)
+  //     }else{
+  //       dispatch(setData({...userlogin,total_following:userlogin.total_following-1}))
+  //       setFollow(!Follow)
+  //     }
+    
+  //    }
+  //   }catch(err){
+
+  //     setFollow(false)
+  //   }
+    
+  // }
+
+  // useEffect(()=>{
+
+  // })
+  // return(
+  //   <>
+  //    <div className="btn-theme icon-left" onClick={()=>handleFollowuser()}>{Follow?('Following' ):"+Follow"}</div>
+  // {/* <span className='followuser' onClick={()=>handleFollowuser()}>{Follow?('Following' ):"Follow"}</span> */}
+  //   </>
+  // )
+  // }
 
   //screen size
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -280,7 +300,8 @@ export default function UserCard({ searchby_data }) {
                                                    <p><img src={ConnectIcon} style={{ height: "31px" }} onClick={()=>handleProfile(item.user_id)} alt=''/>Connect</p>
                                                    <p><img src={MessageIcon} style={{ height: "25px" }} alt=''/>Message</p>
                                               </div> */}
-                                              <HandleFollow id={item.user_id} user_follow={item.user_follow}/>
+                                              <HandleFollow id={item.message_id} user_follow={item.user_follow} user_id={userlogin.user_id}/>
+                                              {/* <HandleFollow id={item.message_id} user_follow={item.user_follow}/> */}
                 </div>
               </>
           
@@ -330,7 +351,8 @@ export default function UserCard({ searchby_data }) {
                       <div className="banner-image"></div>
                       <img src={item.user_pic} alt="" className="profile-image" />
                       <h1 className="name">{item.user_name}</h1>
-                      <HandleFollow id={item.user_id} user_follow={item.user_follow}/>
+                      {/* <HandleFollow id={item.message_id} user_follow={item.user_follow}/> */}
+                      <HandleFollow id={item.message_id} user_follow={item.user_follow} user_id={userlogin.user_id}/>
                       {item.post_img && (
                         <img
                           src={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img}?alt=media`}
