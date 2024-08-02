@@ -53,28 +53,36 @@ export default function Smallmodel({post_id,showonly,comment_id,edite_text}) {
     dispatch(setUpdate(comment_id))
   }
   }
+
+  const [showModal, setShowModal] = useState(false);
+ 
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
   return (
     <>
-    {showonly==='comment'?(
-      <div class="dropdown">
-    <div class="dropdown-btn icon clickable fa  right"> •••</div>
-    <div class="dropdown-content" style={{marginLeft:"-37px"}}>
-    <a onClick={()=>setIsModalOpen2(true)}><i class="fa fa-pencil" style={{marginRight:"19px"}} ></i>Edit</a>
-<a onClick={()=>handleDelete()}><i class="fa fa-trash-o" style={{marginRight:"19px"}} ></i>Delete</a>
-    </div>
-  </div>
-    ):(
-      <div class="dropdown">
-    <div class="dropdown-btn icon clickable right">•••</div>
-    <div class="dropdown-content">
-    <a onClick={handleSave}><img style={{height:"17px",marginRight:"19px"}} src={save}/>{usersavepost?"Unsave":"Saved"}</a>
-    <a href="#about"><i class="fa fa-copy" style={{marginRight:"19px"}}></i>copy</a>
-<a onClick={()=>setIsModalOpen(true)}><i class="fa fa-flag-o" style={{marginRight:"19px"}} ></i>Report</a>
-    </div>
-  </div>
-    )}
-
-
+   <button onClick={toggleModal} className="three-dot-button">
+                •••
+              </button>
+   
+            {showModal && (
+              <div className="messagemodal">
+                <div className="" style={{ flexDirection:"column" }}>
+                  <div style={{ display: "flex", }}>
+                   <p>
+                      Unblock User
+                    </p>
+                  </div>
+                  <div style={{ border:"", textAlign:"center"}}>
+                    <button onClick={toggleModal} className="model-close-button" 
+                     style={{  display:"inline-block", padding:"4px 10px",alignSelf:"center", backgroundColor:"#fff"}}>
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
   {isModalOpen && <ReportPostComment onClose={closeModal} postId={post_id}/>}
 
   {isModalOpen2 && <Commentmodel onClose={closeModal2} commentId={comment_id} postId={post_id} edite_text={edite_text}/>}

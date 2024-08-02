@@ -84,7 +84,10 @@ const handleLogout=()=>{
       }
   return (
     <div>
-    <div style={{display:"flex",paddingTop:"20px"}}>
+      <div style={{marginTop:"20px",marginBottom:"30px"}}>
+        <Button value="Logout" handleClick={handleLogout} backcolor={"#696969bd"} icon={<i class="fa fa-sign-out"></i>}/>
+        </div>
+    {/* <div style={{display:"flex",paddingTop:"20px"}}>
   <FontAwesomeIcon icon={faArrowLeft} onClick={()=>setSetting_ope(false)} style={{ padding: "8px" }} /><p style={{fontSize:"20px"}}>Back</p>
     </div>
     <div style={{marginTop:"20px"}}>
@@ -108,7 +111,7 @@ const handleLogout=()=>{
             </div>
             </div>
             </>
-        )}
+        )} */}
         {isModalOpen2 &&(
             <>
             <div className="modal-container" ref={modalRef}>

@@ -367,3 +367,52 @@
     top: -1px;
 }
 }
+
+
+.three-dot-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 25px;
+}
+
+.messagemodal {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 12px;
+  height: 97px;
+}
+
+.messagemodal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.model-close-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 19px;
+
+}
+.twocontent-message{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.blockuser{
+  margin-left: 3px;
+  cursor: pointer;
+  font-size: larger;
+  font-family: 'Montserrat';
+}

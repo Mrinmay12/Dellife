@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import Commentmodel from '../CommentModel/Commentmodel';
-import { userCommentget, postLike, getLike,disLike } from '../../AllApi/Integrateapi';
+import { userCommentget, postLike, getLike,disLike, userComment } from '../../AllApi/Integrateapi';
 import "..//TextShow.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faCommentSms, faHeart, faShare } from '@fortawesome/free-solid-svg-icons';
 import message from "../Images/message.png"
 import greenTick from "../Images/green_tick.png"
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import Smallmodel from '../SmallPupup/Smallmodel';
 import SendIcon from "../CommentModel/Send.svg"
+import { setEditdata } from '../../redux/action/EditAction';
 export default function UserComment({ postid ,user_post_or_not,user_present,countlike,user_like}) {
   const userlogin = useSelector(state => state.myReducer.data)
   const editdata = useSelector(state => state.EditReducer.data)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const postreff = useSelector(state => state.UpdateReducer.data)
+  const dispatch=useDispatch()
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -134,9 +136,34 @@ useEffect(()=>{
     }
   }
 },[editdata])
+const[inputValue,setInputValue]=useState('')
 const handleSubmit = async () => {
+  const json = JSON.stringify({
+    post_id: postid,
+    user_id: userlogin.user_id,
+    user_comment: inputValue
+  })
+  const response = await userComment(json)
+  if (response) {
+    setCommentdata([{comment_id: response.data.id,
+      post_id: postid,
+      user_pic: userlogin.user_pic,
+      user_name: "You",
+      user_comment: inputValue,
+      user_edit:true},...commentdata])
+    // dispatch(setEditdata({
+    //   comment_id: response.data.id,
+    //   post_id: postId,
+    //   user_pic: userlogin.user_pic,
+    //   user_name: "You",
+    //   user_comment: inputValue,
+    //   user_edit:true
+    // }))
+    setInputValue('')
+  }
+};
+console.log(commentdata,"commentdatacommentdatacommentdata");
 
-}
   return (
     <div>
       {commentdata.filter((item)=>item.post_id===postid).slice(0, dataslice).map((item) => (
@@ -200,8 +227,8 @@ const handleSubmit = async () => {
       </div>
 )}
 <div style={{ display:"flex",flexDirection:"row" }}>
-<input className='inputcomment' placeholder='Write your comment'/>
-<div onClick={handleSubmit}  className='sendcomment'>
+<input className='inputcomment' placeholder='Write your comment' value={inputValue} onChange={(e)=>setInputValue(e.target.value)}/>
+<div onClick={()=>handleSubmit()}  className='sendcomment'>
           <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
           </div>
         </div>

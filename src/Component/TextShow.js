@@ -328,7 +328,7 @@ const handlDelete=async(images)=>{
 
 
       {/* <Checkbox/>   */}
-      {isModalOpen && <Commentmodel onClose={closeModal} postId={postId}/>}
+      {/* {isModalOpen && <Commentmodel onClose={closeModal} postId={postId}/>} */}
     </div>
   )
 }
