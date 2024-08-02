@@ -28,12 +28,15 @@ import SecurityIcon from '../Component/Images/cyber-security-Icon.svg'
 import blockIcon from '../Component/Images/blockIcon.svg'
 import AboutModel from '../Component/SettingAllModel/AboutModel';
 import AccountPoliceModel from '../Component/SettingAllModel/AccountPoliceModel';
+import SideModel3 from '../Component/SidePopup/SideModel3';
+import SideModel4 from '../Component/SidePopup/SideModel4';
 export default function Profile() {
   let { post_id } = useParams();
   const dispatch = useDispatch()
   const navigator=useNavigate()
   const userlogin = useSelector(state => state.myReducer.data)
   const [showPopup, setShowPopup] = useState(false);
+  const [showPopup2, setShowPopup2] = useState(false);
   const [popupImageUrl, setPopupImageUrl] = useState("");
   const [refress, setrefress] = useState("")
   const [ProfileImage, setProfileImage] = useState(null)
@@ -60,6 +63,10 @@ export default function Profile() {
   const handleClosePopup = () => {
     // setPopupImageUrl('');
     setShowPopup(false);
+  };
+  const handleClosePopup2 = () => {
+    // setPopupImageUrl('');
+    setShowPopup2(false);
   };
   const handleOpenPopup = (imageUrl) => {
     setPopupImageUrl(imageUrl);
@@ -227,6 +234,7 @@ export default function Profile() {
 const[show,setShow]=useState("post")
 
 const [isSidebarOpen2, setSidebarOpen2] = useState(false);
+const [isSidebarOpen3, setSidebarOpen3] = useState(false);
 const [isSidebarOpen, setSidebarOpen] = useState(false);
 
 const [isSettingOpen, setisSettingOpen] = useState(false);
@@ -247,7 +255,12 @@ const [isSettingOpen1, setisSettingOpen1] = useState(false);
     setSetting_ope(true)
   }
   const handleBlock=()=>{
- 
+    if(userlogin.user_block_list){
+      setSidebarOpen3(!isSidebarOpen3)
+    }else{
+    setShowPopup2(true)
+    }
+    // setSidebarOpen3(!isSidebarOpen3)
   }
   const handlePrivacy=()=>{
   //  navigator('/Privacy-policy')
@@ -269,6 +282,9 @@ const [isSettingOpen1, setisSettingOpen1] = useState(false);
 
   const toggleSidebar2 = () => {
     setSidebarOpen2(!isSidebarOpen2);
+  };
+  const toggleSidebar3 = () => {
+    setSidebarOpen3(!isSidebarOpen3);
   };
 
   const toggSetting = () => {
@@ -418,11 +434,14 @@ const [isSettingOpen1, setisSettingOpen1] = useState(false);
       {/* {isModalOpen && <ShareDetailsmodel onClose={closeModal} />} */}
       <SideModel isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
       <SideModel2 isOpen={isSidebarOpen2} toggleSidebar={toggleSidebar2}/>
+      <SideModel3 isOpen={isSidebarOpen3} toggleSidebar={toggleSidebar3}/>
 
       {/* Setting all model */}
       <AboutModel isOpen={isSettingOpen} onClose={toggSetting}/>
       <AccountPoliceModel isOpen={isSettingOpen1} onClose={toggSetting1}/>
-
+      {showPopup2 && (
+        <SideModel4  onClose={handleClosePopup2}  title={'You have no user block'}/>
+      )}
 
     </div>
   )

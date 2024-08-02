@@ -115,3 +115,8 @@ export const FollowersUserList=(message_id,page,debouncedValue)=>apiUrl.get(`/fo
 
 export const DeleteComment=(comment_id)=>apiUrl.delete(`/api/userpost/user/delete?comment_id=${comment_id}`)
 export const EditComment=(comment_id,user_id,json)=>apiUrl.put(`/api/userpost/user/edit?comment_id=${comment_id}&user_id=${user_id}`,json)
+
+//Block user
+export const BlockUser=(message_connect_id,message_id)=>apiUrl.put(`api/user/block/user?message_connect_id=${message_connect_id}&message_id=${message_id}`)
+
+export const BlockUserList=(message_id,page)=>apiUrl.get(`/api/user/block/user/list?message_id=${message_id}&page=${page}&limit=10`)
