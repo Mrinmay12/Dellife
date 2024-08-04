@@ -203,7 +203,9 @@ export default function Profile() {
     } catch (error) {
       console.error(error);
     } finally {
-      dispatch(setRefresh(new Date().getMilliseconds()))
+      // setPopupImageUrl(userlogin.user_pic)
+      dispatch(setData({...userlogin,user_pic:ProfileImage}))
+      // dispatch(setRefresh(new Date().getMilliseconds()))
       // setrefress(new Date().getMilliseconds())
     }
   }
@@ -277,14 +279,20 @@ const [isSettingOpen1, setisSettingOpen1] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
+    setSidebarOpen2(!isSidebarOpen2);
+    setSidebarOpen3(!isSidebarOpen3);
   };
 
 
   const toggleSidebar2 = () => {
     setSidebarOpen2(!isSidebarOpen2);
+    setSidebarOpen(!isSidebarOpen);
+    setSidebarOpen3(!isSidebarOpen3);
   };
   const toggleSidebar3 = () => {
     setSidebarOpen3(!isSidebarOpen3);
+    setSidebarOpen(!isSidebarOpen);
+    setSidebarOpen2(!isSidebarOpen2);
   };
 
   const toggSetting = () => {

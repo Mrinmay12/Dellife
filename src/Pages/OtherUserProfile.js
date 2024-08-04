@@ -57,7 +57,7 @@ const queryParam = searchParams.get('user_id');
 
     const Data = async () => {
       try {
-        let response = await SeeOtherUserProfile(post_id, queryParam||"")
+        let response = await SeeOtherUserProfile(post_id, queryParam||"",userlogin.user_id)
         // dispatch(setData(response.data.data))
         setData(response.data.data)
         setPopupImageUrl(response.data.data.user_pic)
