@@ -2,18 +2,24 @@ import React from 'react';
 import "./Popup.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose,faTrash} from '@fortawesome/free-solid-svg-icons';
-// import apiUrl from '../../ApiAxios';
+import { Delete_profile_Pic } from '../../AllApi/Integrateapi';
+import { useSelector } from 'react-redux';
+import { setData } from '../../redux/action/LoginAction';
+
 const ImageModelPopup = ({ imageUrl, onClose ,setrefress,post_id}) => {
+  const userlogin = useSelector(state => state.myReducer.data)
+  let default_img=userlogin.sex==="1"? 'https://firebasestorage.googleapis.com/v0/b/voter-29270.appspot.com/o/boypic.jpg?alt=media&token=6d9dc8a7-8c16-48d6-8df2-8e37c6cef89b':'https://firebasestorage.googleapis.com/v0/b/voter-29270.appspot.com/o/girlpic.jpg?alt=media&token=9227e456-c6ea-414f-87a0-991bce8b81a2'
   const deleteImage=async()=>{
-  //   try {
-  //     const response = await apiUrl.post('api/user/UserProfile/userImage/image/delete',JSON.stringify({user_id:"Mrindgddb2"}))
-  //     if(response.data.status===true){
-  //       setrefress(new Date().getMilliseconds())
-  //       onClose(true)
-  //     }
-  // }catch(err){
-  //   console.log(err)
-  // }
+    try {
+      const response = await Delete_profile_Pic(userlogin.user_id)
+      if(response){
+        // setrefress(new Date().getMilliseconds())
+        dispatch(setData({...userlogin,user_pic:default_img}))
+        onClose(true)
+      }
+  }catch(err){
+    console.log(err)
+  }
   }
   return (
     <div className="image-popup">
