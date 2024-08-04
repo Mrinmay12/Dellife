@@ -64,7 +64,8 @@ export default function AppRoutes() {
     User_details()
     }
 
-  }, [refreshdata,appverify,user_id])
+  // }, [refreshdata,appverify,user_id])
+  }, [appverify,user_id])
 
   const[token,setToken]=useState(localStorage.getItem('token'))
 
