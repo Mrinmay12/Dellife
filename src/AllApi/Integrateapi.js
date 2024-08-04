@@ -32,7 +32,7 @@ export const Userdetails=(user_id)=>apiUrl.get(`/api/user/details/${user_id}`)
 export const UserProfilePic=(user_id)=>apiUrl.get(`/api/user/userpic/${user_id}`)
 
 
-export const SeeOtherUserProfile=(post_id,user_id)=>apiUrl.get(`/api/another_user/details/${post_id}?user_id=${user_id}`)
+export const SeeOtherUserProfile=(post_id,user_id,request_user_id)=>apiUrl.get(`/api/another_user/details/${post_id}?user_id=${user_id}&request_user_id=${request_user_id}`)
 
 export const UserPostGet=(user_id,page)=>apiUrl.get(`/api/userpost/user/${user_id}?page=${page}`)
 
@@ -85,6 +85,9 @@ export const delete_post=(post_id,user_id)=>apiUrl.delete(`/api/userpost/delete_
 //Delete prifile
 export const Delete_profile=(user_id)=>apiUrl.delete(`/api/user/delete/${user_id}`)
 
+//Delete profilepic
+
+export const Delete_profile_Pic=(user_id)=>apiUrl.delete(`/api/user/delete/profilepic/${user_id}`)
 //Profile lock and unlock
 
 export const Profile_Lock_Unlock=(user_id)=>apiUrl.put(`/api/user/lock_unlock/${user_id}`)
