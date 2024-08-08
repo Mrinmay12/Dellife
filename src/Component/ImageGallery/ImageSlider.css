@@ -13,9 +13,12 @@
    */
   /* Remove #react-slick selector */
   .slidergallery {
-    width: 396px;
+    /* width: 396px; */
     /* width: 724px; */
+    width: 509px;
+    /* height: 447px;  */
     position: relative;
+    /* overflow: hidden; */
   }
   
   .slidergallery .slick-list {
@@ -78,7 +81,7 @@
 
   @media screen and (max-width: 600px) {
   .slidergallery {
-    width: 306px;
+    width: 350px;
     position: relative;
 }
   }

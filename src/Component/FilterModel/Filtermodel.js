@@ -1,18 +1,47 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import "./Filtermodel.css"
 import Select from 'react-select';
-export default function Filtermodel({ isOpen, onClose }) {
+import { AllLocation } from '../../AllApi/Integrateapi';
+export default function Filtermodel({ isOpen, onClose ,setWork_title,setLocation_user}) {
+  const[options2,setOption]=useState([])
+  useEffect(()=>{
+    const Data=async()=>{
+  let res=await   AllLocation()
+  setOption(res.data.location)
+  
+    }
+    Data()
+  },[])
     const options = [
-        { value: 'apple', label: 'Apple' },
-        { value: 'banana', label: 'Banana' },
+        { value: 'doctor', label: 'Doctor' },
+        { value: 'teacher', label: 'Teacher' },
         { value: 'orange', label: 'Orange' },
         { value: 'grape', label: 'Grape' },
-        // Add more options as needed
       ];
-      const [selectedOption, setSelectedOption] = useState("");
+      const [selectedOption, setSelectedOption] = useState({});
       const handleChange = (selectedOption) => {
         setSelectedOption(selectedOption);
+     
       };
+    // const options2 = [
+    //     { value: 'sonarpur', label: 'sonarpur' },
+    //     { value: 'teacher', label: 'Teacher' },
+    //     { value: 'orange', label: 'Orange' },
+    //     { value: 'grape', label: 'Grape' },
+    //   ];
+      const [selectedOption2, setSelectedOption2] = useState({});
+      const handleChange2 = (selectedOption) => {
+        setSelectedOption2(selectedOption);
+      
+      };
+  
+      const handleSearch = () => {
+        setWork_title(selectedOption?.value || '');
+        setLocation_user(selectedOption2?.value || '');
+        setSelectedOption(null);
+        setSelectedOption2(null);
+        onClose();
+    };
       const customStyles = {
         menu: (provided, state) => ({
           ...provided,
@@ -21,6 +50,7 @@ export default function Filtermodel({ isOpen, onClose }) {
         }),
         menuPortal: base => ({ ...base, zIndex: 9999 })
       };
+      
   return (
     <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={onClose}>
     <div
@@ -30,7 +60,7 @@ export default function Filtermodel({ isOpen, onClose }) {
       <span className="close-button" onClick={onClose}>&times;</span>
       <div  style={{ display:"flex",justifyContent:'space-between' }}>
       <h2>Filter</h2>
-      <div className='filterUpdate'>Update</div>
+      <div className='filterUpdate' onClick={()=>handleSearch()}>Search</div>
       </div>
       <hr/>
       <h1>Search by work</h1>
@@ -47,9 +77,9 @@ export default function Filtermodel({ isOpen, onClose }) {
     />
     <h1>Search by location</h1>
       <Select
-      options={options}
-      onChange={handleChange}
-      value={selectedOption}
+      options={options2}
+      onChange={handleChange2}
+      value={selectedOption2}
       isSearchable={true}
       placeholder={"Search location"}
       styles={customStyles}

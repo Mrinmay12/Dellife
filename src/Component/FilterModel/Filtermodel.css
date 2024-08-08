@@ -46,14 +46,19 @@
     right: 10px;
     font-size: 1.5rem;
     cursor: pointer;
+    font-size: 40px;
   }
   .filterUpdate{
-    margin-right: 19px;
-    background: #1c95de;
+    background: #0197f3;
     color: white;
     height: 32px;
-    width: 65px;
-    padding: 7px;
-    border-radius: 9px;
+    width: 88px;
+    /* padding: 7px; */
+    border-radius: 5px;
     margin-bottom: 6px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-right: 47px;
+    cursor: pointer;
   }
