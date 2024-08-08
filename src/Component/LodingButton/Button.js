@@ -1,17 +1,19 @@
 import React, { useState,useEffect } from 'react';
 import "./Button.css"
 const Button = ({loader,handleClickbtn,name}) => {
-  const [loading, setLoading] = useState(false);
-const[disabled,setdisabled]=useState(false)
+  const [loading, setLoading] = useState(loader);
+const[disabled,setdisabled]=useState(loader)
   const handleClick = () => {
-    setLoading((prevLoading) => !prevLoading);
+    
+ 
     handleClickbtn()
   }; 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e) => { 
     if (e.key === 'Enter') {
       handleClick();
     }
   };
+
 useEffect(()=>{
   if(loader){
     setdisabled(true) 

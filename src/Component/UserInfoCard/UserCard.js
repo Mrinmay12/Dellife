@@ -17,7 +17,7 @@ import Loder from "../LoderComponent/Loder";
 import { setData } from "../../redux/action/LoginAction";
 import HandleFollow from "../HandleFollow";
 
-export default function UserCard({ searchby_data }) {
+export default function UserCard({ searchby_data ,work_title,location_user}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { title } = useParams();
@@ -47,7 +47,8 @@ export default function UserCard({ searchby_data }) {
             query,
             userlogin.user_id,
             page,
-            userlogin.work_title || "",
+            work_title || "",
+            location_user||'',
             userlocation.latitude,
             userlocation.longitude,
             searchby_data
@@ -68,7 +69,7 @@ export default function UserCard({ searchby_data }) {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [searchQuery, title,userlogin.user_id,searchby_data]);
+  }, [searchQuery, title,userlogin.user_id,searchby_data,work_title,location_user]);
 
 
 
@@ -80,7 +81,8 @@ export default function UserCard({ searchby_data }) {
         query,
         userlogin.user_id,
         page,
-        userlogin.work_title || "",
+        work_title || "",
+        location_user||'',
         userlocation.latitude,
         userlocation.longitude,
         searchby_data
@@ -110,7 +112,7 @@ export default function UserCard({ searchby_data }) {
             query,
             userlogin.user_id,
             page,
-            userlogin.work_title || "",
+            work_title || "",
             userlocation.latitude,
             userlocation.longitude,
             searchby_data
@@ -141,7 +143,7 @@ export default function UserCard({ searchby_data }) {
         query,
         userlogin.user_id,
         page,
-        userlogin.work_title || "",
+        work_title || "",
         userlocation.latitude,
         userlocation.longitude,
         searchby_data

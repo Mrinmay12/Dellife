@@ -56,23 +56,21 @@ const ReportPostComment = ({ onClose,postId }) => {
   </div>
  
 </div>
-      <div style={{paddingTop:"2px"}}/>
 
-      {/* <InputArea/> */}
-{/* <textarea  type="text" className={"textarea" } style={{color:"black"}} value={inputValue}  placeholder="Enter Tittle" onChange={handleChange}/> */}
-{/* <div> */}
-<div>
-<span onClick={()=>onClose()} className="" style={{marginRight:"120px"}}>close</span>
+  
+<div style={{paddingTop:"37px",justifyContent:"space-between",display:"flex"}}>
+      <span onClick={()=>onClose()} className="" style={{marginRight:"120px"}}>Close</span>
 {inputValue?(
   <span onClick={handleSubmit} style={{color:"#0038ff"}}>Submit</span>
 ):(
   <span  style={{color:"gray"}}>Submit</span>
 )}
+   
+</div>
 
 
 </div>
-{/* // </div> */}
-    </div>
+
   );
 };
 

@@ -44,15 +44,38 @@ const handleChange = (selectedOption) => {
 
   
 const customStyles = {
-    control: (provided, state) => ({
+  menu: (provided, state) => ({
+    ...provided, 
+    marginBottom: 'auto', // This is important to prevent the dropdown from pushing the input field up
+    marginTop: '0',       // Ensures no additional margin at the top
+  }),
+  menuPortal: base => ({ ...base, zIndex: 9999 }),
+  control: (provided, state) => ({
+    ...provided,
+    borderColor: state.isFocused ? '#007bff' : '#ced4da', // border color when focused
+    boxShadow: state.isFocused ? '0 0 0 0.2rem rgba(0,123,255,.25)' : null, // box shadow when focused
+    border:  '3px solid #0186ca' ,
+    '&:hover': {
+      border: '3px solid #0186ca', // border color when hovered
+     
+    },
+    option: (provided, state) => ({
       ...provided,
-      borderColor: state.isFocused ? '#007bff' : '#ced4da', // border color when focused
-      boxShadow: state.isFocused ? '0 0 0 0.2rem rgba(0,123,255,.25)' : null, // box shadow when focused
-      border:  '3px solid #98d4f3' ,
+      backgroundColor: state.isSelected ? '#007bff' : '#fff', // background color when selected
+      color: state.isSelected ? '#fff' : '#495057', // text color when selected
       '&:hover': {
-        border: '3px solid #98d4f3', // border color when hovered
-       
-      },
+        backgroundColor: 'orange', // background color when hovered
+        color: '#fff' // text color when hovered
+      }
+    }),
+    dropdownIndicator: (provided, state) => ({
+      ...provided,
+      color: state.isFocused ? 'red' : '#ced4da', // color of the dropdown indicator
+    }),
+    indicatorSeparator: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isFocused ? 'orange' : '#ced4da', // color of the indicator separator
+    }),
       marginTop:"20px",
       borderRadius:"20px",
       // width:"200px"
@@ -78,6 +101,8 @@ const PhoneSelect = () => {
     onChange={handleChange}
     styles={customStyles}
     placeholder="Country code"
+    menuPlacement="top"  // Set the placement of the menu
+    menuPortalTarget={document.body}
   />
   
   <input className="phoneselect" onChange={handlePhone} value={phone} placeholder="Phone"/>

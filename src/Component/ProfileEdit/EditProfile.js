@@ -80,9 +80,9 @@ export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
       ...provided,
       borderColor: state.isFocused ? '#007bff' : '#ced4da', // border color when focused
       boxShadow: state.isFocused ? '0 0 0 0.2rem rgba(0,123,255,.25)' : null, // box shadow when focused
-      border:  '3px solid #98d4f3' ,
+      border:  '3px solid #0186ca' ,
       '&:hover': {
-        border: '3px solid #98d4f3', // border color when hovered
+        border: '3px solid #0186ca', // border color when hovered
        
       },
       marginTop:"20px",
@@ -125,10 +125,10 @@ export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
         <Input placeholder="About" onchange={setAbout} value={about} inputtype="text"/>
         <Input placeholder="link" onchange={setLink} value={link} inputtype="url"/>
         <Input placeholder="phone" onchange={setPhone} value={phone} inputtype="tel"/>
-        <Input placeholder="email" onchange={setEmail} value={email} inputtype="email"/>
+        {/* <Input placeholder="email" onchange={setEmail} value={email} inputtype="email"/> */}
         {/* <SelectDropdown  options={options} handleOption={handleChange}/> */}
         <PhoneSelect/>
-        <SelectDropdown  options={options} handleOption={handleChange}/>
+        {/* <SelectDropdown  options={options} handleOption={handleChange}/> */}
         <Select
       options={options}
       onChange={handleChange}

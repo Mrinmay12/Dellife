@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import "../FilterModel/Filtermodel.css"
 import './SettingModel.css'
 import CalenderIcon from "../Images/calendarIcon.svg"
+import MailIcon from "../Images/Mail.svg"
 import { DateShowMonth } from '../../Utiles';
 import Button from '../Button/Button';
 import { Delete_profile } from '../../AllApi/Integrateapi';
@@ -52,6 +53,13 @@ export default function AboutModel({isOpen, onClose}) {
        <div style={{ marginLeft:"17px",marginTop:"11px" }}>
        <p style={{ fontWeight:700 }}>Date joined</p>
        <span>{DateShowMonth(userlogin.account_Create_time)}</span>
+       </div>
+       </div>
+<div style={{ display:"flex" }}>
+       <img src={MailIcon} width='23px' alt=''/>
+       <div style={{ marginLeft:"17px",marginTop:"11px" }}>
+       <p style={{ fontWeight:700 }}>Email</p>
+       <span>{userlogin.email}</span>
        </div>
        </div>
     

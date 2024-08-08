@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Commentmodel from '../CommentModel/Commentmodel';
-import { userCommentget, postLike, getLike,disLike, userComment } from '../../AllApi/Integrateapi';
+import { userCommentget, postLike, getLike,disLike, userComment, User_connect_or_not, addTwoUser } from '../../AllApi/Integrateapi';
 import "..//TextShow.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faCommentSms, faHeart, faShare } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +10,9 @@ import { useSelector,useDispatch } from 'react-redux';
 import Smallmodel from '../SmallPupup/Smallmodel';
 import SendIcon from "../CommentModel/Send.svg"
 import { setEditdata } from '../../redux/action/EditAction';
-export default function UserComment({ postid ,user_post_or_not,user_present,countlike,user_like}) {
+import ShareModal from '../ShareModel/Share';
+import ShareIcon from "../Images/Share.svg"
+export default function UserComment({ postid ,user_post_or_not,user_present,countlike,user_like,user_id}) {
   const userlogin = useSelector(state => state.myReducer.data)
   const editdata = useSelector(state => state.EditReducer.data)
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,24 +22,46 @@ export default function UserComment({ postid ,user_post_or_not,user_present,coun
     setIsModalOpen(false);
   };
   const [postId, setPostId] = useState("")
+  const [isModalOpenshare, setIsModalOpenShare] = useState(false);
   const handleOpenComment = (postid) => {
     setIsModalOpen(true);
     setPostId(postid)
   };
+
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const handleShareImage = () => {
+    if(!isMobile){
+      setIsModalOpenShare(true)
+    }else{
+ 
     // Check if the Web Share API is supported in the browser.
     if (navigator.share) {
       // Use the share() method to share the image.
       navigator.share({
         title: 'Image Sharing',
         text: 'Check out this image!',
-        url: `/sharepost${postid}`,
+        url: `/sharepost/${postid}`,
       })
         .then(() => console.log('Shared successfully'))
         .catch((error) => console.error('Error sharing:', error));
     } else {
       alert('Web Share API is not supported in this browser.');
     }
+  }
   };
   const [commentdata, setCommentdata] = useState([])
   const [dataslice, setDataslice] = useState(1)
@@ -162,13 +186,86 @@ const handleSubmit = async () => {
     setInputValue('')
   }
 };
-console.log(commentdata,"commentdatacommentdatacommentdata");
 
+
+  const closeModalShare = () => setIsModalOpenShare(false);
+
+  const [messagedata, setMessagedata] = useState({});
+  useEffect(() => {
+    const Data = async () => {
+      let res = await User_connect_or_not(
+        postid,
+        "",
+        userlogin.message_id
+      );
+      setMessagedata(res.data);
+    };
+    if (postid && userlogin.message_id) {
+      Data();
+    }
+  }, [postid, userlogin.message_id]);
+
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  //message data
+  const handleMessage = async () => {
+    if (isMobile) {
+      if (messagedata.present) {
+        navigator(
+          `/chats/${messagedata.message_id}?userid=${window.btoa(user_id)}`
+        );
+      } else {
+        const json = JSON.stringify({
+          // senderId: userlogin.user_id,
+          senderId: userlogin.message_id,
+          receiverId: user_id,
+        });
+        const response = await addTwoUser(json);
+        if (response) {
+          navigator(
+            `/chats/${response.data.data._id}?userid=${window.btoa(user_id)}&post_id=${postid}`
+          );
+        }
+      }
+    } else {
+      if (messagedata.present) {
+        navigator(
+          `/message/${messagedata.message_id}?userid=${window.btoa(user_id)}&post_id=${postid}`
+        );
+      } else {
+        const json = JSON.stringify({
+          // senderId: userlogin.user_id,
+          senderId: userlogin.message_id,
+          receiverId: user_id,
+        });
+        const response = await addTwoUser(json);
+        if (response) {
+          navigator(
+            `/message/${response.data.data._id}?userid=${window.btoa(user_id)}&post_id=${postid}`
+          );
+        }
+      }
+    }
+  };
+
+  console.log(messagedata,"messagedatamessagedatamessagedataMMM");
+  
   return (
     <div>
-      {commentdata.filter((item)=>item.post_id===postid).slice(0, dataslice).map((item) => (
+      {commentdata.filter((item)=>item.post_id===postid).slice(0, dataslice).map((item,index) => (
         <>
-          <div class="user-info2">
+          <div class="user-info2" key={item.index}>
             <img className='user-info2_img' src={item.user_pic} alt="User Image" />
             <span class="user-name2">{item.user_name}</span>
 
@@ -220,7 +317,8 @@ console.log(commentdata,"commentdatacommentdatacommentdata");
         </>
 )}
         <div  onClick={handleShareImage}>
-          <FontAwesomeIcon icon={faShare} style={{ color: "black" }} className="iconstyle" />
+          <img src={ShareIcon} className="iconstyle"/>
+          {/* <FontAwesomeIcon icon={faShare} style={{ color: "black" }} className="iconstyle" /> */}
 
         </div>
 
@@ -233,6 +331,7 @@ console.log(commentdata,"commentdatacommentdatacommentdata");
           </div>
         </div>
       {isModalOpen && <Commentmodel onClose={closeModal} postId={postId} />}
+      <ShareModal isOpen={isModalOpenshare} onRequestClose={closeModalShare} url={`${window.location.host}/sharepost/${postid}`}/>
     </div>
   )
 }

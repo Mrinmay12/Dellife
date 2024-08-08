@@ -1,12 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Sidebar.css";
-import { FollowersUserList, addTwoUser } from "../../AllApi/Integrateapi";
-import { useSelector } from "react-redux";
+import { FollowOtherUserList, FollowUser, FollowUserList, addTwoUser } from "../../AllApi/Integrateapi";
+import { useSelector ,useDispatch} from "react-redux";
 import Loder from "../LoderComponent/Loder";
-import { useNavigate } from "react-router-dom";
-import "../SearchInput/Searchbar.css";
-const SideModel = ({ isOpen, toggleSidebar }) => {
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { setData } from "../../redux/action/LoginAction";
+
+const OtherSideModel2 = ({ isOpen, toggleSidebar }) => {
   const navigate = useNavigate();
+  let { post_id } = useParams();
+  const [searchParams] = useSearchParams();
+  const queryParam = searchParams.get('user_id');
+  const dispatch=useDispatch()
   const userlogin = useSelector((state) => state.myReducer.data);
   const [postdata, setPostdata] = useState([]);
   const [page, setPage] = useState(1);
@@ -45,7 +50,7 @@ const SideModel = ({ isOpen, toggleSidebar }) => {
     const fetchData = async () => {
       setLoader(true);
       try {
-        const res = await FollowersUserList(userlogin?.message_id, page,debouncedValue);
+        const res = await FollowOtherUserList(queryParam||post_id, page,debouncedValue);
         setLoader(false);
         if (res.data.total_following?.length) {
           setPostdata((prevData) => [...prevData, ...res.data.total_following]);
@@ -55,20 +60,15 @@ const SideModel = ({ isOpen, toggleSidebar }) => {
         console.error(err);
       }
     };
-    if (userlogin?.message_id && isOpen) {
+    if ((queryParam||post_id) && isOpen) {
       fetchData();
     }
-  }, [page, userlogin?.message_id,isOpen,debouncedValue]);
+  }, [page,isOpen,debouncedValue]);
 
   const handleScroll = () => {
     if (sidebarRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = sidebarRef.current;
-      console.log(
-        scrollTop,
-        scrollHeight,
-        clientHeight,
-        "scrollTop, scrollHeight, clientHeight"
-      );
+   
       if (scrollTop > 150) {
         // Adjust this value as needed
         // alert(1)
@@ -102,55 +102,37 @@ const SideModel = ({ isOpen, toggleSidebar }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  
+  const[report_postid,setReport_postid]=useState([])
+  const handleFollowuser=async(receive_user_id)=>{
 
-  const handleMessage = async (receive_user_id, message_id, present) => {
-    if (isMobile) {
-      if (present) {
-        navigate(`/chats/${message_id}?userid=${window.btoa(receive_user_id)}`);
-      } else {
-        const json = JSON.stringify({
-          senderId: userlogin.message_id,
-          receiverId: receive_user_id,
-        });
-        const response = await addTwoUser(json);
-        if (response) {
-          navigate(
-            `/chats/${response.data.data._id}?userid=${window.btoa(
-              receive_user_id
-            )}`
-          );
-        }
-      }
-    } else {
-      if (present) {
-        navigate(
-          `/message/${message_id}?userid=${window.btoa(receive_user_id)}`
-        );
-      } else {
-        const json = JSON.stringify({
-          senderId: userlogin.message_id,
-          receiverId: receive_user_id,
-        });
-        const response = await addTwoUser(json);
-        if (response) {
-          navigate(
-            `/message/${response.data.data._id}?userid=${window.btoa(
-              receive_user_id
-            )}`
-          );
-        }
-      }
+    try{
+    let res=  await FollowUser(receive_user_id,userlogin.user_id)
+    if (res) {
+        setReport_postid([...report_postid,receive_user_id])
+        dispatch(setData({...userlogin,total_following:userlogin.total_following-1}))
     }
-  };
-  const handleViewProfile = async (id,) => {
-   
+    }catch(err){
+
+    }
+  
+  }
+
+  const handleViewProfile = async (id,message_id) => {
+    if(message_id===userlogin.message_id){
+        navigate('/profile')
+        toggleSidebar()
+    }else{
         navigate(`/otherprofile/${new Date().getMilliseconds()}?user_id=${id}`);
         toggleSidebar()
-    
-  }
+    }
+   
+  };
+  // dispatch(setData(user_data.data.data))
+
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`} ref={sidebarRef}>
-      <h2 style={{ textAlign: "end" }}>Followers</h2>
+      <h2 style={{ textAlign: "end" }}>Follow</h2>
       <button className="close-btn" onClick={toggleSidebar}>
         ×
       </button>
@@ -161,35 +143,33 @@ const SideModel = ({ isOpen, toggleSidebar }) => {
         type="text"
         value={query}
         onChange={handleInputChange}
+
         style={{ width:"255px" }}
         placeholder="Search..."
-
-    
       />
          <div className="search-icon2">
         <i class="fa fa-search"></i>
             </div>
             </div>
 
-        {postdata.map((user, index) => (
+        {postdata.filter(item => !report_postid.includes(item.message_id)).map((user, index) => (
           <div
             key={index}
             className="user-info"
-            style={{ paddingBottom: "44px" ,marginTop:"4px"}}
+            style={{ paddingBottom: "44px" }}
           >
-            <img src={user.user_pic} alt="User" onClick={()=>handleViewProfile(user._id)} />
-            <span className="user-name side-model-name" onClick={()=>handleViewProfile(user._id)} >{user.user_name}</span>
+            <img src={user.user_pic} alt="User" />
+            <span className="user-name side-model-name">{user.user_name}</span>
             <div
               className="edit-content"
               onClick={() =>
-                handleMessage(
+                handleViewProfile(
+                    user._id,
                   user.message_id,
-                  user.connect_message_id,
-                  user.present
                 )
               }
             >
-              <button className="edit-profile-btn">Message</button>
+              <button className="edit-profile-btn">View profile</button>
             </div>
           </div>
         ))}
@@ -203,4 +183,4 @@ const SideModel = ({ isOpen, toggleSidebar }) => {
   );
 };
 
-export default SideModel;
+export default OtherSideModel2;

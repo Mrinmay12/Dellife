@@ -130,6 +130,16 @@ body {
          grid-template-columns: repeat(1, minmax(250px, 300px)) !important;
          display: grid;
     }
+    .containeruser {
+        box-shadow: 0rem 0.125rem 0.5rem 0rem var(--light-gray);
+        text-align: center;
+        border-radius: 1rem;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #333;
+        height: min-content;
+        width: 99%;
+    }
 }
 
 

@@ -7,7 +7,7 @@ import Linkicon from "./Image/link.png"
 import {
   useNavigate,
 } from "react-router-dom"; 
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import Texteditor from './TextEditor/Texteditor';
 import { userNewPost } from '../../AllApi/Integrateapi';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -16,9 +16,11 @@ import InputField from '../RegisterInput/InputField';
 import SelectDropdown from '../../Select_dropdown/SelectDropdown';
 import Input from '../PostForm/Input';
 import { isValidLink } from '../../Utiles';
+import { setRefresh } from '../../redux/action/RefreshAction';
 export default function Post({only_use,onClose}) {
   const userlogin = useSelector(state => state.myReducer.data)
   const userlocation = useSelector(state => state.UserLocation.data)
+  const dispatch=useDispatch()
   const navigate=useNavigate();
   // const data = useSelector(state => state.myReducer.data);
   const [fimage, setFImage] = useState(null);
@@ -153,6 +155,7 @@ const handleUpload = () => {
     return Promise.resolve([]);
   }
 };
+// console.log(userlocation,"userlocationuserlocationuserlocation");
 
 const handleSubmit = async (e) => {
   
@@ -167,7 +170,8 @@ const handleSubmit = async (e) => {
       tag:tagoption,
       link:link,
       latitude: userlocation.latitude || 0.00,
-      longitude:userlocation.longitude || 0.00
+      longitude:userlocation.longitude || 0.00,
+      address: userlocation.locationName
 
     })
 
@@ -176,6 +180,7 @@ const handleSubmit = async (e) => {
       if(only_use==="destop"){
         onClose()
       }
+      dispatch(setRefresh(new Date().getMilliseconds()))
     } else {
       try {
         await userNewPost(formData);
@@ -183,7 +188,9 @@ const handleSubmit = async (e) => {
         if(only_use==="destop"){
           onClose()
         }
+        
         setFImage(null);
+        dispatch(setRefresh(new Date().getMilliseconds()))
       } catch (error) {
         console.error(error);
         alert('Error uploading images. Please try again later.');
@@ -278,6 +285,16 @@ setlinkshow(!linkshow)
     
       <div className='newpoststyle'>
   <div className='subpoststyle'>
+
+  <div style={{display:"flex",flexDirection:"row"}}> 
+  <div className='colorchange' style={{ height:"13px",width:"13px" }}></div>
+    <h3 > Red color post visible on help section</h3>
+    </div>
+  <div style={{display:"flex",flexDirection:"row",paddingBottom:"15px"}}> 
+  <div className='colorchange3' style={{ height:"13px",width:"13px" }}></div>
+    <h3 > Black color normal post</h3>
+    </div>
+
   <div style={{display:"flex",flexDirection:"row"}}>
   <div style={{width:"60%",display:"flex"}}>
       <div className='colorchange3' value={textcolor} onClick={()=>handleColor("black")}></div>

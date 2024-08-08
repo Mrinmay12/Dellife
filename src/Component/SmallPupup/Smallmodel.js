@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useRef} from 'react'
 import "./Smallmodel.css"
 import save from "../../Images/save.jpg"
 import { DeleteComment, UserSavePost ,User_post_save_or_not} from '../../AllApi/Integrateapi'
@@ -6,6 +6,7 @@ import { useSelector,useDispatch } from 'react-redux';
 import ReportPostComment from './ReportPostComment';
 import { setUpdate } from '../../redux/action/UpdateAction';
 import Commentmodel from '../CommentModel/Commentmodel';
+import MoreAction from './MoreAction';
 export default function Smallmodel({post_id,showonly,comment_id,edite_text}) {
   const userlogin = useSelector(state => state.myReducer.data)
     const[show,setShow]=useState(false)
@@ -53,31 +54,24 @@ export default function Smallmodel({post_id,showonly,comment_id,edite_text}) {
     dispatch(setUpdate(comment_id))
   }
   }
+
+
+  const[open_model,setOpen_Model]=useState(false)
+  const handleOpenModel=()=>{
+    setOpen_Model(!open_model)
+  }
   return (
-    <>
-    {showonly==='comment'?(
+    <div>
+
       <div class="dropdown">
-    <div class="dropdown-btn icon clickable fa  right"> •••</div>
-    <div class="dropdown-content" style={{marginLeft:"-37px"}}>
-    <a onClick={()=>setIsModalOpen2(true)}><i class="fa fa-pencil" style={{marginRight:"19px"}} ></i>Edit</a>
-<a onClick={()=>handleDelete()}><i class="fa fa-trash-o" style={{marginRight:"19px"}} ></i>Delete</a>
-    </div>
+    <div class="dropdown-btn icon clickable right" onClick={()=>handleOpenModel()}>•••</div>
+   
+
+</div>
+ 
+ 
+  <MoreAction isOpen={open_model} onRequestClose={handleOpenModel} post_id={post_id} comment_id={comment_id} edite_text={edite_text} showonly={showonly}/>
+ 
   </div>
-    ):(
-      <div class="dropdown">
-    <div class="dropdown-btn icon clickable right">•••</div>
-    <div class="dropdown-content">
-    <a onClick={handleSave}><img style={{height:"17px",marginRight:"19px"}} src={save}/>{usersavepost?"Unsave":"Saved"}</a>
-    <a href="#about"><i class="fa fa-copy" style={{marginRight:"19px"}}></i>copy</a>
-<a onClick={()=>setIsModalOpen(true)}><i class="fa fa-flag-o" style={{marginRight:"19px"}} ></i>Report</a>
-    </div>
-  </div>
-    )}
-
-
-  {isModalOpen && <ReportPostComment onClose={closeModal} postId={post_id}/>}
-
-  {isModalOpen2 && <Commentmodel onClose={closeModal2} commentId={comment_id} postId={post_id} edite_text={edite_text}/>}
-  </>
   )
 }

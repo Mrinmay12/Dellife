@@ -114,7 +114,13 @@ const SideModel2 = ({ isOpen, toggleSidebar }) => {
     }
   
   }
-  console.log(userlogin,"my login data");
+  const handleViewProfile = async (id,) => {
+   
+    navigate(`/otherprofile/${new Date().getMilliseconds()}?user_id=${id}`);
+    toggleSidebar()
+
+}
+  // console.log(userlogin,"my login data");
   // dispatch(setData(user_data.data.data))
 
   return (
@@ -143,10 +149,10 @@ const SideModel2 = ({ isOpen, toggleSidebar }) => {
           <div
             key={index}
             className="user-info"
-            style={{ paddingBottom: "44px" }}
+            style={{ paddingBottom: "44px" ,marginTop:"4px"}}
           >
-            <img src={user.user_pic} alt="User" />
-            <span className="user-name side-model-name">{user.user_name}</span>
+            <img src={user.user_pic} alt="User" onClick={()=>handleViewProfile(user._id)} />
+            <span className="user-name side-model-name" onClick={()=>handleViewProfile(user._id)} >{user.user_name}</span>
             <div
               className="edit-content"
               onClick={() =>

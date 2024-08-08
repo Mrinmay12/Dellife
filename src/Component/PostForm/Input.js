@@ -15,8 +15,10 @@ export default function Input({placeholder,onchange,value,inputtype}) {
        {/* <div id="form"> */}
      {/* <form id="waterform">  */}
         {/* <div class="formgroup" id="name-form"> */}
-                        {/* <label className='label' for="name">Title</label> */}
-                        <input type="text" id="name" name="name" placeholder={placeholder} className='input' value={text} onChange={handleText} inputMode={inputtype?inputtype:"text"}/>
+        <h3>Title</h3>
+                        {/* <label className='editlabel' for="name">Title</label> */}
+                        <input className='editinput' placeholder={placeholder} value={text} onChange={handleText} inputMode={inputtype?inputtype:"text"}/>
+                        {/* <input type="text" id="name" name="name" placeholder={placeholder} className='input' value={text} onChange={handleText} inputMode={inputtype?inputtype:"text"}/> */}
                     {/* </div> */}
                     {/* </form> */}
                     {/* </div> */}

@@ -141,7 +141,7 @@ const SideModel3 = ({ isOpen, toggleSidebar }) => {
           <div
             key={index}
             className="user-info"
-            style={{ paddingBottom: "44px" }}
+            style={{ paddingBottom: "44px",marginTop:"4px" }}
           >
             <img src={user.user_pic} alt="User" />
             <span className="user-name side-model-name">{user.user_name}</span>

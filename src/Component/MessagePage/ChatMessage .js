@@ -193,6 +193,12 @@ export default function ChatMessage({ messageid }) {
     }
     setShowModal(!showModal);
   };
+  const RedirectProfile=(e)=>{
+navigation(`/otherprofile/${new Date().getMilliseconds()}?user_id=${e}`)
+  }
+  const RedirectSearch=(e)=>{
+navigation(`/searchuser/${e}`)
+  }
   return (
     <>
       {id ? (
@@ -213,12 +219,14 @@ export default function ChatMessage({ messageid }) {
             )}
             {/* <i className="icon fa fa-user-o" aria-hidden="true"></i> */}
             <div>
-              <img src={sender_info.user_pic} className="messageicon" />
+              <img src={sender_info.user_pic} className="messageicon" alt="" onClick={()=>RedirectProfile(sender_info.user_id)}/>
               {/* <div className="icon" style={{ backgroundImage: `url(${sender_info.user_pic})` }}></div> */}
             </div>
             <div className="twocontent-message">
-              <p className="name">{sender_info.user_name}</p>
-
+              <div style={{ display:"flex",flexDirection:"column" ,marginTop:"14px"}}>
+              <p className="name" style={{ cursor:"pointer" }} onClick={()=>RedirectProfile(sender_info.user_id)}>{sender_info.user_name}</p>
+              <p className="user_name_work" onClick={()=>RedirectSearch(sender_info.work_title)} >{sender_info.work_title}</p>
+              </div>
               <button onClick={toggleModal} className="three-dot-button">
                 •••
               </button>

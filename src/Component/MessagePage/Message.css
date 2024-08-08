@@ -416,3 +416,8 @@
   font-size: larger;
   font-family: 'Montserrat';
 }
+.user_name_work{
+  margin: 0 0 0 20px;
+  color: #007bff;
+  cursor: pointer;
+}
