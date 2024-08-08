@@ -34,9 +34,9 @@ export default function Postcard({user_id,post_id}) {
     keepPreviousData: true,
     staleTime: Infinity,
   });
-  console.log('====================================');
-  console.log(refreshdata,"refreshdata");
-  console.log('====================================');
+  // console.log('====================================');
+  // console.log(refreshdata,"refreshdata");
+  // console.log('====================================');
   useEffect(()=>{
     setPage(1)
   },[refreshdata])
@@ -45,7 +45,7 @@ export default function Postcard({user_id,post_id}) {
       setPage((prevPage) => prevPage + 1);
     // }
   };
-console.log(page,"page",postdata,data);
+// console.log(page,"page",postdata,data);
 // useEffect(()=>{
 //   if(user_id){
 //     fetchAllPost(page)
@@ -62,7 +62,7 @@ console.log(page,"page",postdata,data);
   }
 
   let uniqueIds= removeDuplicates(postdata,"_id")
-  console.log(uniqueIds,"dgfdg",postreff);
+  // console.log(uniqueIds,"dgfdg",postreff);
   const[report_postid,setReport_postid]=useState([])
 useEffect(()=>{
   if(postreff){
@@ -81,7 +81,7 @@ useEffect(()=>{
 
 {uniqueIds?.filter(item => !report_postid.includes(item._id)).map((item)=>(
   <>
-    {item.post_img?(
+    {item.post_img.length>0?(
       <div class="gallery-item" onClick={()=>handlePostid(item._id)}>
       <BlurredUpImage image={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img[0]}?alt=media`}/>
     {/* <img src={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img}?alt=media`}  alt="Image 1"/> */}
