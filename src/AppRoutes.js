@@ -152,7 +152,8 @@ export default function AppRoutes() {
             );
             const data = await response.json();
             if (data.display_name) {
-              setLocationName(data.display_name);
+              // setLocationName(data.display_name);
+              setLocationName(data.address.suburb);
             }
           } catch (error) {
             console.error("Error fetching location name:", error);
@@ -185,7 +186,7 @@ export default function AppRoutes() {
             (position) => {
                 const { latitude, longitude } = position.coords;
                 const userLocation = { latitude: latitude,
-                    longitude:longitude,};
+                    longitude:longitude,locationName:locationName};
                 userLocation.user_id = message_id;
                 setlocation_data(userLocation)
                dispatch(setNearUserData(userLocation))
@@ -195,10 +196,10 @@ export default function AppRoutes() {
                 console.error("Error getting user location:", error);
             }
         );
-    }, [message_id]);
+    }, [message_id,locationName]);
 
 
-console.log(location_data,"mrinmay2")
+// console.log(location_data,"mrinmay2")
   useEffect(()=>{
 const Location=async()=>{
   let json=JSON.stringify({

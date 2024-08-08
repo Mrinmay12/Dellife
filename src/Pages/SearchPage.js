@@ -32,6 +32,8 @@ useEffect(() => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  const[work_title,setWork_title]=useState('')
+  const[location_user,setLocation_user]=useState('')
   return (
     <div>
     <div style={{ position:"relative" }}>
@@ -44,8 +46,8 @@ useEffect(() => {
         </div>
         </div>
     </div>
-    <UserCard searchby_data={searchby_data}/>
-    <Filtermodel isOpen={isModalOpen} onClose={closeModal}/>
+    <UserCard searchby_data={searchby_data} work_title={work_title} location_user={location_user}/> 
+    <Filtermodel isOpen={isModalOpen} onClose={closeModal} setWork_title={setWork_title} setLocation_user={setLocation_user}/>
     </div>
   )
 }

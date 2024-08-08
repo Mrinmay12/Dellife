@@ -68,7 +68,7 @@ export const UserSavePostGet=(user_id,page)=>apiUrl.get(`/post/user_all_save_pos
 //Search Api integrate
 
 export const SearchTags=(query)=>apiUrl.get(`/api/user/search/tags?q=${query}`)
-export const SearchUser_and_Post=(query,user_id,page,user_work,latitude,longitude,searchby_data)=>apiUrl.get(`/api/user/search/profile?q=${query}&user_id=${user_id}&page=${page}&user_work=${user_work}&latitude=${latitude}&longitude=${longitude}&searchby_data=${searchby_data}`)  
+export const SearchUser_and_Post=(query,user_id,page,user_work,location_user,latitude,longitude,searchby_data)=>apiUrl.get(`/api/user/search/profile?q=${query}&user_id=${user_id}&page=${page}&work_title=${user_work}&location_user=${location_user}&latitude=${latitude}&longitude=${longitude}&searchby_data=${searchby_data}`)  
 
 
 
@@ -123,3 +123,12 @@ export const EditComment=(comment_id,user_id,json)=>apiUrl.put(`/api/userpost/us
 export const BlockUser=(message_connect_id,message_id)=>apiUrl.put(`api/user/block/user?message_connect_id=${message_connect_id}&message_id=${message_id}`)
 
 export const BlockUserList=(message_id,page)=>apiUrl.get(`/api/user/block/user/list?message_id=${message_id}&page=${page}&limit=10`)
+
+
+//other user follow following 
+export const FollowOtherUserList=(user_id,page,debouncedValue)=>apiUrl.get(`/api/another_user/follow_users_list?user_id=${user_id}&q=${debouncedValue}&limit=10&page=${page}`)
+
+export const FollowerOtherUserList=(message_id,page,debouncedValue)=>apiUrl.get(`/api/another_user/followers_users_list?message_id=${message_id}&q=${debouncedValue}&limit=10&page=${page}`)
+
+//All location
+export const AllLocation=()=>apiUrl.get(`/api/user/all_location`)

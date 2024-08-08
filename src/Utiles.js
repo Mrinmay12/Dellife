@@ -133,17 +133,17 @@ export const validateEmail = (email) => {
         const duration = moment.duration(currentTime.diff(uploadTime))
         let formattedTime;
         if (duration.asSeconds() < 60) {
-          formattedTime = Math.floor(duration.asSeconds()) + ' seconds ago';
+          formattedTime = Math.ceil(duration.asSeconds()) + ' seconds ago';
         } else if (duration.asMinutes() < 60) {
-          formattedTime = Math.floor(duration.asMinutes()) + ' minutes ago';
+          formattedTime = Math.ceil(duration.asMinutes()) + ' minutes ago';
         } else if (duration.asHours() < 24) {
-          formattedTime = Math.floor(duration.asHours()) + ' hours ago';
+          formattedTime = Math.ceil(duration.asHours()) + ' hours ago';
         } else if (duration.asDays() < 30) {
-          formattedTime = Math.floor(duration.asDays()) + ' days ago';
-        } else if (duration.asMonths() < 12) {
-          formattedTime = Math.floor(duration.asMonths()) + ' months ago';
+          formattedTime = Math.ceil(duration.asDays()) + ' days ago';
+        } else if (duration.asMonths() < 12) {        
+          formattedTime = Math.ceil(duration.asMonths()) + ' months ago';
         } else {
-          formattedTime = Math.floor(duration.asYears()) + ' years ago';
+          formattedTime = Math.ceil(duration.asYears()) + ' years ago';
         }
         return formattedTime
  }

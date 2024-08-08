@@ -20,9 +20,9 @@ export default function SmallTopbar({setColor}) {
   const handleShow=(e)=>{
     setShow(e)
     if(e==="near"){
-      setColor("red")
+      setColor("black")
     }else if(e==="argent"){
-      setColor("blue")
+      setColor("red")
     }else{
       setColor("green")
     }
@@ -47,9 +47,9 @@ export default function SmallTopbar({setColor}) {
        <div className={isMobile?"smallnavbarmobile":"smallnavbar"}  style={{top: visible ? (isMobile?"130px":'87px') : '-50px',zIndex:1}}>
         <div className='profilediv'>
         <div className='profilebottom' style={{width:"30%",backgroundColor:"#d4e2d25c"}}>
-          <p  className={show==="near"?'profilebottomtext':"profilebottomtext2"} onClick={()=>handleShow("near")} style={{color:show==="near"?"red":"black"}}><img style={{height:"18px" ,marginRight:"4px"}} src={''}/>Posts</p>
-          <p className={show==="argent"?'profilebottomtext':"profilebottomtext2"} style={{color:show==="argent"?"red":"black"}} onClick={()=>handleShow("argent")}><img style={{height:"18px"}} src={''}/> Saved</p>
-          <p className={show==="post"?'profilebottomtext':"profilebottomtext2"} style={{color:show==="post"?"red":"black"}} onClick={()=>handleShow("post")}><img style={{height:"18px"}} src={''}/> Saved</p>
+          <p  className={show==="near"?'profilebottomtext':"profilebottomtext2"} onClick={()=>handleShow("near")} style={{color:show==="near"?"red":"black"}}><img style={{height:"18px" ,marginRight:"4px"}} src={''}/>Near</p>
+          <p className={show==="argent"?'profilebottomtext':"profilebottomtext2"} style={{color:show==="argent"?"red":"black"}} onClick={()=>handleShow("argent")}><img style={{height:"18px"}} src={''}/> Help</p>
+          <p className={show==="post"?'profilebottomtext':"profilebottomtext2"} style={{color:show==="post"?"red":"black"}} onClick={()=>handleShow("post")}><img style={{height:"18px"}} src={''}/> Follow</p>
         </div>
         </div>
       </div>

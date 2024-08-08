@@ -37,6 +37,7 @@ export default function Profile() {
   const userlogin = useSelector(state => state.myReducer.data)
   const [showPopup, setShowPopup] = useState(false);
   const [showPopup2, setShowPopup2] = useState(false);
+  const[title,setTitle]=useState('')
   const [popupImageUrl, setPopupImageUrl] = useState("");
   const [refress, setrefress] = useState("")
   const [ProfileImage, setProfileImage] = useState(null)
@@ -204,7 +205,7 @@ export default function Profile() {
       console.error(error);
     } finally {
       // setPopupImageUrl(userlogin.user_pic)
-      dispatch(setData({...userlogin,user_pic:ProfileImage}))
+      dispatch(setData({...userlogin,user_pic:ProfileImage,user_pic_present:true}))
       // dispatch(setRefresh(new Date().getMilliseconds()))
       // setrefress(new Date().getMilliseconds())
     }
@@ -261,6 +262,7 @@ const [isSettingOpen1, setisSettingOpen1] = useState(false);
       setSidebarOpen3(!isSidebarOpen3)
     }else{
     setShowPopup2(true)
+    setTitle('You have no user block')
     }
     // setSidebarOpen3(!isSidebarOpen3)
   }
@@ -278,21 +280,32 @@ const [isSettingOpen1, setisSettingOpen1] = useState(false);
 
 
   const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-    setSidebarOpen2(!isSidebarOpen2);
-    setSidebarOpen3(!isSidebarOpen3);
+    if(userlogin.total_follow===0){
+      return
+      // setShowPopup2(true)
+      // setTitle('You have no user block')
+    }else{
+      setSidebarOpen(!isSidebarOpen);
+      setSidebarOpen2(false);
+      setSidebarOpen3(false);
+    }
+   
   };
 
 
   const toggleSidebar2 = () => {
+    if(userlogin.total_following===0){
+      return
+    }else{
     setSidebarOpen2(!isSidebarOpen2);
-    setSidebarOpen(!isSidebarOpen);
-    setSidebarOpen3(!isSidebarOpen3);
+    setSidebarOpen(false);
+    setSidebarOpen3(false);
+    }
   };
   const toggleSidebar3 = () => {
     setSidebarOpen3(!isSidebarOpen3);
-    setSidebarOpen(!isSidebarOpen);
-    setSidebarOpen2(!isSidebarOpen2);
+    setSidebarOpen(false);
+    setSidebarOpen2(false);
   };
 
   const toggSetting = () => {
@@ -448,7 +461,7 @@ const [isSettingOpen1, setisSettingOpen1] = useState(false);
       <AboutModel isOpen={isSettingOpen} onClose={toggSetting}/>
       <AccountPoliceModel isOpen={isSettingOpen1} onClose={toggSetting1}/>
       {showPopup2 && (
-        <SideModel4  onClose={handleClosePopup2}  title={'You have no user block'}/>
+        <SideModel4  onClose={handleClosePopup2}  title={title}/>
       )}
 
     </div>

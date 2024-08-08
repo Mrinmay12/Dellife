@@ -1,10 +1,12 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { userLogin } from '../../AllApi/Integrateapi'
 import Button from '../../Component/LodingButton/Button'
 import InputField from '../../Component/RegisterInput/InputField'
 import Password from '../../Component/RegisterInput/PasswordInput/Password'
 import "./Login.css"
 import { useNavigate } from 'react-router-dom'
+import { validateEmail } from '../../Utiles'
+import InformationIcon from "./Information.png"
 export default function Login({setToken}) {
   const navigate=useNavigate()
   const[email,setEmail]=useState("")
@@ -21,7 +23,23 @@ export default function Login({setToken}) {
       email, 
       password,
     })
+    const[validation,setValidation]=useState(false)
+    const[valid_message,setValid_Message]=useState('')
+    // console.log(email , validateEmail(email),"jgjgjhjghj");
+    
     const handleSubmit=async(e)=>{
+      if(!email){
+        setValidation(true)
+        setValid_Message('This field is required')
+      }if(email){
+      if(!validateEmail(email)){
+        setValidation(true)
+        setValid_Message('Email format not valid')
+      }} if(!password){
+        setValidation(true)
+        setValid_Message('This field is required')
+      } if(email && validateEmail(email) && password){
+        setValidation(false)
       setLoder(true)
       try {
         let response = await userLogin(json)
@@ -39,8 +57,24 @@ export default function Login({setToken}) {
           setLoder(false)
      
         }
+      }
     }
    
+    useEffect(()=>{
+      if(validation){
+      if(!email){
+        setValidation(true)
+        setValid_Message('This field is required')
+      }if(email){
+        if(!validateEmail(email)){
+          setValidation(true)
+          setValid_Message('Email format not valid')
+        }}if(!password){
+          setValidation(true)
+          setValid_Message('This field is required')
+        }
+      }
+    },[validation,email,password])
   return (
     <div>
         <div className="containerlogin">
@@ -50,7 +84,25 @@ export default function Login({setToken}) {
         <h2>Login</h2>
         </div>
     <InputField name={"Email"} id={"email"} onChange={handleemail}/>
+    {validation && <>
+    {!email || !validateEmail(email) ?(
+      <>
+       <img src={InformationIcon} alt='' style={{ width:"16px",marginTop:"3px",marginRight:"3px" }}/>
+       <span style={{ color:"red",marginTop:"3px" }}>{valid_message}</span>
+      </>
+    ):null}
+   
+    </>}
     <Password onChange={handlepassword}/>
+    {validation && <>
+    {!password &&(
+      <>
+       <img src={InformationIcon} alt='' style={{ width:"16px",marginTop:"3px",marginRight:"3px" }}/>
+       <span style={{ color:"red",marginTop:"3px" }}>{valid_message}</span>
+      </>
+    )}
+   
+    </>}
     <div className='submitbtn'>
     <Button handleClickbtn={handleSubmit} loader={loader} name="Login" />
     <p style={{paddingTop:"10px",fontSize:"15px",cursor:"pointer"}} onClick={()=>navigate("/resetpassword")}>Forgot password?</p>

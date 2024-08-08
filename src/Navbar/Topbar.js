@@ -128,33 +128,9 @@ export default function Topbar() {
     setIsModalOpen2(false);
   };
 
-  //User message connect
-  const userId = useSelector((state) => state.myReducer.data.message_id);
-  const [memberslist, setMemberlist] = useState([]);
-  useEffect(() => {
-    // setBorderPosition(51.42857142857143);
-    const data = async () => {
-      try {
-        const response = await userfriend(userId);
-        if (response) {
-          let dataarray = Array.isArray(response.data.data);
-          if (dataarray) {
-            let data = response.data.data;
-            
-            setMemberlist(data);
-          }
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  
 
-    if (userId !== null && userId !== undefined && userId !== "undefined") {
-      data();
-    }
-  }, [userId]);
-
-  console.log(borderPosition,"pathnamepathname");
+ 
   return (
     <main>
       <header
@@ -234,7 +210,7 @@ export default function Topbar() {
                       />
                     </a>
                   </li>
-                  {Array.isArray(memberslist) && memberslist.length !== 0 && (
+                  {/* {Array.isArray(memberslist) && memberslist.length !== 0 && ( */}
                     <li>
                       <a
                         href="#four"
@@ -253,7 +229,7 @@ export default function Topbar() {
                         />
                       </a>
                     </li>
-                  )}
+                  {/* // )} */}
 
                   <li>
                     <a href="#five">
