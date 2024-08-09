@@ -18,7 +18,7 @@ export const userNewPost=(data)=>apiUrl.post(`/api/userpost/newpost`,data)
 //         'Content-Type': 'multipart/form-data',
 //       },
 // })
-export const userAllPost=(page,user_id,color,latitude,longitude)=>apiUrl.get(`/api/userpost/getallpost?page=${page}&user_id=${user_id}&color_code=${color}&latitude=${latitude}&longitude=${longitude}`)
+export const userAllPost=(page,user_id,color,latitude,longitude,work_title)=>apiUrl.get(`/api/userpost/getallpost?page=${page}&user_id=${user_id}&color_code=${color}&latitude=${latitude}&longitude=${longitude}&work_title=${work_title}`)
 
 // export const ProfilePicUpdate=(user_id,data)=>apiUrl.put(`/api/user/profilepic/${user_id}`,data,{
 //   headers: {

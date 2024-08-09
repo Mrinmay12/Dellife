@@ -142,7 +142,7 @@ body {
     height: 27px;
     margin-left: 11px;
 }
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .profileinput {
     background-size: 20px;
     height: 45px;
@@ -174,8 +174,17 @@ body {
   background-color: rgb(30 232 102 / 91%);
   height: 41px;
 }
+.profile_centerpostcard{
+  padding-left:0px 
+}
 .centerpostcard{
-  padding-left:0px !important
+  /* padding-left:0px !important */
+  margin-left: 27px;
+  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 10px;
 }
 .filtericon{
   width: 24px;
@@ -216,8 +225,19 @@ body {
   background-color: rgb(30 232 102 / 91%);
   height: 41px;
 }
+
 .centerpostcard{
-  padding-left:0px !important
+  /* padding-left:0px !important */
+  margin-left: 27px;
+  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 10px;
+ 
+}
+.profile_centerpostcard{
+  padding-left:0px 
 }
 .filtericon{
   width: 24px;
@@ -259,7 +279,24 @@ body {
     display: flex;
 }
 .centerpostcard{
-  padding-left:25px
+  /* padding-left:25px */
+  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.profile_centerpostcard{
+  padding-left:25px 
+}
+.centerpostcard2{
+  /* padding-left:0px !important */
+  margin-left: 27px;
+  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 10px;
 }
 .profilebottomtext{
   margin: 28px;
@@ -285,9 +322,13 @@ body {
 }
 
 .aboutdetails{
-  justify-content: center;
+  /* justify-content: center;
+  display: flex;
+  margin-top: 20px; */
   display: flex;
   margin-top: 20px;
+  justify-content: space-between;
+  width: 43px;
 }
 .pratitle{
   font-size: 17px;

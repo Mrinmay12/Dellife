@@ -114,7 +114,7 @@ export default function Register({setToken}) {
     {/* <InputField name={"age"} onChange={handleage} id={"age"}/> */}
    
     <div className="container2" style={{ flexDirection:"row",marginTop:"15px" }}>
-    <label className='dob' style={{ marginTop:"4px",marginRight:"28px" }}>Gander</label>
+    <label className='dob' style={{ marginTop:"4px",marginRight:"28px" ,width:"24%"}}>Gander</label>
           <div className="radio" onClick={()=>setInputValue('1')}>
             <input id="radio-1" name="radio" type="radio"  value={inputValue}/>
             <label for="radio-1" className="radio-label">Male</label>

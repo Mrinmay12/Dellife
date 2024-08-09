@@ -409,11 +409,11 @@ const [isSettingOpen1, setisSettingOpen1] = useState(false);
 {!editshow ? (
         <>
           {show==="post"?(
-            <div className='centerpostcard'>
+            <div className='profile_centerpostcard'>
             <Postcard user_id={userlogin.user_id}/>
             </div>
           ):(
-            <div className='centerpostcard'>
+            <div className='profile_centerpostcard'>
             <SavePostcard user_id={userlogin.user_id}/>
             </div>
           )}

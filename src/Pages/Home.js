@@ -14,6 +14,8 @@ import { io } from "socket.io-client"
 import SmallTopbar from '../Navbar/SmallTopbar';
 import Skeleton from '../Component/SkeletonLoder/Skeleton';
 import checkImg from "../Images/check.svg"
+import SearchUserIcon from "../Component/Images/SearchUser.svg"
+import Button from '../Component/Button/Button';
 export default function Home() {
   const userlogin = useSelector(state => state.myReducer.data)
   const userlocation = useSelector(state => state.UserLocation.data)
@@ -40,7 +42,7 @@ let user_longitude=userlocation.longitude||""
 
 const fetchAllPost = async (page) => {
   if(userlogin?.user_id){
-  const res = await userAllPost(page,userlogin?.user_id,color,user_latitude,user_longitude)
+  const res = await userAllPost(page,userlogin?.user_id,color,user_latitude,user_longitude,userlogin.work_title||'')
   return res.data.data;
   }
 };
@@ -61,7 +63,7 @@ const { data, isFetching, isPreviousData } = useQuery({
       setPage((prevPage) => prevPage + 1);
     // }
   };
-console.log(page,"page");
+
   useEffect(() => {
     if (data && userlogin?.user_id) {
       setPostdata((prevData) => [...prevData, ...data]);
@@ -85,9 +87,7 @@ console.log(page,"page");
   //   };
   // }, [userlogin?.user_id]);
   
-  console.log(
-    userlocation,"this is userlocation",postdata
-  );
+  
 const[report_postid,setReport_postid]=useState([])
 useEffect(()=>{
   if(postreff){
@@ -95,10 +95,17 @@ useEffect(()=>{
   }
 },[postreff])
 
+const handleFindUser=()=>{
+  navigator(`/searchuser/${userlogin.work_title}`)
+}
+// console.log(userlogin.total_following,"mmdmdmdmdmdmdmdm",color);
+
   return (
     <div>
     <SmallTopbar setColor={setColor}/>
-    <div style={{paddingTop:"69px"}}>
+    {(userlogin.total_following>0 || color !=="green") ?(
+      <>
+         <div style={{paddingTop:"69px"}}>
      <InfiniteScroll
         dataLength={postdata.length}
         next={loadMore}
@@ -115,10 +122,23 @@ useEffect(()=>{
     {isFetching  &&postdata?.length>0 ?<Loder/>:""}
     {isFetching&&postdata?.length===0 ?<Skeleton/>:""}
     {!isFetching && data?.length===0?<>
-    <img src={checkImg} width="30px"/>
+    <img src={checkImg} width="30px" alt=''/>
     <p style={{ fontSize:"large" ,fontFamily:'Montserrat'}}>You're all caught up.</p>
     </>:""}
     </div> 
+      </>
+    ):(
+      <div style={{ justifyContent:"center",display:"flex",marginTop:"150px",flexDirection:"column" ,alignItems:"center"}}>
+      <img src={SearchUserIcon} alt='' width='80px'/>
+      <div style={{ marginTop:"34px" }}>
+      <Button value="Find users" handleClick={handleFindUser} backcolor={"#007bff"} icon={<i class="fa fa-search"></i>}/> 
+      </div>
+      </div>
+    )}
+ 
+
+   
+
     </div>
   )
 }

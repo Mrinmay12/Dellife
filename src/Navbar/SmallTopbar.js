@@ -48,7 +48,7 @@ export default function SmallTopbar({setColor}) {
         <div className='profilediv'>
         <div className='profilebottom' style={{width:"30%",backgroundColor:"#d4e2d25c"}}>
           <p  className={show==="near"?'profilebottomtext':"profilebottomtext2"} onClick={()=>handleShow("near")} style={{color:show==="near"?"red":"black"}}><img style={{height:"18px" ,marginRight:"4px"}} src={''}/>Near</p>
-          <p className={show==="argent"?'profilebottomtext':"profilebottomtext2"} style={{color:show==="argent"?"red":"black"}} onClick={()=>handleShow("argent")}><img style={{height:"18px"}} src={''}/> Help</p>
+          <p className={show==="argent"?'profilebottomtext':"profilebottomtext2"} style={{color:show==="argent"?"red":"black"}} onClick={()=>handleShow("argent")}><img style={{height:"18px"}} src={''}/> Tags</p>
           <p className={show==="post"?'profilebottomtext':"profilebottomtext2"} style={{color:show==="post"?"red":"black"}} onClick={()=>handleShow("post")}><img style={{height:"18px"}} src={''}/> Follow</p>
         </div>
         </div>
