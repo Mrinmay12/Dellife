@@ -28,7 +28,7 @@ body {
 .bottomstyle{
     display: flex;
     flex-direction: row;
-    /* padding-top: 9px; */
+    padding-top: 9px;
     padding-bottom: 5px;
     /* margin-left: 12px */
     justify-content: space-between;

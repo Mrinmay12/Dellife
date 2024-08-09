@@ -141,7 +141,7 @@ export default function TextShow({ item }) {
                 </h4>
 
                 <span
-                  style={{ fontWeight: "bold", color: "rgb(30, 232, 104)" }}
+                  style={{ fontWeight: "bold", color: "rgb(0, 123, 255)" ,fontSize:"smaller"}}
                 >
                   {item.work_title || "Other"}
                 </span>
@@ -226,6 +226,8 @@ export default function TextShow({ item }) {
               countlike={item.total_like}
               user_like={item.user_like}
               user_id={item.user_id}
+              post_title={item.Title}
+              post_image={item.Postimage[0]}
             />
           </>
           {/* Comment model end */}
@@ -266,7 +268,7 @@ export default function TextShow({ item }) {
                 </h4>
 
                 <span
-                  style={{ fontWeight: "bold", color: "rgb(30, 232, 104)" }}
+                  style={{ fontWeight: "bold", color: "rgb(0, 123, 255)" ,fontSize:"smaller" }}
                 >
                   {item.work_title || "Other"}
                 </span>
@@ -304,6 +306,8 @@ export default function TextShow({ item }) {
                 countlike={item.total_like}
                 count={item.user_like}
                 user_id={item.user_id}
+                post_title={item.Title}
+                post_image={item.Postimage[0]}
               />
             </>
             {/* Comment model end */}

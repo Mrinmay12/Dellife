@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Commentmodel from '../CommentModel/Commentmodel';
-import { userCommentget, postLike, getLike,disLike, userComment, User_connect_or_not, addTwoUser } from '../../AllApi/Integrateapi';
+import { userCommentget, postLike, getLike,disLike, userComment, User_connect_or_not, addTwoUser, sendMessage } from '../../AllApi/Integrateapi';
 import "..//TextShow.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faCommentSms, faHeart, faShare } from '@fortawesome/free-solid-svg-icons';
@@ -11,8 +11,14 @@ import Smallmodel from '../SmallPupup/Smallmodel';
 import SendIcon from "../CommentModel/Send.svg"
 import { setEditdata } from '../../redux/action/EditAction';
 import ShareModal from '../ShareModel/Share';
-import ShareIcon from "../Images/Share.svg"
-export default function UserComment({ postid ,user_post_or_not,user_present,countlike,user_like,user_id}) {
+import ShareIcon from "../Images/Share.svg";
+import phoneIcon from "../Images/phone.svg";
+import MessageIcon from "../Images/Message.svg"
+import { useNavigate } from 'react-router-dom';
+import SideModel4 from '../SidePopup/SideModel4';
+export default function UserComment({ postid ,user_post_or_not,user_present,countlike,user_like,user_id,post_title
+ , post_image}) {
+  const navigator=useNavigate()
   const userlogin = useSelector(state => state.myReducer.data)
   const editdata = useSelector(state => state.EditReducer.data)
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -219,12 +225,25 @@ const handleSubmit = async () => {
     };
   }, []);
   //message data
+
+
+ 
+  
   const handleMessage = async () => {
     if (isMobile) {
       if (messagedata.present) {
+        const message_json = JSON.stringify({
+          messageId: messagedata.message_id,
+          post_details_id:postid,
+          post_details_text:post_title,
+          post_details_image:post_image,
+        });
+        let res=await sendMessage(message_json)
+        if(res){
         navigator(
           `/chats/${messagedata.message_id}?userid=${window.btoa(user_id)}`
         );
+      }
       } else {
         const json = JSON.stringify({
           // senderId: userlogin.user_id,
@@ -233,16 +252,34 @@ const handleSubmit = async () => {
         });
         const response = await addTwoUser(json);
         if (response) {
+          const message_json = JSON.stringify({
+            messageId: response.data.data._id,
+            post_details_id:postid,
+            post_details_text:post_title,
+            post_details_image:post_image,
+          });
+          let res=await sendMessage(message_json)
+          if(res){
           navigator(
             `/chats/${response.data.data._id}?userid=${window.btoa(user_id)}&post_id=${postid}`
           );
         }
       }
+      }
     } else {
       if (messagedata.present) {
+        const message_json = JSON.stringify({
+          messageId: messagedata.message_id,
+          post_details_id:postid,
+          post_details_text:post_title,
+          post_details_image:post_image,
+        });
+        let res=await sendMessage(message_json)
+        if(res){
         navigator(
           `/message/${messagedata.message_id}?userid=${window.btoa(user_id)}&post_id=${postid}`
         );
+      }
       } else {
         const json = JSON.stringify({
           // senderId: userlogin.user_id,
@@ -251,15 +288,36 @@ const handleSubmit = async () => {
         });
         const response = await addTwoUser(json);
         if (response) {
+          const message_json = JSON.stringify({
+            messageId: response.data.data._id,
+            post_details_id:postid,
+            post_details_text:post_title,
+            post_details_image:post_image,
+          });
+          let res=await sendMessage(message_json)
+          if(res){
           navigator(
             `/message/${response.data.data._id}?userid=${window.btoa(user_id)}&post_id=${postid}`
           );
         }
       }
+      }
     }
   };
 
-  console.log(messagedata,"messagedatamessagedatamessagedataMMM");
+  const [showPopup2, setShowPopup2] = useState(false);
+  const handleClosePopup2 = () => {
+    // setPopupImageUrl('');
+    setShowPopup2(false);
+  }
+  const handlePhone=()=>{
+    if (isMobile) {
+    window.open('tel:900300400')
+    }else{
+      setShowPopup2(true)
+    }
+  }
+  // console.log(messagedata,"messagedatamessagedatamessagedataMMM");
   
   return (
     <div>
@@ -309,10 +367,12 @@ const handleSubmit = async () => {
 {!user_post_or_not && (
   <>
         <div >
-          <FontAwesomeIcon icon={faComment} className="iconstyle" onClick={() => handleOpenComment(postid)} /> {commentdata.length > 0 && commentdata.length}
+          <FontAwesomeIcon icon={faComment} className="iconstyle" onClick={() => handleMessage()} /> 
         </div>
+
         <div >
-          <FontAwesomeIcon icon={faComment} className="iconstyle" onClick={() => handleOpenComment(postid)} /> {commentdata.length > 0 && commentdata.length}
+          <img src={phoneIcon} className="iconstyle" onClick={handlePhone}/>
+          {/* <FontAwesomeIcon icon={faComment} className="iconstyle" onClick={() => handleOpenComment(postid)} /> {commentdata.length > 0 && commentdata.length} */}
         </div>
         </>
 )}
@@ -332,6 +392,10 @@ const handleSubmit = async () => {
         </div>
       {isModalOpen && <Commentmodel onClose={closeModal} postId={postId} />}
       <ShareModal isOpen={isModalOpenshare} onRequestClose={closeModalShare} url={`${window.location.host}/sharepost/${postid}`}/>
+
+      {showPopup2 && (
+        <SideModel4  onClose={handleClosePopup2}  title={'900300400'} use_for={'user_comment'}/>
+      )}
     </div>
   )
 }
