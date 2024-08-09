@@ -45,6 +45,7 @@ const handleOption=(e)=>{
   setTagoption(e)
 }
 
+
   useEffect(() => {
     if (fimage !== null) {
       setFimageUrl("")
@@ -158,7 +159,15 @@ const handleUpload = () => {
 // console.log(userlocation,"userlocationuserlocationuserlocation");
 
 const handleSubmit = async (e) => {
-  
+  if (link && !valid_link) {
+    // alert('Invalid link');
+    return;
+  }
+
+  // if (!link) {
+  //   alert('Link is required');
+  //   return;
+  // }
   try {
     const uploadedFileNames = await handleUpload();
 
@@ -200,6 +209,7 @@ const handleSubmit = async (e) => {
     console.error('Error uploading files:', error);
     alert('Error uploading images. Please try again later.');
   }
+
 };
 
 
@@ -266,8 +276,8 @@ useEffect(() => {
  }
 
  const options = [
-  { value: 'apple', label: 'Apple' },
-  { value: 'banana', label: 'Banana' },
+  { value: 'doctor', label: 'Doctor' },
+  { value: 'teacher', label: 'Teacher' },
   { value: 'orange', label: 'Orange' },
   { value: 'grape', label: 'Grape' },
   // Add more options as needed

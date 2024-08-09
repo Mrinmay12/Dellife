@@ -122,9 +122,9 @@ export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
           )}
       <span className="close-button" onClick={onClose}>&times;</span>
      {/* <textarea id="message" className="input" value={about} placeholder="About" onChange={(e)=>setAbout(e.target.value)}></textarea> */}
-        <Input placeholder="About" onchange={setAbout} value={about} inputtype="text"/>
-        <Input placeholder="link" onchange={setLink} value={link} inputtype="url"/>
-        <Input placeholder="phone" onchange={setPhone} value={phone} inputtype="tel"/>
+        <Input placeholder="About" onchange={setAbout} value={about} inputtype="text" title={"Write about yourself"}/>
+        <Input placeholder="link" onchange={setLink} value={link} inputtype="url" title={"Enter link"}/>
+        <Input placeholder="phone" onchange={setPhone} value={phone} inputtype="tel" title={"Enter phone number"}/>
         {/* <Input placeholder="email" onchange={setEmail} value={email} inputtype="email"/> */}
         {/* <SelectDropdown  options={options} handleOption={handleChange}/> */}
         <PhoneSelect/>

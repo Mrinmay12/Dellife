@@ -105,7 +105,7 @@ navigate("/message/"+e+"?userid="+window.btoa(id))
         </div>
         <div className="desc-contact">
           <p className="name">{item.user_name}</p>
-          <p className="message">{decryptText(item.last_message,correctSecretCode)}</p>
+          <p className="message" style={{ marginLeft:"22px" }}>{decryptText(item.last_message,correctSecretCode)}</p>
         </div>
         <div className="timer">{UserTime(item.last_message_time)}</div>
       </div>

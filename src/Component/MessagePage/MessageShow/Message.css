@@ -56,3 +56,11 @@
     font-family: emoji;
     color: initial;
   }
+
+
+  .message_item_details{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}

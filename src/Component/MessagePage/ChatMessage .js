@@ -10,12 +10,13 @@ import "./Message.css";
 import Messageshow from "./MessageShow/Messageshow";
 import { useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
-import { encryptText } from "../../Utiles";
+import { decryptText, encryptText } from "../../Utiles";
 import { io } from "socket.io-client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import blockIcon from "../Images/blockIcon.svg";
+import MessageCard from "./MessageDetails/MessageCard";
 export default function ChatMessage({ messageid }) {
   const navigation = useNavigate();
   const userlogin = useSelector((state) => state.myReducer.data);
@@ -119,6 +120,8 @@ export default function ChatMessage({ messageid }) {
   const [messageref, setMessageref] = useState("");
   const correctSecretCode = "MessageApp123";
   const base64 = encryptText(writemessage, correctSecretCode);
+
+  
   const json = JSON.stringify({
     messageId: id,
     sender: userId.message_id,
@@ -252,14 +255,26 @@ navigation(`/searchuser/${e}`)
             {/* <i className="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i> */}
           </div>
           {/* )} */}
-
+         
           <div className="showmessages-chat">
             {messagedata.map((item) => (
-              <Messageshow
-                own={item.sender === userlogin.message_id ? true : false}
-                message={item.messagetext}
-                time={item.updatedAt}
-              />
+              <>
+              {item.post_details_id &&(
+                <div className="message_item_details">
+          <MessageCard title={item.post_details_text} imgSrc={item.post_details_image} post_id={item.post_details_id}/>
+         
+          </div>
+              )}
+               {item.messagetext &&(
+     <Messageshow
+     own={item.sender === userlogin.message_id ? true : false}
+     message={item.messagetext}
+     time={item.updatedAt}
+   />
+               )}
+     
+              </>
+              
             ))}
           {!block_by&&(
             <AutoGrowTextarea
