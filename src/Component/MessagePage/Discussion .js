@@ -102,6 +102,10 @@ navigate("/message/"+e+"?userid="+window.btoa(id))
         {/* <div className="photo" style={backgroundImageStyle}> */}
         <div className="photo" style={{ backgroundImage: `url(${item.user_pic})` }}>
           <div className="online"></div>
+          {item.unseen_message!==0&&(
+          <div className="online1">{item.unseen_message>9?'9+':item.unseen_message}</div>
+
+          )}
         </div>
         <div className="desc-contact">
           <p className="name">{item.user_name}</p>

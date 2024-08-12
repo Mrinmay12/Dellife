@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
   BlockUser,
+  UpdateUnseendata,
   getMessage,
   get_Perticular_user,
   sendMessage,
@@ -202,6 +203,19 @@ navigation(`/otherprofile/${new Date().getMilliseconds()}?user_id=${e}`)
   const RedirectSearch=(e)=>{
 navigation(`/searchuser/${e}`)
   }
+  useEffect(()=>{
+    const update_Unseen_Message=async()=>{
+      try{
+        await UpdateUnseendata(id,userId.message_id)
+      }catch(err){
+
+      }
+    
+    }
+    if(id && userId.message_id){
+    update_Unseen_Message()
+    }
+  },[id,userId.message_id])
   return (
     <>
       {id ? (
