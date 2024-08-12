@@ -16,6 +16,7 @@ import Skeleton from '../Component/SkeletonLoder/Skeleton';
 import checkImg from "../Images/check.svg"
 import SearchUserIcon from "../Component/Images/SearchUser.svg"
 import Button from '../Component/Button/Button';
+import { removeDuplicates } from '../Utiles';
 export default function Home() {
   const userlogin = useSelector(state => state.myReducer.data)
   const userlocation = useSelector(state => state.UserLocation.data)
@@ -99,7 +100,7 @@ const handleFindUser=()=>{
   navigator(`/searchuser/${userlogin.work_title}`)
 }
 // console.log(userlogin.total_following,"mmdmdmdmdmdmdmdm",color);
-
+let uniqueIds= removeDuplicates(postdata,"post_id")
   return (
     <div>
     <SmallTopbar setColor={setColor}/>
@@ -107,20 +108,20 @@ const handleFindUser=()=>{
       <>
          <div style={{paddingTop:"69px"}}>
      <InfiniteScroll
-        dataLength={postdata.length}
+        dataLength={uniqueIds.length}
         next={loadMore}
         hasMore={true}
         // loader={data?.length!==0 &&<h4>Loading...</h4>}
       >
-    {postdata.filter(item => !report_postid.includes(item.post_id)).map((item)=>(
+    {uniqueIds.filter(item => !report_postid.includes(item.post_id)).map((item)=>(
       <TextShow item={item}/>
     ))}
     </InfiniteScroll>
 </div>
     <div style={{textAlign:"center",paddingTop:"69px"}}>
     {/* {isFetching ?<Loder/>:"No more data"} */}
-    {isFetching  &&postdata?.length>0 ?<Loder/>:""}
-    {isFetching&&postdata?.length===0 ?<Skeleton/>:""}
+    {isFetching  &&uniqueIds?.length>0 ?<Loder/>:""}
+    {isFetching&&uniqueIds?.length===0 ?<Skeleton/>:""}
     {!isFetching && data?.length===0?<>
     <img src={checkImg} width="30px" alt=''/>
     <p style={{ fontSize:"large" ,fontFamily:'Montserrat'}}>You're all caught up.</p>

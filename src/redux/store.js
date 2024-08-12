@@ -8,6 +8,7 @@ import NearuserReducer from './reducer/NearuserReducer';
 import UserLocation from "./reducer/UserLocation";
 import UpdateReducer from "./reducer/UpdateReducer";
 import EditReducer from './reducer/EditReducer';
+import MessageReducer from './reducer/MessageReducer';
 const rootReducer = combineReducers({
   myReducer,
   RefreshReducer,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   NearuserReducer,
   UserLocation,
   UpdateReducer,
-  EditReducer
+  EditReducer,
+  MessageReducer
   // add more reducers here if needed
 });
 

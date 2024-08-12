@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { forgetPassword, resetPassword, userLogin } from '../../AllApi/Integrateapi'
+import React, { useEffect, useState } from 'react'
+import { CheckOtp, forgetPassword, resetPassword, userLogin } from '../../AllApi/Integrateapi'
 import Button from '../../Component/LodingButton/Button'
 import InputField from '../../Component/RegisterInput/InputField'
 import Password from '../../Component/RegisterInput/PasswordInput/Password'
@@ -75,6 +75,37 @@ const handleResetPassword=()=>{
 
         }
     }
+
+    const [otpErr, setOtpErr] = useState('');
+
+    useEffect(() => {
+    //   const json2 = JSON.stringify({ email, otp });
+  
+      const checkOtpData = async () => {
+        try {
+          let res = await CheckOtp(email,otp);
+          setOtpErr(res.data.status);
+      
+        } catch (err) {
+ 
+          setOtpErr(true);
+        }
+      };
+  
+
+      let timeoutId;
+  
+   
+      timeoutId = setTimeout(() => {
+        if(email &&otp ){
+        checkOtpData();
+        }
+      }, 1000); 
+      return () => clearTimeout(timeoutId);
+  
+    }, [email, otp]);
+    console.log(otpErr);
+    
     return (
         <div>
             {!nextpassword &&
@@ -137,6 +168,10 @@ const handleResetPassword=()=>{
                     </div>
                     <div style={{ marginLeft:"24px",marginTop:"6px" }}>
                     <OTPInput length={6} onChange={handleOtpChange} />
+                    {otpErr &&(
+                        <span style={{ color:"red",marginTop:"3px" }}>Invalid OTP Code</span>
+                    )}
+                    
                     </div>
                     {/* <Password onChange={handlepassword} /> */}
                     <div className='submitbtn'>
@@ -157,7 +192,8 @@ const handleResetPassword=()=>{
                             borderRadius: '8px',
                             boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)'
                         }} onClick={() => navigate("/")}>Back to login</button>
-                        <button style={{
+                        {otpErr===false &&(
+                            <button style={{
                             backgroundColor: '#4CAF50',
                             paddingTop: "10px",
                             // marginTop:"10px",
@@ -174,6 +210,8 @@ const handleResetPassword=()=>{
                             borderRadius: '8px',
                             boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)'
                         }} onClick={() => handleResetPassword()}>{"Next >>>"}</button>
+                        )}
+                        
                     </div>
 
                 </div>

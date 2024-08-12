@@ -245,3 +245,12 @@ header.clearfix {
     display: block;
     transition: top 0.3s;
   }
+  .message_not_seen{
+    background-color: red;
+    left: -12px;
+    position: relative;
+    color: white;
+    border-radius: 19px;
+    top: -13px;
+    font-size: 14px;
+  }

@@ -31,8 +31,10 @@ import Searchbar from "../Component/SearchInput/Searchbar";
 import ShareDetailsmodel from "../Component/DetailsShareModel/ShareDetailsmodel";
 import PostPopUp from "../Component/Postpopup/PostPopUp";
 import { userfriend } from "../AllApi/Integrateapi";
+import { setUserMessageData } from "../redux/action/UserMessage";
 export default function Topbar() {
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.myReducer.data);
   const [borderPosition, setBorderPosition] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
@@ -129,8 +131,43 @@ export default function Topbar() {
   };
 
   
-
+  const [memberslist, setMemberlist] = useState([]);
+  useEffect(() => {
+    const data = async () => {
+      try {
+        const response = await userfriend(userId.message_id);
+        if (response) {
+          let dataarray = Array.isArray(response.data.data);
+          if (dataarray) {
+            let data = response.data.data;
+            dispatch(setUserMessageData(data))
+            setMemberlist(data);
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+  
+    if (userId !== null && userId !== undefined && userId !== "undefined") {
+      data();
+    }
+  }, [userId]);
  
+  const calculateTotalUnseenMessages = (messages) => {
+    return messages.reduce((total, message) => total + message.unseen_message, 0);
+};
+
+// State for total unseen messages
+const [totalUnseenMessages, setTotalUnseenMessages] = useState(0);
+
+// Update state when messages change
+useEffect(() => {
+    const total = calculateTotalUnseenMessages(memberslist);
+    setTotalUnseenMessages(total);
+}, [memberslist]) 
+// console.log(totalUnseenMessages,memberslist);
+
   return (
     <main>
       <header
@@ -227,6 +264,10 @@ export default function Topbar() {
                           }}
                           className="iconstyle"
                         />
+                        {totalUnseenMessages !==0 &&(
+                          <span className="message_not_seen">{totalUnseenMessages>10?"9+":totalUnseenMessages}</span>
+
+                        )}
                       </a>
                     </li>
                   {/* // )} */}
@@ -238,6 +279,7 @@ export default function Topbar() {
                         onClick={() => setIsModalOpen(true)}
                         className="iconstyle"
                       />
+                    
                     </a>
                   </li>
                 </li>
@@ -381,6 +423,10 @@ export default function Topbar() {
                           }}
                           className="iconstyle"
                         />
+                       {totalUnseenMessages !==0 &&(
+                          <span className="message_not_seen">{totalUnseenMessages>10?"9+":totalUnseenMessages}</span>
+
+                        )}
                       </a>
                     </li>
                   </ul>

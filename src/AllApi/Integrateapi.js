@@ -9,6 +9,7 @@ export const verifytoken=async(token)=>await apiUrl.get(`/api/user/verifytoken`,
 })
 export const forgetPassword=(email)=>apiUrl.post(`/api/user/forgetpassword`,email)
 export const resetPassword=(json)=>apiUrl.post(`/api/user/resetpassword`,json)
+export const CheckOtp=(email,otp)=>apiUrl.get(`/api/user/check_otp?email=${email}&otp=${otp}`)
 // email, otp, newPassword
 
 //post api
@@ -46,6 +47,8 @@ export const userfriend=(userid)=>apiUrl.get(`/api/user/userfriend/${userid}`)
 export const userProfile=(userid)=>apiUrl.get(`/api/user/userprofile/${userid}`)
 export const User_connect_or_not=(post_id,user_id,sender_id)=>apiUrl.get(`/api/user/user_connect_or_not/${post_id}?user_id=${user_id}&sender_id=${sender_id}`)
 export const get_Perticular_user=(message_id,user_id)=>apiUrl.get(`/api/user/get_specific/${message_id}/${user_id}`)
+export const UpdateUnseendata=(message_id,user_id)=>apiUrl.put(`api/user/unseen_message_update?message_id=${message_id}&userid=${user_id}`)
+
 //post comment Api
 export const userComment=(json)=>apiUrl.post(`/api/userpost/user/commentpost`,json)
 export const userCommentget=(post_id,user_id,page)=>apiUrl.get(`/api/userpost/user/commentget/${post_id}/${user_id}?page=${page}`)
