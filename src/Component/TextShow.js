@@ -216,7 +216,7 @@ export default function TextShow({ item }) {
                 onLoad={handleImageLoad} /> */}
             </div>
           </div>
-
+         <hr style={{ marginTop:"9px" }}/>
           {/* Comment model start */}
           <>
             <UserComment
@@ -296,7 +296,7 @@ export default function TextShow({ item }) {
             <div style={{ color: item.Color, whiteSpace: "break-spaces",fontSize:"20px" }}>
               {item.Title}
             </div>
-
+            <hr style={{ marginTop:"9px" }}/>
             {/* Comment model start */}
             <>
               <UserComment
@@ -305,6 +305,7 @@ export default function TextShow({ item }) {
                 user_present={item.user_present}
                 countlike={item.total_like}
                 count={item.user_like}
+                user_like={item.user_like}
                 user_id={item.user_id}
                 post_title={item.Title}
                 post_image={item.Postimage[0]}

@@ -17,6 +17,7 @@ import SelectDropdown from '../../Select_dropdown/SelectDropdown';
 import Input from '../PostForm/Input';
 import { isValidLink } from '../../Utiles';
 import { setRefresh } from '../../redux/action/RefreshAction';
+import { setData } from '../../redux/action/LoginAction';
 export default function Post({only_use,onClose}) {
   const userlogin = useSelector(state => state.myReducer.data)
   const userlocation = useSelector(state => state.UserLocation.data)
@@ -192,7 +193,10 @@ const handleSubmit = async (e) => {
       dispatch(setRefresh(new Date().getMilliseconds()))
     } else {
       try {
-        await userNewPost(formData);
+        let res=await userNewPost(formData);
+        if(res){
+          dispatch(setData({...userlogin,total_post:userlogin.total_post+1}))
+        }
         navigate("/");
         if(only_use==="destop"){
           onClose()
