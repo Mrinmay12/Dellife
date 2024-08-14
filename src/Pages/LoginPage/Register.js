@@ -61,16 +61,16 @@ export default function Register({setToken}) {
       }if(!inputValue){
         setValidation(true)
         setValid_Message('This field is required')
-      }if(dob.length!==9){
+      }if(dob.length<9){
         setValidation(true)
         setValid_Message2('This field is required')
-      }if(dob){
+      }if(dob.length>9){
         if(user_age<13){
           setValidation(true)
-          setValid_Message('Sorry, but this service is only available to users who are 13 years old or older.')
+          setValid_Message2('Sorry, but this service is only available to users who are 13 years old or older.')
         }
       }
-       if(email && validateEmail(email) && password && name && inputValue && dob.length>9 && user_age>13){
+       if(email && validateEmail(email) && password && name && inputValue  && user_age>13){
       setLoder(true)
       try {
         let response = await userRegister(json)
@@ -109,11 +109,11 @@ export default function Register({setToken}) {
           setValid_Message('This field is required')
         }if(!inputValue){
           setValid_Message('This field is required')
-        }if(dob.length!==9){
+        }if(dob.length<9){
           setValidation(true)
           setValid_Message2('This field is required')
         }
-        if(dob){
+        if(dob.length>9){
           if(user_age<13){
             setValidation(true)
             setValid_Message2('Sorry, but this service is only available to users who are 13 years old or older.')

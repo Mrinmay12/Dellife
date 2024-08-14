@@ -26,6 +26,7 @@ export default function Login({setToken}) {
     const[validation,setValidation]=useState(false)
     const[valid_message,setValid_Message]=useState('')
     const[valid_message1,setValid_Message1]=useState('')
+    const[valid_message2,setValid_Message2]=useState('')
     // console.log(email , validateEmail(email),"jgjgjhjghj");
     
     const handleSubmit=async(e)=>{
@@ -55,6 +56,8 @@ export default function Login({setToken}) {
           //  setIsLoggedIn(true)
           }
         }catch(err){
+          setValidation(true)
+          setValid_Message2('Invalid email or password')
           setLoder(false)
      
         }
@@ -73,6 +76,7 @@ export default function Login({setToken}) {
         }}if(!password){
           setValidation(true)
           setValid_Message('This field is required')
+          setValid_Message2('')
         }
       }
     },[validation,email,password])
@@ -104,6 +108,12 @@ export default function Login({setToken}) {
     )}
    
     </>}
+    {valid_message2 &&(
+      <>
+       <img src={InformationIcon} alt='' style={{ width:"16px",marginTop:"3px",marginRight:"3px" }}/>
+       <span style={{ color:"red",marginTop:"3px" }}>{valid_message2}</span>
+      </>
+    )}
     <div className='submitbtn'>
     <Button handleClickbtn={handleSubmit} loader={loader} name="Login" />
     <p style={{paddingTop:"10px",fontSize:"15px",cursor:"pointer"}} onClick={()=>navigate("/resetpassword")}>Forgot password?</p>
