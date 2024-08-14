@@ -1,4 +1,4 @@
-import React,{useState,useRef} from 'react'
+import React,{useState,useRef, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import "../FilterModel/Filtermodel.css"
 import './SettingModel.css'
@@ -6,7 +6,7 @@ import CalenderIcon from "../Images/calendarIcon.svg"
 import MailIcon from "../Images/Mail.svg"
 import { DateShowMonth } from '../../Utiles';
 import Button from '../Button/Button';
-import { Delete_profile } from '../../AllApi/Integrateapi';
+import { Delete_profile, Number_Lock_Unlock } from '../../AllApi/Integrateapi';
 import { setRefresh } from '../../redux/action/RefreshAction';
 export default function AboutModel({isOpen, onClose}) {
     const dispatch=useDispatch()
@@ -32,6 +32,22 @@ export default function AboutModel({isOpen, onClose}) {
     const closeModal = () => {
         setIsModalOpen(false);
       };
+      const Hide_Show=async()=>{
+        try{
+       let res= Number_Lock_Unlock(userlogin.user_id)
+        }catch(err){
+
+        }
+      }
+      const [isChecked, setIsChecked] = useState(userlogin.mobile_see);
+      const handleToggle = () => {
+        setIsChecked(!isChecked);
+        Hide_Show()
+      };
+  
+     
+ 
+
 
   return (
     <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={onClose}>
@@ -55,6 +71,9 @@ export default function AboutModel({isOpen, onClose}) {
        <span>{DateShowMonth(userlogin.account_Create_time)}</span>
        </div>
        </div>
+
+     
+
 <div style={{ display:"flex" }}>
        <img src={MailIcon} width='23px' alt=''/>
        <div style={{ marginLeft:"17px",marginTop:"11px" }}>
@@ -63,6 +82,21 @@ export default function AboutModel({isOpen, onClose}) {
        </div>
        </div>
     
+       <div style={{ display:"flex" }}>
+       <img src={CalenderIcon} width='23px' alt=''/>
+       <div style={{ marginLeft:"17px",marginTop:"11px" }}>
+       <p style={{ fontWeight:700 }}>Your number see your's all posts</p>
+       <span> <label className="toggle-switch">
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={handleToggle}
+        />
+        <span className="slider round"></span>
+      </label></span>
+       </div>
+       </div>
+
        <div style={{marginTop:"20px"}}>
         <Button value="Delete profile" handleClick={handleDelete} backcolor={"red"} icon={<i class="fa fa-trash"></i>}/>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './DateDropdown.css';
 
-const DateDropdown = () => {
+const DateDropdown = ({setUserAge,setDob}) => {
   const [days, setDays] = useState([]);
   const [years, setYears] = useState([]);
   const [selectedDay, setSelectedDay] = useState('');
@@ -22,6 +22,7 @@ const DateDropdown = () => {
     if (selectedYear && selectedMonth && e.target.value) {
         const birthDate = new Date(selectedYear, selectedMonth - 1, e.target.value);
         setAge(calculateAge(birthDate));
+        setUserAge(calculateAge(birthDate))
       }
     console.log('Selected Day:', e.target.value);
   };
@@ -31,6 +32,7 @@ const DateDropdown = () => {
     if (selectedYear && e.target.value && selectedDay) {
         const birthDate = new Date(selectedYear, e.target.value - 1, selectedDay);
         setAge(calculateAge(birthDate));
+        setUserAge(calculateAge(birthDate))
       }
     console.log('Selected Month:', e.target.value);
   };
@@ -40,6 +42,7 @@ const DateDropdown = () => {
     if (e.target.value && selectedMonth && selectedDay) {
         const birthDate = new Date(e.target.value, selectedMonth - 1, selectedDay);
         setAge(calculateAge(birthDate));
+        setUserAge(calculateAge(birthDate))
       }
     console.log('Selected Year:', e.target.value);
   };
@@ -60,7 +63,12 @@ const DateDropdown = () => {
     }
     setYears(yearsArray);
   }, []);
-console.log(age,"this s9s age");
+  useEffect(()=>{
+  
+      setDob(`${selectedDay}-${selectedMonth}-${selectedYear}`)
+    
+  },[selectedDay,selectedMonth,selectedYear])
+// console.log(age,"this s9s age",selectedDay,selectedMonth,selectedYear);
   return (
     <div style={{paddingTop:"24px"}}>
        <label className='dob'>Date of birth</label>

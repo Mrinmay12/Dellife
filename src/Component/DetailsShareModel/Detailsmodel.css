@@ -8,8 +8,15 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1;
+    width: 338px;
   }
-
+.search-icon2_share{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+}
   @media screen and (max-width: 600px) {
     .modal-container-details {
       position: fixed;
@@ -49,7 +56,7 @@
     position: relative;
     display: inline-block;
     /* margin-top: 20px; */
-      margin-left: 21px;
+      margin-left: 0px;
       width: 45px; /*Change here */
       height: 25px; /*Change here */
   }
@@ -108,7 +115,7 @@
   }
 
   .sharetext{
-    width: 75%;
+    /* width: 75%; */
     font-size: 22px;
     font-weight: 600;
     font-family: 'Montserrat';
@@ -141,15 +148,8 @@
   flex-direction: column;
 }
 
-.search-icon2 {
-  display: flex; /* Use flexbox */
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
-  width: 50px; /* Adjust as needed */
-  height: 50px; /* Adjust as needed */
-}
 
-.search-icon2 img {
+.search-icon2_share img {
   max-width: 100%; /* Ensure the image doesn't exceed the container */
 }
 

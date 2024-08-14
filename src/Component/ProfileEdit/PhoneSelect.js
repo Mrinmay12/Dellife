@@ -3,13 +3,9 @@ import Select, { components } from "react-select";
 import Input from "../PostForm/Input";
 import "./PhoneSelect.css"
 const countryOptions = [
+ 
   {
-    value: "usa",
-    label: "United States",
-    flag: "https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg",
-  },
-  {
-    value: "uk",
+    value: "in",
     label: "+91",
     flag: "https://img.freepik.com/free-vector/illustration-india-flag_53876-27130.jpg",
   },
@@ -38,9 +34,6 @@ const SingleValue = ({ data }) => (
   </div>
 );
 
-const handleChange = (selectedOption) => {
-  console.log("Selected Option:", selectedOption);
-};
 
   
 const customStyles = {
@@ -83,11 +76,22 @@ const customStyles = {
 
     
   };
-const PhoneSelect = () => {
+const PhoneSelect = ({onchange}) => {
     const[phone,setPhone]=useState("") 
+    const[country_code,setCountry_code]=useState({
+      value: "in",
+      label: "+91",
+      flag: "https://img.freepik.com/free-vector/illustration-india-flag_53876-27130.jpg",
+    })
+    const handleChange = (selectedOption) => {
+      setCountry_code(selectedOption)
+      console.log("Selected Option:", selectedOption);
+    };
+    
     const handlePhone=(e)=>{
         const newValue = e.target.value.replace(/[^0-9]/g, "").slice(0,10)
         setPhone(newValue)
+        onchange(newValue)
     }
     return(
     <div className="phoneclass">
@@ -96,6 +100,7 @@ const PhoneSelect = () => {
     classNamePrefix="select"
     name="color"
     options={countryOptions}
+    value={country_code}
     components={{ Option: CustomOption }} //if only image show in option
     // components={{ Option: CustomOption, SingleValue }} //if  image show in both
     onChange={handleChange}

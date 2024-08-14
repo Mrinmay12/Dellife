@@ -114,7 +114,7 @@ const nearUsersdata = uniqueObjects.filter((user) => {
     <div className="modal-container-details" ref={modalRef}>
      <div className="shareuserinfo">
      <div className='sharealldetails'>
-       <p className='sharetext'>Share your details</p>
+       <p className='sharetext'>Near friends</p>
          {/* <label className="toggle-switch">
         <input
           type="checkbox"
@@ -130,7 +130,7 @@ const nearUsersdata = uniqueObjects.filter((user) => {
 {nearUsersdata.length===0?(
   <>
   <div className="search-container2">
-    <div className="search-icon2">
+    <div className="search-icon2_share">
       <img src="https://static.vecteezy.com/system/resources/previews/000/573/624/non_2x/map-pointer-gps-icon-vector.jpg" alt="Search Icon" style={{width:"30px"}}/>
     </div>
     <div className="search-text">Searching...</div>
