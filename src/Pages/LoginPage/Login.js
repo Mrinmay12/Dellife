@@ -25,16 +25,17 @@ export default function Login({setToken}) {
     })
     const[validation,setValidation]=useState(false)
     const[valid_message,setValid_Message]=useState('')
+    const[valid_message1,setValid_Message1]=useState('')
     // console.log(email , validateEmail(email),"jgjgjhjghj");
     
     const handleSubmit=async(e)=>{
       if(!email){
         setValidation(true)
-        setValid_Message('This field is required')
+        setValid_Message1('This field is required')
       }if(email){
       if(!validateEmail(email)){
         setValidation(true)
-        setValid_Message('Email format not valid')
+        setValid_Message1('Email format not valid')
       }} if(!password){
         setValidation(true)
         setValid_Message('This field is required')
@@ -64,11 +65,11 @@ export default function Login({setToken}) {
       if(validation){
       if(!email){
         setValidation(true)
-        setValid_Message('This field is required')
+        setValid_Message1('This field is required')
       }if(email){
         if(!validateEmail(email)){
           setValidation(true)
-          setValid_Message('Email format not valid')
+          setValid_Message1('Email format not valid')
         }}if(!password){
           setValidation(true)
           setValid_Message('This field is required')
@@ -88,7 +89,7 @@ export default function Login({setToken}) {
     {!email || !validateEmail(email) ?(
       <>
        <img src={InformationIcon} alt='' style={{ width:"16px",marginTop:"3px",marginRight:"3px" }}/>
-       <span style={{ color:"red",marginTop:"3px" }}>{valid_message}</span>
+       <span style={{ color:"red",marginTop:"3px" }}>{valid_message1}</span>
       </>
     ):null}
    

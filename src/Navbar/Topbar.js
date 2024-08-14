@@ -32,6 +32,8 @@ import ShareDetailsmodel from "../Component/DetailsShareModel/ShareDetailsmodel"
 import PostPopUp from "../Component/Postpopup/PostPopUp";
 import { userfriend } from "../AllApi/Integrateapi";
 import { setUserMessageData } from "../redux/action/UserMessage";
+import LocationIcon from "../Component/Images/Location.svg";
+import MessageIcon from "../Component/Images/TopMessage.svg"
 export default function Topbar() {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.myReducer.data);
@@ -130,7 +132,6 @@ export default function Topbar() {
     setIsModalOpen2(false);
   };
 
-  
   const [memberslist, setMemberlist] = useState([]);
   useEffect(() => {
     const data = async () => {
@@ -140,7 +141,7 @@ export default function Topbar() {
           let dataarray = Array.isArray(response.data.data);
           if (dataarray) {
             let data = response.data.data;
-            dispatch(setUserMessageData(data))
+            dispatch(setUserMessageData(data));
             setMemberlist(data);
           }
         }
@@ -148,25 +149,28 @@ export default function Topbar() {
         console.log(err);
       }
     };
-  
+
     if (userId !== null && userId !== undefined && userId !== "undefined") {
       data();
     }
   }, [userId]);
- 
+
   const calculateTotalUnseenMessages = (messages) => {
-    return messages.reduce((total, message) => total + message.unseen_message, 0);
-};
+    return messages.reduce(
+      (total, message) => total + message.unseen_message,
+      0
+    );
+  };
 
-// State for total unseen messages
-const [totalUnseenMessages, setTotalUnseenMessages] = useState(0);
+  // State for total unseen messages
+  const [totalUnseenMessages, setTotalUnseenMessages] = useState(0);
 
-// Update state when messages change
-useEffect(() => {
+  // Update state when messages change
+  useEffect(() => {
     const total = calculateTotalUnseenMessages(memberslist);
     setTotalUnseenMessages(total);
-}, [memberslist]) 
-// console.log(totalUnseenMessages,memberslist);
+  }, [memberslist]);
+  // console.log(totalUnseenMessages,memberslist);
 
   return (
     <main>
@@ -182,11 +186,12 @@ useEffect(() => {
             {isMobile && (
               <div className="nearshare">
                 <a href="#five">
-                  <FontAwesomeIcon
+                <img src={LocationIcon} className="iconstyle" alt="" onClick={() => setIsModalOpen(true)}/>
+                  {/* <FontAwesomeIcon
                     icon={faMessage}
                     onClick={() => setIsModalOpen(true)}
                     className="iconstyle"
-                  />
+                  /> */}
                 </a>
               </div>
             )}
@@ -248,15 +253,32 @@ useEffect(() => {
                     </a>
                   </li>
                   {/* {Array.isArray(memberslist) && memberslist.length !== 0 && ( */}
-                    <li>
-                      <a
-                        href="#four"
-                        className={
-                          splitLocation[1] === "message" ? "activ" : ""
-                        }
-                        onClick={(e) => handleLinkClick(e, 3, "#four")}
-                      >
-                        <FontAwesomeIcon
+                  <li>
+                    <a
+                      href="#four"
+                      className={splitLocation[1] === "message" ? "activ" : ""}
+                      onClick={(e) => handleLinkClick(e, 3, "#four")}
+                    >
+                      <div class="notification-icon">
+                        <img
+                          src={MessageIcon}
+                          alt="Notification Icon"
+                        />
+                          {totalUnseenMessages !==0 &&(
+                        <div class="badge">
+                          {totalUnseenMessages !== 0 && (
+                            <span>
+                              9+
+                              {totalUnseenMessages > 10
+                                ? "9+"
+                                : totalUnseenMessages}
+                            </span>
+                          )} 
+                        </div>
+                          )} 
+                      </div>
+
+                      {/* <FontAwesomeIcon
                           icon={faMessage}
                           style={{
                             color:
@@ -267,19 +289,19 @@ useEffect(() => {
                         {totalUnseenMessages !==0 &&(
                           <span className="message_not_seen">{totalUnseenMessages>10?"9+":totalUnseenMessages}</span>
 
-                        )}
-                      </a>
-                    </li>
+                        )} */}
+                    </a>
+                  </li>
                   {/* // )} */}
 
                   <li>
                     <a href="#five">
-                      <FontAwesomeIcon
+                      <img src={LocationIcon} className="iconstyle" alt="" onClick={() => setIsModalOpen(true)}/>
+                      {/* <FontAwesomeIcon
                         icon={faMessage}
                         onClick={() => setIsModalOpen(true)}
                         className="iconstyle"
-                      />
-                    
+                      /> */}
                     </a>
                   </li>
                 </li>
@@ -381,11 +403,13 @@ useEffect(() => {
                           <img
                             src={uploadred}
                             style={{ width: "54px", height: "48px" }}
+                            alt=""
                           />
                         ) : (
                           <img
                             src={uploadblack}
                             style={{ width: "54px", height: "48px" }}
+                            alt=""
                           />
                         )}
                       </a>
@@ -415,7 +439,25 @@ useEffect(() => {
                         }
                         onClick={(e) => handleLinkClick(e, 3, "#four")}
                       >
-                        <FontAwesomeIcon
+                       <div class="notification-icon">
+                        <img
+                          src={MessageIcon}
+                          alt="Notification Icon"
+                        />
+                          {totalUnseenMessages !==0 &&(
+                        <div class="badge">
+                          {totalUnseenMessages !== 0 && (
+                            <span>
+                              9+
+                              {totalUnseenMessages > 10
+                                ? "9+"
+                                : totalUnseenMessages}
+                            </span>
+                          )} 
+                        </div>
+                          )} 
+                      </div>
+                        {/* <FontAwesomeIcon
                           icon={faMessage}
                           style={{
                             color:
@@ -426,7 +468,7 @@ useEffect(() => {
                        {totalUnseenMessages !==0 &&(
                           <span className="message_not_seen">{totalUnseenMessages>10?"9+":totalUnseenMessages}</span>
 
-                        )}
+                        )} */}
                       </a>
                     </li>
                   </ul>

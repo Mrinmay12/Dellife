@@ -13,46 +13,64 @@ export default function Register({setToken}) {
   const navigate=useNavigate()
   const[name,setName]=useState("")
   const[email,setEmail]=useState("")
-  const[age,setAge]=useState("")
+  const[user_age,setUserAge]=useState("")
+  const[dob,setDob]=useState('')
   const[password,setPassword]=useState("")
+  const[inputValue,setInputValue]=useState('')
   const handlename=(e)=>{
     setName(e)
   }
   const handleemail=(e)=>{
     setEmail(e)
   }
-  const handleage=(e)=>{
-    setAge(e)
-  }
+ 
   const handlepassword=(e)=>{
     setPassword(e)
   }
-  console.log(name,
-    email,
-    age,
-    password);
+  // console.log(name,
+  //   email,
+  //   user_age,
+  //   password,dob,dob.length,"MMMMMMMMMMRRR");
     const[loader,setLoder]=useState(false)
     const json=JSON.stringify({
       email, 
       password,
-       age,
+       age:user_age,
+       dob:dob,
        name ,
        location_user: userlocation.locationName
     })
     const[validation,setValidation]=useState(false)
     const[valid_message,setValid_Message]=useState('')
+    const[valid_message1,setValid_Message1]=useState('')
+    const[valid_message2,setValid_Message2]=useState('')
     const handleSubmit=async(e)=>{
       if(!email){
         setValidation(true)
-        setValid_Message('This field is required')
+        setValid_Message1('This field is required')
       }if(email){
       if(!validateEmail(email)){
         setValidation(true)
-        setValid_Message('Email format not valid')
+        setValid_Message1('Email format not valid')
       }} if(!password){
         setValidation(true)
         setValid_Message('This field is required')
-      } if(email && validateEmail(email) && password){
+      }if(!name){
+        setValidation(true)
+        setValid_Message('This field is required')
+      }if(!inputValue){
+        setValidation(true)
+        setValid_Message('This field is required')
+      }if(dob.length!==9){
+        setValidation(true)
+        setValid_Message2('This field is required')
+      }if(dob){
+        if(user_age<13){
+          setValidation(true)
+          setValid_Message('Sorry, but this service is only available to users who are 13 years old or older.')
+        }
+      }
+       if(email && validateEmail(email) && password && name && inputValue && dob.length>9 && user_age>13){
       setLoder(true)
       try {
         let response = await userRegister(json)
@@ -73,26 +91,37 @@ export default function Register({setToken}) {
         }
       }
     }
+ console.log(dob.length,"dob.length");
  
     useEffect(()=>{
       if(validation){
       if(!email){
         setValidation(true)
-        setValid_Message('This field is required')
+        setValid_Message1('This field is required')
       }if(email){
         if(!validateEmail(email)){
           setValidation(true)
-          setValid_Message('Email format not valid')
+          setValid_Message1('Email format not valid')
         }}if(!password){
           setValidation(true)
           setValid_Message('This field is required')
+        }if(!name){
+          setValid_Message('This field is required')
+        }if(!inputValue){
+          setValid_Message('This field is required')
+        }if(dob.length!==9){
+          setValidation(true)
+          setValid_Message2('This field is required')
+        }
+        if(dob){
+          if(user_age<13){
+            setValidation(true)
+            setValid_Message2('Sorry, but this service is only available to users who are 13 years old or older.')
+          }
         }
       }
-    },[validation,email,password])
-
-
-    const[inputValue,setInputValue]=useState('')
-
+    },[validation,email,password,name,inputValue,dob,user_age])
+    
   return (
     <div>
         <div className="containerlogin">
@@ -101,12 +130,20 @@ export default function Register({setToken}) {
         <h2>Register</h2>
         </div>
     <InputField name={"Full name"} onChange={handlename} id={"name"}/>
+    {validation && <>
+    {!name ?(
+      <>
+       <img src={InformationIcon} alt='' style={{ width:"16px",marginTop:"3px",marginRight:"3px" }}/>
+       <span style={{ color:"red",marginTop:"3px" }}>{valid_message}</span>
+      </>
+    ):null}
+    </>}
     <InputField name={"Email"} onChange={handleemail} id={"email"}/>
     {validation && <>
     {!email || !validateEmail(email) ?(
       <>
        <img src={InformationIcon} alt='' style={{ width:"16px",marginTop:"3px",marginRight:"3px" }}/>
-       <span style={{ color:"red",marginTop:"3px" }}>{valid_message}</span>
+       <span style={{ color:"red",marginTop:"3px" }}>{valid_message1}</span>
       </>
     ):null}
    
@@ -124,8 +161,27 @@ export default function Register({setToken}) {
             <input id="radio-2" name="radio" type="radio" value={inputValue}/>
             <label  for="radio-2" className="radio-label">Female </label>
           </div>
+         
           </div>
-    <DateDropdown/>
+          {validation && <>
+    {!inputValue ?(
+      <>
+       <img src={InformationIcon} alt='' style={{ width:"16px",marginTop:"3px",marginRight:"3px" }}/>
+       <span style={{ color:"red",marginTop:"3px" }}>{valid_message}</span>
+      </>
+    ):null}
+    </>}
+    <DateDropdown setUserAge={setUserAge}
+setDob={setDob}/>
+     {validation && <>
+    {!dob || user_age<13 ?(
+      <>
+       <img src={InformationIcon} alt='' style={{ width:"16px",marginTop:"3px",marginRight:"3px" }}/>
+       <span style={{ color:"red",marginTop:"3px" }}>{valid_message2}</span>
+      </>
+    ):null}
+   
+    </>}
     <Password onChange={handlepassword}/>
     {validation && <>
     {!password &&(

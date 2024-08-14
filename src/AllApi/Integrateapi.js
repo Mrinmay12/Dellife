@@ -95,6 +95,9 @@ export const Delete_profile_Pic=(user_id)=>apiUrl.delete(`/api/user/delete/profi
 
 export const Profile_Lock_Unlock=(user_id)=>apiUrl.put(`/api/user/lock_unlock/${user_id}`)
 
+//Number show hide
+export const Number_Lock_Unlock=(user_id)=>apiUrl.put(`/api/user/number_hide_show/${user_id}`)
+
 //user location
 export const UserLocation =(user_id,json)=>apiUrl.patch(`/api/user/user_location/${user_id}`,json)
 

@@ -54,6 +54,8 @@ export default function AppRoutes() {
        
       } catch (err) {
         window.location.reload()
+        localStorage.removeItem('user_id');
+        localStorage.removeItem("token")
         setTimeout(()=>{
           setLanding_show(false)
            },3000)
