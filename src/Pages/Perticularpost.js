@@ -12,9 +12,11 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams} from 'react-router-dom';
 import Skeleton from '../Component/SkeletonLoder/Skeleton';
+import Topbar2 from '../Navbar/Topbar2';
 
 const Perticularpost=()=>{
     const userlogin = useSelector(state => state.myReducer.data)
+    let token= localStorage.getItem('token')
     let user_id=userlogin?.user_id?userlogin?.user_id:new Date().getMilliseconds()
     let { post_id } = useParams();
     const[data,setData]=useState([])
@@ -37,7 +39,7 @@ const Perticularpost=()=>{
  
       return (
         <div>
-
+ {!token &&<Topbar2/>}
 {data.length===0 ?<Skeleton/>: <TextShow item={data}/>}
 
      
