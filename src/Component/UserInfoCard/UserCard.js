@@ -21,7 +21,11 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { title } = useParams();
-
+  const location = useLocation();
+  const { pathname } = location;
+  const splitLocation = pathname.split("/");
+ 
+  
   const [page, setPage] = useState(1);
   const userlogin = useSelector((state) => state.myReducer.data);
   const userlocation = useSelector((state) => state.UserLocation.data);
@@ -33,8 +37,9 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
 
   //post data
   const [alldata3, setAlldata3] = useState([]);
-  const [search1, setSearch1] = useState(true);
+  const [search1, setSearch1] = useState(false);
   const [page1, setPage1] = useState(1);
+  // console.log(splitLocation[1],"splitLocation",search1);
   //profile data api call start
   useEffect(() => {
     setPage(1);
@@ -165,14 +170,19 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
       const getAlldata = async () => {
         try {
           setSearch(true);
+          setSearch1(true);
           const response = await SearchTags(searchQuery);
 
           setAlldata(response.data);
+          setSearch(false);
+          setSearch1(false)
         } catch (e) {
           setSearch(false);
+          setSearch1(false);
           setAlldata([]);
         } finally {
           setSearch(false);
+           setSearch1(false);
         }
       };
       if (userlogin.user_id && searchQuery.trim() && searchQuery.length > 0) {
@@ -263,11 +273,12 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
     <body>
       <div class="wrapper">
         {isMobile &&!show_tag ?(
-       <div className="tages">
+       <div className="tages" style={{ marginTop:"-34px" }}>
        {alldata.map((item, index) => (
          <div
            key={index}
            className="li"
+           
           
          >
          
@@ -313,8 +324,13 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
   </InfiniteScroll>
   <div style={{ alignItems: "center", textAlign: "center" }}>
     {search && <Loder />}
-    {!search &&(<>{alldata2.length === 0 ? <div>No data found</div> : ""}</>)}
-    
+    {/* {!search &&(<>{alldata2.length === 0 ? <div>No data found</div> : ""}</>)} */}
+    {splitLocation[1]==='location'?(<>
+          {!search &&(<>{alldata.length === 0 ? <div>No data found</div> : ""}</>)}</>):(
+            <>
+            {!search &&(<>{alldata2.length === 0 ? <div>No data found</div> : ""}</>)}
+            </>
+          )}
   </div>
 </div>
     ):(
@@ -328,7 +344,7 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
         <body>
           <div class="wrapper">
             {isMobile &&show_tag ?(
-           <div className="tages">
+           <div className="tages" style={{ marginTop:"-34px" }}>
            {alldata.map((item, index) => (
              <div
                key={index}
@@ -376,7 +392,13 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
       </InfiniteScroll>
       <div style={{ alignItems: "center", textAlign: "center" }}>
         {search1 && <Loder />}
-        {!search1 &&(<>{alldata3.length === 0 ? <div>No data found</div> : ""}</>)}
+        {splitLocation[1]==='location'?(<>
+          {!search1 &&(<>{alldata.length === 0 ? <div>No data found</div> : ""}</>)}</>):(
+            <>
+            {!search1 &&(<>{alldata3.length === 0 ? <div>No data found</div> : ""}</>)}
+            </>
+          )}
+        
       </div>
     </div>
     )}

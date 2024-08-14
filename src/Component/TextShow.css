@@ -258,3 +258,9 @@ body {
   width: 34px;
   border: 2px solid gainsboro;
 }
+
+.text-user-name{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

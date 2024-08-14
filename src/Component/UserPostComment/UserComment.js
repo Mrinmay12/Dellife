@@ -16,8 +16,10 @@ import phoneIcon from "../Images/phone.svg";
 import MessageIcon from "../Images/Message.svg"
 import { useNavigate } from 'react-router-dom';
 import SideModel4 from '../SidePopup/SideModel4';
-export default function UserComment({ postid ,user_post_or_not,user_present,countlike,user_like,user_id,post_title
- , post_image}) {
+import SharePost from './SharePost';
+import CommentsList from './CommentsListModel';
+import "../SkeletonLoder/Skeleton.css"
+export default function UserComment({ postid ,user_post_or_not,user_present,countlike,user_like,user_id,post_title, post_image,user_number}) {
   const navigator=useNavigate()
   const userlogin = useSelector(state => state.myReducer.data)
   const editdata = useSelector(state => state.EditReducer.data)
@@ -50,19 +52,11 @@ export default function UserComment({ postid ,user_post_or_not,user_present,coun
   }, []);
 
   const handleShareImage =async () => {
-    if(!isMobile){
+    // if(!isMobile){
       setIsModalOpenShare(true)
-    }else{
-      try {
-        await navigator.share({
-          title: 'Image Sharing',
-          text: 'Check out this image!',
-          url: `/sharepost/${postid}`,
-        });
-        console.log('Shared successfully');
-      } catch (error) {
-        console.error('Error sharing:', error);
-      }
+    // }else{
+    
+
     // Check if the Web Share API is supported in the browser.
     // if (navigator.share) {
   
@@ -76,9 +70,10 @@ export default function UserComment({ postid ,user_post_or_not,user_present,coun
     // } else {
     //   alert('Web Share API is not supported in this browser.');
     // }
-  }
+  // }
   };
   const [commentdata, setCommentdata] = useState([])
+  const [loader,setLoder]=useState(true)
   const [dataslice, setDataslice] = useState(1)
   const [page, setPage] = useState(1)
   const[report_postid,setReport_postid]=useState([])
@@ -89,8 +84,13 @@ useEffect(()=>{
 },[postreff])
   useEffect(() => {
     const getComment = async () => {
+      try{
       let res = await userCommentget(postid, userlogin.user_id, page)
       setCommentdata(res.data.postcomment. filter(item => !report_postid.includes(item.comment_id)));
+      setLoder(false)
+      }catch(err){
+        setLoder(false)
+      }
     }
    
 
@@ -98,12 +98,14 @@ useEffect(()=>{
       getComment()
     }
   }, [postid,postreff])
+  const[show_comment,setShow_comment]=useState(false)
   const handleShow = () => {
-    if (dataslice === 1) {
-      setDataslice(Infinity)
-    } else if (dataslice === Infinity) {
-      setDataslice(1)
-    }
+    setShow_comment(!show_comment)
+    // if (dataslice === 1) {
+    //   setDataslice(Infinity)
+    // } else if (dataslice === Infinity) {
+    //   setDataslice(1)
+    // }
   }
   const [like, setLike] = useState(countlike)
   const [userlike, setUserlike] = useState(user_like)
@@ -321,7 +323,7 @@ const handleSubmit = async () => {
   }
   const handlePhone=()=>{
     if (isMobile) {
-    window.open('tel:900300400')
+    window.open(`tel:${user_number}`)
     }else{
       setShowPopup2(true)
     }
@@ -330,9 +332,30 @@ const handleSubmit = async () => {
   
   return (
     <div>
-      {commentdata.filter((item)=>item.post_id===postid).slice(0, dataslice).map((item,index) => (
+{loader &&(
+ <>
+ <div className='allskeleton' style={{ alignItems:"start" }}>
+ <div className="box" style={{ boxShadow:"none",width:"199px" }}>
+ <div className="skeleton-placeholder" style={{height:"39px",marginTop:"9px"}} />
+  </div>
+ </div>
+ <div className='allskeleton' style={{ alignItems:"start" }}>
+ <div className="box" style={{ boxShadow:"none",width:"199px" }}>
+ <div className="skeleton-placeholder" style={{height:"39px",marginTop:"9px"}} />
+  </div>
+ </div>
+ <div className='allskeleton' style={{ alignItems:"start" }}>
+ <div className="box" style={{ boxShadow:"none",width:"199px" }}>
+ <div className="skeleton-placeholder" style={{height:"39px",marginTop:"9px"}} />
+  </div>
+ </div>
+ </>
+)}
+     
+
+      {commentdata.filter((item)=>item.post_id===postid).slice(0, 3).map((item,index) => (
         <>
-          <div class="user-info2" key={item.index}>
+          <div class="user-info2" key={index}>
             <img className='user-info2_img' src={item.user_pic} alt="User Image" />
             <span class="user-name2">{item.user_name}</span>
 
@@ -351,10 +374,17 @@ const handleSubmit = async () => {
           </div>
         </>
       ))}
-      {commentdata.filter((item)=>item.post_id===postid).slice(0, dataslice).length > 0 &&(
+      {commentdata.filter((item)=>item.post_id===postid).length > 3 &&(
+ <div style={{ color: "blue" ,cursor:"pointer"}} onClick={() => handleShow()}>
+  Show more
+  </div>
+
+      )}
+      {/* {commentdata.filter((item)=>item.post_id===postid).slice(0, dataslice).length > 0 &&(
         <div style={{ color: "blue" ,cursor:"pointer"}} onClick={() => handleShow()}>{dataslice === Infinity ? "Hide" : "Show more"}</div>
       )}
-     
+      */}
+        
 {user_present &&(
       <div className='bottomstyle'>
       {!user_post_or_not &&  (
@@ -378,18 +408,23 @@ const handleSubmit = async () => {
         <div >
           <FontAwesomeIcon icon={faComment} className="iconstyle" onClick={() => handleMessage()} /> 
         </div>
-
-        <div >
-          <img src={phoneIcon} className="iconstyle" onClick={handlePhone}/>
+{user_number &&(
+  <div >
+          <img src={phoneIcon} className="iconstyle" onClick={handlePhone} alt=''/>
           {/* <FontAwesomeIcon icon={faComment} className="iconstyle" onClick={() => handleOpenComment(postid)} /> {commentdata.length > 0 && commentdata.length} */}
         </div>
+)}
+        
         </>
 )}
-        <div  onClick={handleShareImage}>
-          <img src={ShareIcon} className="iconstyle"/>
-          {/* <FontAwesomeIcon icon={faShare} style={{ color: "black" }} className="iconstyle" /> */}
+{isMobile ?(<SharePost postid={postid}/>):(
+   <div  onClick={()=>handleShareImage()}>
+   <img src={ShareIcon} className="iconstyle"/>
 
-        </div>
+ </div>
+)}
+
+     
 
       </div>
 )}
@@ -405,6 +440,8 @@ const handleSubmit = async () => {
       {showPopup2 && (
         <SideModel4  onClose={handleClosePopup2}  title={'900300400'} use_for={'user_comment'}/>
       )}
+
+      {show_comment && <CommentsList onClose={handleShow} postid={postid} userlogin={userlogin}/>}
     </div>
   )
 }

@@ -136,8 +136,15 @@ export default function TextShow({ item }) {
                   marginTop: "37px",
                 }}
               >
-                <h4 class="user-name" onClick={handleProfile}>
+               <h4 class="user-name text-user-name" onClick={handleProfile}>
                   {item.user_name}{" "}
+                  <span className="dot"></span>
+                <HandleFollow
+                  id={item.user_id}
+                  user_follow={item.user_follow}
+                  user_id={userlogin.user_id}
+                  show={"textshow"}
+                />
                 </h4>
 
                 <span
@@ -149,17 +156,17 @@ export default function TextShow({ item }) {
                   {TimeMoment(item.createdAt)}
                 </span>
               </div>
-              <div style={{display:"flex",alignItems:"center" }}>
+              {/* <div style={{display:"flex",alignItems:"center" }}>
                 <span className="dot"></span>
                 <HandleFollow
                   id={item.user_id}
                   user_follow={item.user_follow}
                   user_id={userlogin.user_id}
                   show={"textshow"}
-                />
+                /> 
 
-                {/* <div className="btn-theme icon-left" onClick={()=>handleFollowuser(item.user_id)}>{Follow?('Following' ):"+Follow"}</div> */}
-              </div>
+            
+              </div> */}
             </div>
             {item.user_present && (
             <div className="shairicone2">
@@ -228,6 +235,7 @@ export default function TextShow({ item }) {
               user_id={item.user_id}
               post_title={item.Title}
               post_image={item.Postimage[0]}
+              user_number={item.user_number}
             />
           </>
           {/* Comment model end */}
@@ -263,8 +271,15 @@ export default function TextShow({ item }) {
                   marginTop: "37px",
                 }}
               >
-                <h4 class="user-name" onClick={handleProfile}>
+                <h4 class="user-name text-user-name" onClick={handleProfile}>
                   {item.user_name}{" "}
+                  <span className="dot"></span>
+                <HandleFollow
+                  id={item.user_id}
+                  user_follow={item.user_follow}
+                  user_id={userlogin.user_id}
+                  show={"textshow"}
+                />
                 </h4>
 
                 <span
@@ -276,7 +291,7 @@ export default function TextShow({ item }) {
                   {TimeMoment(item.createdAt)}
                 </span>
               </div>
-              <div style={{display:"flex",alignItems:"center" }}>
+              {/* <div style={{display:"flex",alignItems:"center" }}>
                 <span className="dot"></span>
                 <HandleFollow
                   id={item.user_id}
@@ -286,7 +301,7 @@ export default function TextShow({ item }) {
                 />
 
                 {/* <div className="btn-theme icon-left" onClick={()=>handleFollowuser(item.user_id)}>{Follow?('Following' ):"+Follow"}</div> */}
-              </div>
+              {/* </div> */} 
             </div>
             {/* <div style={{ textAlign:"end" }}>
 
@@ -309,6 +324,7 @@ export default function TextShow({ item }) {
                 user_id={item.user_id}
                 post_title={item.Title}
                 post_image={item.Postimage[0]}
+                user_number={item.user_number}
               />
             </>
             {/* Comment model end */}

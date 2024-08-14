@@ -66,8 +66,8 @@ if(res){
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        onRequestClose();
-        closeModal2()
+        // onRequestClose();
+        // closeModal2()
         closeModal()
       }
     };

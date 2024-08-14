@@ -1,0 +1,63 @@
+/* src/styles/modal.css */
+.comment-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .comment-modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+  }
+  
+  .comment-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+  
+  .comments-container {
+    max-height: 70vh; /* Adjust based on your design */
+    overflow-y: auto;
+  }
+  
+  .comment {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+  }
+  
+  .comment h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: #333;
+  }
+  
+  .comment p {
+    margin: 5px 0;
+    color: #666;
+  }
+  
+  .comment-loading {
+    text-align: center;
+    padding: 10px;
+  }
+  
