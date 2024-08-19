@@ -136,6 +136,7 @@ export default function TextShow({ item }) {
                   marginTop: "37px",
                 }}
               >
+                {item.user_present && (
                <h4 class="user-name text-user-name">
                <span onClick={handleProfile}>{item.user_name}{" "}</span>
                   <span className="dot"></span>
@@ -146,7 +147,7 @@ export default function TextShow({ item }) {
                   show={"textshow"}
                 />
                 </h4>
-
+                )}
                 <span
                   style={{ fontWeight: "bold", color: "rgb(0, 123, 255)" ,fontSize:"smaller"}}
                 >
@@ -271,6 +272,7 @@ export default function TextShow({ item }) {
                   marginTop: "37px",
                 }}
               >
+                {item.user_present && (
                 <h4 class="user-name text-user-name">
                   <span onClick={handleProfile}>{item.user_name}{" "}</span>
                   <span className="dot"></span>
@@ -281,7 +283,7 @@ export default function TextShow({ item }) {
                   show={"textshow"}
                 />
                 </h4>
-
+                )}
                 <span
                   style={{ fontWeight: "bold", color: "rgb(0, 123, 255)" ,fontSize:"smaller" }}
                 >
