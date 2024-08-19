@@ -428,12 +428,14 @@ const handleSubmit = async () => {
 
       </div>
 )}
+{user_present &&(
 <div style={{ display:"flex",flexDirection:"row" }}>
 <input className='inputcomment' placeholder='Write your comment' value={inputValue} onChange={(e)=>setInputValue(e.target.value)}/>
 <div onClick={()=>handleSubmit()}  className='sendcomment'>
           <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
           </div>
         </div>
+)}
       {isModalOpen && <Commentmodel onClose={closeModal} postId={postId} />}
       <ShareModal isOpen={isModalOpenshare} onRequestClose={closeModalShare} url={`${window.location.host}/sharepost/${postid}`}/>
 
