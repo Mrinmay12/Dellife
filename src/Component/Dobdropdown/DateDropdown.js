@@ -77,8 +77,8 @@ const DateDropdown = ({setUserAge,setDob}) => {
       <select value={selectedDay} onChange={handleDayChange}>
         <option value="">Day</option>
         {days.map(day => (
-          <option key={day} value={day}>
-            {day}
+          <option key={day<9?'0'+day:day} value={day<9?'0'+day:day}>
+            {day<9?'0'+day:day}
           </option>
         ))}
       </select>

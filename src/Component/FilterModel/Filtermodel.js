@@ -18,7 +18,7 @@ export default function Filtermodel({ isOpen, onClose ,setWork_title,setLocation
         { value: 'orange', label: 'Orange' },
         { value: 'grape', label: 'Grape' },
       ];
-      const [selectedOption, setSelectedOption] = useState({});
+      const [selectedOption, setSelectedOption] = useState(null);
       const handleChange = (selectedOption) => {
         setSelectedOption(selectedOption);
      
@@ -29,7 +29,7 @@ export default function Filtermodel({ isOpen, onClose ,setWork_title,setLocation
     //     { value: 'orange', label: 'Orange' },
     //     { value: 'grape', label: 'Grape' },
     //   ];
-      const [selectedOption2, setSelectedOption2] = useState({});
+      const [selectedOption2, setSelectedOption2] = useState(null);
       const handleChange2 = (selectedOption) => {
         setSelectedOption2(selectedOption);
       
