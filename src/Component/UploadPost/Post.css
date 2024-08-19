@@ -264,7 +264,9 @@ textarea.inpttextarea {
 }
 
 @media screen and (max-width: 600px) {
-  .subpoststyle{width:95%}
+  .subpoststyle{
+    width:95%;
+     margin-top: 31px}
 .postuser{
   text-align: end;
   width: 241px;

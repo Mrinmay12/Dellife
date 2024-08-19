@@ -136,8 +136,8 @@ export default function TextShow({ item }) {
                   marginTop: "37px",
                 }}
               >
-               <h4 class="user-name text-user-name" onClick={handleProfile}>
-                  {item.user_name}{" "}
+               <h4 class="user-name text-user-name">
+               <span onClick={handleProfile}>{item.user_name}{" "}</span>
                   <span className="dot"></span>
                 <HandleFollow
                   id={item.user_id}
@@ -271,8 +271,8 @@ export default function TextShow({ item }) {
                   marginTop: "37px",
                 }}
               >
-                <h4 class="user-name text-user-name" onClick={handleProfile}>
-                  {item.user_name}{" "}
+                <h4 class="user-name text-user-name">
+                  <span onClick={handleProfile}>{item.user_name}{" "}</span>
                   <span className="dot"></span>
                 <HandleFollow
                   id={item.user_id}
