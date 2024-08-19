@@ -8,6 +8,7 @@ import DateDropdown from '../../Component/Dobdropdown/DateDropdown'
 import { validateEmail } from '../../Utiles'
 import { useSelector } from 'react-redux'
 import InformationIcon from "./Information.png"
+import Select from 'react-select';
 export default function Register({setToken}) {
   const userlocation = useSelector(state => state.UserLocation.data)
   const navigate=useNavigate()
@@ -44,6 +45,7 @@ export default function Register({setToken}) {
     const[valid_message,setValid_Message]=useState('')
     const[valid_message1,setValid_Message1]=useState('')
     const[valid_message2,setValid_Message2]=useState('')
+    const[api_validation,setApi_validation]=useState('')
     const handleSubmit=async(e)=>{
       if(!email){
         setValidation(true)
@@ -64,7 +66,7 @@ export default function Register({setToken}) {
       }if(dob.length<9){
         setValidation(true)
         setValid_Message2('This field is required')
-      }if(dob.length>9){
+      }if(dob.length>=9){
         if(user_age<13){
           setValidation(true)
           setValid_Message2('Sorry, but this service is only available to users who are 13 years old or older.')
@@ -77,16 +79,18 @@ export default function Register({setToken}) {
           if(response){
             setLoder(false)
            const token = response.data.token;
+           localStorage.setItem('token', token);
            setToken(token)
            navigate("/")
            // dispatch(setData(response.data.user_id))
           //  localStorage.setItem("user_id",response.data.user_id)
-           localStorage.setItem('token', token);
+         
           //  setLogin_true(true)
           //  setIsLoggedIn(true)
           }
         }catch(err){
           setLoder(false)
+          setApi_validation('Email already exist ')
      
         }
       }
@@ -99,6 +103,7 @@ export default function Register({setToken}) {
         setValidation(true)
         setValid_Message1('This field is required')
       }if(email){
+        setApi_validation('')
         if(!validateEmail(email)){
           setValidation(true)
           setValid_Message1('Email format not valid')
@@ -113,7 +118,7 @@ export default function Register({setToken}) {
           setValidation(true)
           setValid_Message2('This field is required')
         }
-        if(dob.length>9){
+        if(dob.length>=9){
           if(user_age<13){
             setValidation(true)
             setValid_Message2('Sorry, but this service is only available to users who are 13 years old or older.')
@@ -121,6 +126,35 @@ export default function Register({setToken}) {
         }
       }
     },[validation,email,password,name,inputValue,dob,user_age])
+    
+
+    const options = [
+      { value: 'doctor', label: 'Doctor' },
+      { value: 'teacher', label: 'Teacher' },
+      { value: 'orange', label: 'Orange' },
+      { value: 'grape', label: 'Grape' },
+    ];
+    const [selectedOption, setSelectedOption] = useState(null);
+    const handleChange = (selectedOption) => {
+      setSelectedOption(selectedOption);
+   
+    };
+    const customStyles = {
+      menu: (provided, state) => ({
+        ...provided,
+        marginBottom: 'auto', // This is important to prevent the dropdown from pushing the input field up
+        marginTop: '0',  
+             // Ensures no additional margin at the top
+             width: 350,
+  
+      }),
+      control: (provided) => ({
+        ...provided,
+        width: 350, // Set the width here
+      }),
+    
+      menuPortal: base => ({ ...base, zIndex: 9999 })
+    };
     
   return (
     <div>
@@ -182,6 +216,22 @@ setDob={setDob}/>
     ):null}
    
     </>}
+    <div style={{ marginTop:"15px" }} autoComplete="off">
+    <label  style={{ marginTop:"4px",marginRight:"28px"}}>Work title</label>
+    <Select
+      options={options}
+      onChange={handleChange}
+      value={selectedOption}
+      isSearchable={true}
+      placeholder={"Search profession"}
+      styles={customStyles}
+      menuPlacement="top"  // Set the placement of the menu
+    menuPortalTarget={document.body}  // Renders the dropdown in the portal
+
+    />
+         
+          </div>
+
     <Password onChange={handlepassword}/>
     {validation && <>
     {!password &&(
@@ -192,9 +242,14 @@ setDob={setDob}/>
     )}
    
     </>}
+    {api_validation &&(
+      <span style={{ color:"red",marginTop:"4px" }}>{api_validation}</span>
+    )}
     <div className='submitbtn'>
     <Button handleClickbtn={handleSubmit} loader={loader} name="Register" />
+    <p style={{paddingTop:"10px",fontSize:"19px",cursor:"pointer",color:"blueviolet"}} onClick={()=>navigate("/")}>Login</p>
     </div>
+
     </div>
     </div>
   )

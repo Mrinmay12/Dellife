@@ -38,7 +38,7 @@ useEffect(() => {
     <div>
     <div style={{ position:"relative" }}>
 <div className='profilediv'>
-        <div  style={{width:"51%",display:"flex",flexDirection:"row",justifyContent:"center",backgroundColor:"gainsboro",borderRadius:"12px",marginTop:"18px"}}>
+        <div  style={{width:"65%",display:"flex",flexDirection:"row",justifyContent:"center",backgroundColor:"gainsboro",borderRadius:"12px",marginTop:"18px"}}>
           <p  className={searchby_data==="profile"?'profilebottomtext':"profilebottomtext2"}  style={{color:searchby_data==="profile"?"red":"black"}} onClick={()=>handleSearch("profile")}><img style={{height:"18px" ,marginRight:"4px"}} src={''} />Profile</p>
 
           <p className={searchby_data==="post"?'profilebottomtext':"profilebottomtext2"} style={{color:searchby_data==="post"?"red":"black"}} onClick={()=>handleSearch("post")}><img style={{height:"18px"}} src={''}/> Post</p>

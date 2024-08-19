@@ -41,6 +41,7 @@ export default function AppRoutes() {
   const[user_id,setUser_id]=useState("")
   const[message_id,setMessage_id]=useState("")
    const[Landing_show,setLanding_show]=useState(true)
+   const[token,setToken]=useState(localStorage.getItem('token'))
   useEffect(() => {
     const User_details = async () => {
       try {
@@ -53,23 +54,24 @@ export default function AppRoutes() {
         },3000)
        
       } catch (err) {
-        window.location.reload()
-        localStorage.removeItem('user_id');
-        localStorage.removeItem("token")
+        // window.location.reload()
+        // localStorage.removeItem('user_id');
+        // localStorage.removeItem("token")
         setTimeout(()=>{
           setLanding_show(false)
            },3000)
         console.log(err);
       }
     }
-    if(user_id){
+    if(user_id && token){
     User_details()
     }
 
   // }, [refreshdata,appverify,user_id])
   }, [appverify,user_id])
 
-  const[token,setToken]=useState(localStorage.getItem('token'))
+
+// console.log(token,"this is token");
 
   useEffect(() => {
     const User_Token = async () => {
@@ -89,7 +91,7 @@ export default function AppRoutes() {
            },3000)
         localStorage.removeItem('user_id');
         localStorage.removeItem("token")
-        setToken("")
+        // setToken("")
       
           // navigate("/login");
   

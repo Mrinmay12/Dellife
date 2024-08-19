@@ -252,7 +252,7 @@ export default function OtherUserProfile() {
           <div
             class="stat"
             onClick={() => {
-              if (!data.profile_lock) {
+              if (!data.profile_lock && data.total_follow>0) {
                 toggleSidebar();
               }
             }}
@@ -263,7 +263,7 @@ export default function OtherUserProfile() {
           <div
             class="stat"
             onClick={() => {
-              if (!data.profile_lock) {
+              if (!data.profile_lock && data.total_following>0) {
                 toggleSidebar2();
               }
             }}
@@ -328,7 +328,7 @@ export default function OtherUserProfile() {
       {!data.profile_lock && (
         <>
           {show === "post" ? (
-            <div className="centerpostcard">
+            <div className="profile_centerpostcard">
               <OtherPostcard
                 post_id={post_id}
                 user_id={queryParam}
