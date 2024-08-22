@@ -428,19 +428,19 @@ const handleSubmit = async () => {
 
       </div>
 )}
-{user_present &&(
+{user_present && !user_post_or_not?(
 <div style={{ display:"flex",flexDirection:"row" }}>
-<input className='inputcomment' placeholder='Write your comment' value={inputValue} onChange={(e)=>setInputValue(e.target.value)}/>
+<input className='inputcomment' placeholder='Add a comment...' value={inputValue} onChange={(e)=>setInputValue(e.target.value)}/>
 <div onClick={()=>handleSubmit()}  className='sendcomment'>
           <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
           </div>
         </div>
-)}
+):''}
       {isModalOpen && <Commentmodel onClose={closeModal} postId={postId} />}
       <ShareModal isOpen={isModalOpenshare} onRequestClose={closeModalShare} url={`${window.location.host}/sharepost/${postid}`}/>
 
       {showPopup2 && (
-        <SideModel4  onClose={handleClosePopup2}  title={'900300400'} use_for={'user_comment'}/>
+        <SideModel4  onClose={handleClosePopup2}  title={user_number} use_for={'user_comment'}/>
       )}
 
       {show_comment && <CommentsList onClose={handleShow} postid={postid} userlogin={userlogin}/>}

@@ -45,6 +45,7 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
     setPage(1);
     setAlldata2([]);
     setSearch(true);
+    setSearch1(true);
     const timer = setTimeout(() => {
       const getAlldata = async () => {
         try {
@@ -61,10 +62,12 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
           // setAlldata(response.data)
           setAlldata2(response.data);
           setSearch(false)
+          setSearch1(false)
         } catch (e) {
           // setAlldata(e.response.data.data);
           setAlldata2([]);
           setSearch(false)
+          setSearch1(false)
         }
       };
       if(userlogin.user_id && searchby_data==="profile"){
@@ -81,6 +84,7 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
   const loadMore = async () => {
     setPage((prevPage) => prevPage + 1);
     setSearch(true);
+    setSearch1(true);
     try {
       const response = await SearchUser_and_Post(
         query,
@@ -95,6 +99,7 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
 
       setAlldata2((prevData) => [...prevData, ...response.data]);
       setSearch(false);
+      setSearch1(false);
     } catch (e) {
       // setAlldata(e.response.data.data);
       setAlldata2([]);
@@ -109,25 +114,29 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
   useEffect(() => {
     setPage1(1);
     setAlldata3([]);
+    setSearch(true);
     setSearch1(true);
     const timer = setTimeout(() => {
       const getAlldata = async () => {
         try {
           const response = await SearchUser_and_Post(
             query,
-            userlogin.user_id,
-            page,
-            work_title || "",
-            userlocation.latitude,
-            userlocation.longitude,
-            searchby_data
+        userlogin.user_id,
+        page,
+        work_title || "",
+        location_user||'',
+        userlocation.latitude,
+        userlocation.longitude,
+        searchby_data
           );
           // setAlldata(response.data)
           setAlldata3(response.data);
+          setSearch(false)
           setSearch1(false)
         } catch (e) {
           // setAlldata(e.response.data.data);
           setAlldata3([]);
+          setSearch(false)
           setSearch1(false)
         }
       };
@@ -143,12 +152,14 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
   const loadMore2 = async () => {
     setPage1((prevPage) => prevPage + 1);
     setSearch1(true);
+    setSearch(true);
     try {
       const response = await SearchUser_and_Post(
         query,
         userlogin.user_id,
         page,
         work_title || "",
+        location_user||'',
         userlocation.latitude,
         userlocation.longitude,
         searchby_data
@@ -156,10 +167,12 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
 
       setAlldata3((prevData) => [...prevData, ...response.data]);
       setSearch1(false);
+      setSearch(false);
     } catch (e) {
       // setAlldata(e.response.data.data);
       setAlldata3([]);
       setSearch1(false);
+      setSearch(false);
     }
   };
 
@@ -259,14 +272,33 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
     setShow_tag(false)
     navigate(`/searchuser/${e}`)
   }
+//  console.log(query,"this is my query",searchby_data);
  
   return (
     <>
+       {isMobile &&show_tag && !searchby_data?(
+           <div className="tages" style={{ marginTop:"-34px" }}>
+           {alldata.map((item, index) => (
+             <div
+               key={index}
+               className="li"
+              
+             >
+             
+               <a onClick={()=>handleSearchMobile(item.tages)} className='a'>
+               <i class="fa fa-search" style={{ marginRight:"2px" }}></i>
+                 {item.tages}
+               </a>
+              
+             </div>
+           ))}
+</div>
+            ):""}
     {searchby_data==='profile'?(
   <div>
   <InfiniteScroll
     dataLength={alldata2.length}
-    next={loadMore}
+    next={()=>loadMore()}
     hasMore={true}
     // loader={data?.length!==0 &&<h4>Loading...</h4>}
   >
@@ -308,6 +340,7 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
                   </div>
                   
                   <h1 className="name" onClick={()=>handleProfile(item.user_id)}>{item.user_name}</h1>
+                  <span >{item.work_title}</span>
                   {/* <p class="description">My name is not Keith, but I am a Kitten. This is just basically dummy text. Do not be fooled by the dogs - Cats rule, dogs drool  mrinmay!</p> */}
                   {/* <div class="bottonbtn">
                                                    <p><img src={ConnectIcon} style={{ height: "31px" }} onClick={()=>handleProfile(item.user_id)} alt=''/>Connect</p>
@@ -323,7 +356,7 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
     </body>
   </InfiniteScroll>
   <div style={{ alignItems: "center", textAlign: "center" }}>
-    {search && <Loder />}
+    {search &&searchby_data==='profile'? <Loder />:''}
     {/* {!search &&(<>{alldata2.length === 0 ? <div>No data found</div> : ""}</>)} */}
     {splitLocation[1]==='location'?(<>
           {!search &&(<>{alldata.length === 0 ? <div>No data found</div> : ""}</>)}</>):(
@@ -337,30 +370,13 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
       <div>
       <InfiniteScroll
         dataLength={alldata3.length}
-        next={loadMore2}
+        next={()=>loadMore2()}
         hasMore={true}
         // loader={data?.length!==0 &&<h4>Loading...</h4>}
       >
         <body>
           <div class="wrapper">
-            {isMobile &&show_tag ?(
-           <div className="tages" style={{ marginTop:"-34px" }}>
-           {alldata.map((item, index) => (
-             <div
-               key={index}
-               className="li"
-              
-             >
-             
-               <a onClick={()=>handleSearchMobile(item.tages)} className='a'>
-               <i class="fa fa-search" style={{ marginRight:"2px" }}></i>
-                 {item.tages}
-               </a>
-              
-             </div>
-           ))}
-</div>
-            ):""}
+         
  
             {uniqueIds2.map((item) => (
               <>
@@ -370,8 +386,8 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
                       <img src={item.user_pic} alt="" className="profile-image" />
                       <h1 className="name">{item.user_name}</h1>
                       {/* <HandleFollow id={item.message_id} user_follow={item.user_follow}/> */}
-                      <HandleFollow id={item.message_id} user_follow={item.user_follow} user_id={userlogin.user_id}/>
-                      {item.post_img && (
+                     
+                      {item.post_img.length>0 && (
                         <img
                           src={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img}?alt=media`}
                           className="searchpostimg"
@@ -383,6 +399,7 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
                           ? item.post_title?.slice(0, 30)
                           : item.post_title}
                       </p>
+                      <HandleFollow id={item.message_id} user_follow={item.user_follow} user_id={userlogin.user_id}/>
                     </div>
                 
               </>
@@ -391,7 +408,8 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
         </body>
       </InfiniteScroll>
       <div style={{ alignItems: "center", textAlign: "center" }}>
-        {search1 && <Loder />}
+     
+        {search1 &&searchby_data==='post'? <Loder />:''}
         {splitLocation[1]==='location'?(<>
           {!search1 &&(<>{alldata.length === 0 ? <div>No data found</div> : ""}</>)}</>):(
             <>
