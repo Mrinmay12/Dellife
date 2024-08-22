@@ -312,6 +312,7 @@ navigation(`/searchuser/${e}`)
           style={{ display: "flex", alignItems: "center" }}
         >
           <h4 className="letschat">Let's Chat</h4>
+          <span class="center-text">( End to end encryption )</span>
         </div>
       )}
     </>

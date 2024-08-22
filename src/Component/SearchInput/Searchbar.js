@@ -144,22 +144,16 @@ const [searchdata,setSearchdata]=useState("")
         value={query}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        placeholder="Search..."
+        placeholder="Search user or job"
       />
          <div className="search-icon">
         <i class="fa fa-search"></i>
             </div>
-            {/* {searchdata ?(
-              <>
-               <div className='profilediv'>
-        <div className='profilebottom' style={{width:"30%",backgroundColor:"#d4e2d25c"}}>
-          <p  className={show==="near"?'profilebottomtext':"profilebottomtext2"}  style={{color:show==="near"?"red":"black"}}><img style={{height:"18px" ,marginRight:"4px"}} src={''}/>Posts</p>
-          <p className={show==="argent"?'profilebottomtext':"profilebottomtext2"} style={{color:show==="argent"?"red":"black"}} ><img style={{height:"18px"}} src={''}/> Saved</p>
-          <p className={show==="post"?'profilebottomtext':"profilebottomtext2"} style={{color:show==="post"?"red":"black"}} ><img style={{height:"18px"}} src={''}/> Saved</p>
-        </div>
-        </div>
-              </>
-            ):( */}
+            {/* <div className="search-icon" style={{ cursor: "pointer", position: "absolute", right: "-276px",color:"red" }} onClick={() => setQuery('')}>
+    <i className="fa fa-close"></i>
+  </div> */}
+          
+          
               <>
                   {results.length > 0 && (
         <div className="dropdownsearch">

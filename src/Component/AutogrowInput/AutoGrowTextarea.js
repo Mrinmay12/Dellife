@@ -116,7 +116,7 @@ const [disable,setDisable]=useState(false)
       <textarea
         ref={textareaRef}
         rows="1"
-        placeholder="Type your comment here..."
+        placeholder="Message"
         value={text}
         onChange={handleInputChange}
         style={{ height: '50px' }}

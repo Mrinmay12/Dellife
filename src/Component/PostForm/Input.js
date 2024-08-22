@@ -1,7 +1,7 @@
 
 import React,{useState,useEffect} from 'react'
 import "./PostForm.css"
-export default function Input({placeholder,onchange,value,inputtype,title}) {
+export default function Input({placeholder,onchange,value,inputtype,title,disabled}) {
     const[text,setText]=useState("")
     const handleText=(e)=>{
         setText(e.target.value)
@@ -17,7 +17,7 @@ export default function Input({placeholder,onchange,value,inputtype,title}) {
         {/* <div class="formgroup" id="name-form"> */}
         <h3>{title}</h3>
                         {/* <label className='editlabel' for="name">Title</label> */}
-                        <input className='editinput' placeholder={placeholder} value={text} onChange={handleText} inputMode={inputtype?inputtype:"text"}/>
+                        <input className='editinput' placeholder={placeholder} value={text} onChange={handleText} inputMode={inputtype?inputtype:"text"} disabled={disabled}/>
                         {/* <input type="text" id="name" name="name" placeholder={placeholder} className='input' value={text} onChange={handleText} inputMode={inputtype?inputtype:"text"}/> */}
                     {/* </div> */}
                     {/* </form> */}

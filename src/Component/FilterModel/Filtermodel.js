@@ -2,7 +2,9 @@ import React,{useEffect, useState} from 'react'
 import "./Filtermodel.css"
 import Select from 'react-select';
 import { AllLocation } from '../../AllApi/Integrateapi';
+import { useSelector } from 'react-redux';
 export default function Filtermodel({ isOpen, onClose ,setWork_title,setLocation_user}) {
+  const job_data = useSelector(state => state.JobReducer.data)
   const[options2,setOption]=useState([])
   useEffect(()=>{
     const Data=async()=>{
@@ -12,12 +14,7 @@ export default function Filtermodel({ isOpen, onClose ,setWork_title,setLocation
     }
     Data()
   },[])
-    const options = [
-        { value: 'doctor', label: 'Doctor' },
-        { value: 'teacher', label: 'Teacher' },
-        { value: 'orange', label: 'Orange' },
-        { value: 'grape', label: 'Grape' },
-      ];
+    const options = job_data;
       const [selectedOption, setSelectedOption] = useState(null);
       const handleChange = (selectedOption) => {
         setSelectedOption(selectedOption);

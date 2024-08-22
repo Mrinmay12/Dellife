@@ -29,7 +29,7 @@ const ImageModelPopup = ({ imageUrl, onClose ,setrefress,post_id}) => {
       <div className="image-content">
         <img src={imageUrl} alt="Popup Image" />
         {/* <button onClick={onClose}>Close</button> */}
-        <FontAwesomeIcon icon={faClose} style={{height:"24px",width:"40px"}} className="closebutton" onClick={onClose}/>
+        <FontAwesomeIcon icon={faClose} style={{height:"24px",width:"40px",backgroundColor:"white",borderRadius:"9px"}} className="closebutton" onClick={onClose}/>
         {!post_id && userlogin.user_pic_present ?(
           <FontAwesomeIcon icon={faTrash} style={{height:"27px",width:"40px",color:"red"}} className="deleteicon" onClick={deleteImage}/>
         ):''}

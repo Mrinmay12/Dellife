@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import BlurredUpImage from '../ImageLoad/BlurredUpImage';
 import { useNavigate } from 'react-router-dom';
 import { removeDuplicates } from '../../Utiles';
+import nopostimg from "../Images/nopost.svg"
 export default function Postcard({user_id,post_id}) { 
   const navigate=useNavigate()
   const userlogin = useSelector(state => state.myReducer.data)
@@ -105,7 +106,10 @@ useEffect(()=>{
 </div>
 </InfiniteScroll>  
  <div style={{textAlign:"center",paddingTop:"9px"}}>
- {isFetching ?<Loder/>:uniqueIds.length===0 &&"No more data"}
+ {isFetching ?<Loder/>:uniqueIds.length===0 &&<>
+ <h3>You have no posts yet</h3>
+ <img src={nopostimg} width='68px'/>
+ </>}
     </div>
     </div>
   )

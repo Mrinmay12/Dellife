@@ -6,14 +6,16 @@ import PhoneSelect from './PhoneSelect';
 import "../FilterModel/Filtermodel.css"
 import { UpdateUser } from '../../AllApi/Integrateapi';
 import { setRefresh } from '../../redux/action/RefreshAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
+  const job_data = useSelector(state => state.JobReducer.data)
   const dispatch=useDispatch()
     const[about,setAbout]=useState("")
     const[phone,setPhone]=useState("") 
     const [link,setLink]=useState("")
     const[email,setEmail]=useState("")
     const [selectedOption, setSelectedOption] = useState("");
+    const[work_title,setWork_title]=useState('')
     const [loding,setLoding]=useState(false)
   
     useEffect(()=>{
@@ -21,10 +23,13 @@ export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
         setAbout(userlogin.about)
         setPhone(userlogin.phone_number)
         setLink(userlogin.sitelink)
-        setSelectedOption(userlogin.work_title)
+        setWork_title(userlogin.work_title)
+        // setSelectedOption(job_data.filter((item)=>item.value===userlogin.work_title))
         setEmail(userlogin.email)
       }
     },[userlogin])
+   
+    
     const Json={ 
       about:about,
       phone_number:phone,
@@ -61,13 +66,7 @@ export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
   const handleChange = (selectedOption) => {
     setSelectedOption(selectedOption);
   };
-  const options = [
-    { value: 'apple', label: 'Apple' },
-    { value: 'banana', label: 'Banana' },
-    { value: 'orange', label: 'Orange' },
-    { value: 'grape', label: 'Grape' },
-    // Add more options as needed
-  ];
+  const options = job_data
 
   const customStyles = {
     menu: (provided, state) => ({
@@ -129,16 +128,18 @@ export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
         {/* <SelectDropdown  options={options} handleOption={handleChange}/> */}
         <PhoneSelect onchange={setPhone}/>
         {/* <SelectDropdown  options={options} handleOption={handleChange}/> */}
-        <Select
+
+        <Input placeholder="link"  value={work_title} inputtype="url" title={"Profession"} disabled={true}/>
+        {/* <Select
       options={options}
       onChange={handleChange}
       value={selectedOption}
       isSearchable={true}
       placeholder={"Search profession"}
       styles={customStyles}
-      menuPlacement="top"  // Set the placement of the menu
-    menuPortalTarget={document.body}  // Renders the dropdown in the portal
-    />
+      menuPlacement="top"  
+    menuPortalTarget={document.body}  
+    /> */}
     </div>
     </div>
   )

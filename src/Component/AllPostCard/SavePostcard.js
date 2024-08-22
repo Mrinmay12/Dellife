@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import BlurredUpImage from '../ImageLoad/BlurredUpImage';
 import { useNavigate } from 'react-router-dom';
 import { removeDuplicates } from '../../Utiles';
+import nopostimg from "../Images/nopost.svg"
 export default function SavePostcard({user_id,post_id}) { 
   const navigate=useNavigate()
   const userlogin = useSelector(state => state.myReducer.data)
@@ -25,7 +26,7 @@ export default function SavePostcard({user_id,post_id}) {
    }    
     
   };
-  console.log(user_id,"user_iduser_id");
+  // console.log(user_id,"user_iduser_id");
   const { data, isFetching, isPreviousData } = useQuery({
     queryKey: ['usersavepost', page,user_id],
     queryFn: () => fetchAllPost(page),
@@ -89,7 +90,11 @@ export default function SavePostcard({user_id,post_id}) {
 </div>
 </InfiniteScroll>  
  <div style={{textAlign:"center",paddingTop:"9px"}}>
- {isFetching ?<Loder/>:uniqueIds.length===0 &&"No more data"}
+ {isFetching ?<Loder/>:uniqueIds.length===0 &&
+ <>
+ <h3>You have no save posts yet</h3>
+ <img src={nopostimg} width='68px'/>
+ </>}
     </div>
     </div>
   )
