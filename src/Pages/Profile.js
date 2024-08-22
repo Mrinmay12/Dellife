@@ -429,7 +429,7 @@ const [isSettingOpen1, setisSettingOpen1] = useState(false);
         ):(
           <>
           <div className='editprofile'>
-          <div style={{ display:"flex",marginTop:"12px" }}>
+          <div style={{ display:"flex",marginTop:"12px",marginLeft:"-240px" }}>
         <FontAwesomeIcon icon={faArrowLeft} onClick={()=>setSetting_ope(false)} style={{ padding: "3px",width:"25px",cursor:"pointer" }} />
         <h3>Setting</h3>
         </div>

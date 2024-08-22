@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import InputField from '../../Component/RegisterInput/InputField'
 import Password from '../../Component/RegisterInput/PasswordInput/Password'
 import Button from "../../Component/LodingButton/Button"
-import { userRegister } from '../../AllApi/Integrateapi'
+import { CreateJob, userRegister } from '../../AllApi/Integrateapi'
 import { useNavigate } from 'react-router-dom'
 import DateDropdown from '../../Component/Dobdropdown/DateDropdown'
 import { validateEmail } from '../../Utiles'
@@ -11,6 +11,7 @@ import InformationIcon from "./Information.png"
 import Select from 'react-select';
 export default function Register({setToken}) {
   const userlocation = useSelector(state => state.UserLocation.data)
+  const job_data = useSelector(state => state.JobReducer.data)
   const navigate=useNavigate()
   const[name,setName]=useState("")
   const[email,setEmail]=useState("")
@@ -18,6 +19,14 @@ export default function Register({setToken}) {
   const[dob,setDob]=useState('')
   const[password,setPassword]=useState("")
   const[inputValue,setInputValue]=useState('')
+  const[validation,setValidation]=useState(false)
+  const[valid_message,setValid_Message]=useState('')
+  const[valid_message1,setValid_Message1]=useState('')
+  const[valid_message2,setValid_Message2]=useState('')
+  const[api_validation,setApi_validation]=useState('')
+  const [options, setOptions] = useState(job_data);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [inputValue2, setInputValue2] = useState(null);
   const handlename=(e)=>{
     setName(e)
   }
@@ -28,10 +37,20 @@ export default function Register({setToken}) {
   const handlepassword=(e)=>{
     setPassword(e)
   }
-  // console.log(name,
-  //   email,
-  //   user_age,
-  //   password,dob,dob.length,"MMMMMMMMMMRRR");
+  const SaveData=async()=>{
+    try{
+     
+       let res=await CreateJob(selectedOption?.value)
+      
+    }catch(err){
+      console.log(err);
+      
+    }
+
+
+      }
+
+      // console.log(inputValue2,"mrinmay",selectedOption?.value);
     const[loader,setLoder]=useState(false)
     const json=JSON.stringify({
       email, 
@@ -39,13 +58,11 @@ export default function Register({setToken}) {
        age:user_age,
        dob:dob,
        name ,
-       location_user: userlocation.locationName
+       location_user: userlocation.locationName,
+       work_title:selectedOption?.value,
+       sex:inputValue
     })
-    const[validation,setValidation]=useState(false)
-    const[valid_message,setValid_Message]=useState('')
-    const[valid_message1,setValid_Message1]=useState('')
-    const[valid_message2,setValid_Message2]=useState('')
-    const[api_validation,setApi_validation]=useState('')
+ 
     const handleSubmit=async(e)=>{
       if(!email){
         setValidation(true)
@@ -71,12 +88,17 @@ export default function Register({setToken}) {
           setValidation(true)
           setValid_Message2('Sorry, but this service is only available to users who are 13 years old or older.')
         }
+      }if(!selectedOption?.value){
+        setValidation(true)
+        setValid_Message('This field is required')
       }
-       if(email && validateEmail(email) && password && name && inputValue  && user_age>13){
+       if(email && validateEmail(email) && password && name && inputValue  && user_age>13 && selectedOption?.value){
       setLoder(true)
       try {
+        
         let response = await userRegister(json)
           if(response){
+            SaveData()
             setLoder(false)
            const token = response.data.token;
            localStorage.setItem('token', token);
@@ -95,7 +117,7 @@ export default function Register({setToken}) {
         }
       }
     }
- console.log(dob.length,"dob.length");
+//  console.log(dob.length,"dob.length");
  
     useEffect(()=>{
       if(validation){
@@ -128,22 +150,44 @@ export default function Register({setToken}) {
     },[validation,email,password,name,inputValue,dob,user_age])
     
 
-    const options = [
-      { value: 'doctor', label: 'Doctor' },
-      { value: 'teacher', label: 'Teacher' },
-      { value: 'orange', label: 'Orange' },
-      { value: 'grape', label: 'Grape' },
-    ];
-    const [selectedOption, setSelectedOption] = useState(null);
+
     const handleChange = (selectedOption) => {
       setSelectedOption(selectedOption);
    
     };
+    useEffect(() => {
+      if (inputValue2) {
+        const intervalId = setInterval(() => {
+          const foundOption = options.find(
+            (option) => option.label.toLowerCase() === inputValue2.toLowerCase()
+          );
+  
+          if (!foundOption) {
+            const newOption = { value: inputValue2.toLowerCase(), label: inputValue2 };
+            setOptions((prevOptions) => [...prevOptions, newOption]);
+            setSelectedOption(newOption);
+          }
+        }, 1000);
+  
+        return () => clearInterval(intervalId);
+      }
+    }, [inputValue2, options]);
+  
+    const handleInputChange = (newValue) => { 
+      setInputValue2(newValue);
+    };
+
+    // console.log(inputValue2,selectedOption?.value,"mrinmY");
+
+  
+     
+  
+    
     const customStyles = {
       menu: (provided, state) => ({
         ...provided,
         marginBottom: 'auto', // This is important to prevent the dropdown from pushing the input field up
-        marginTop: '0',  
+        marginTop: '3px',  
              // Ensures no additional margin at the top
              width: 350,
   
@@ -217,19 +261,27 @@ setDob={setDob}/>
    
     </>}
     <div style={{ marginTop:"15px" }} autoComplete="off">
-    <label  style={{ marginTop:"4px",marginRight:"28px"}}>Work title</label>
+    <label  style={{ marginTop:"4px",marginRight:"28px",fontSize:"19px"}}>Work title</label>
     <Select
       options={options}
       onChange={handleChange}
+      onInputChange={handleInputChange}
       value={selectedOption}
       isSearchable={true}
-      placeholder={"Search profession"}
+      placeholder={"Search or create job"}
       styles={customStyles}
       menuPlacement="top"  // Set the placement of the menu
     menuPortalTarget={document.body}  // Renders the dropdown in the portal
 
     />
-         
+         {validation && <>
+    {!selectedOption?.value &&(
+      <>
+       <img src={InformationIcon} alt='' style={{ width:"16px",marginTop:"3px",marginRight:"3px" }}/>
+       <span style={{ color:"red",marginTop:"3px" }}>{valid_message}</span>
+      </>
+    )}
+     </>}
           </div>
 
     <Password onChange={handlepassword}/>
@@ -247,7 +299,12 @@ setDob={setDob}/>
     )}
     <div className='submitbtn'>
     <Button handleClickbtn={handleSubmit} loader={loader} name="Register" />
-    <p style={{paddingTop:"10px",fontSize:"19px",cursor:"pointer",color:"blueviolet"}} onClick={()=>navigate("/")}>Login</p>
+    <div class="line-container">
+  <div class="line"></div>
+  <span class="center-text">OR</span>
+  <div class="line"></div>
+</div>
+    <p style={{paddingTop:"4px",fontSize:"19px",cursor:"pointer",color:"#2b7de2"}} onClick={()=>navigate("/")}>Login</p>
     </div>
 
     </div>

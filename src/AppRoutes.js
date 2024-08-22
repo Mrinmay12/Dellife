@@ -22,7 +22,7 @@ import OtherUserProfile from "./Pages/OtherUserProfile";
 import { useSelector, useDispatch } from 'react-redux';
 import { setData } from "./redux/action/LoginAction";
 import {setNearUserData} from './redux/action/UserLocationAction'
-import { Userdetails, UserLocation, verifytoken } from "./AllApi/Integrateapi"
+import { GetJob, Userdetails, UserLocation, verifytoken } from "./AllApi/Integrateapi"
 import ErrorPage from "./Pages/ErrorPage";
 //socket
 import { io } from "socket.io-client"
@@ -32,6 +32,7 @@ import ForgetPassword from "./Pages/LoginPage/ForgetPassword";
 import SearchPage from "./Pages/SearchPage";
 import LandingPage from "./Component/Landing/LandingPage";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
+import { setJobData } from "./redux/action/JobAction";
 export default function AppRoutes() {
   const dispatch = useDispatch()
   const socket = useRef();
@@ -54,7 +55,7 @@ export default function AppRoutes() {
         },3000)
        
       } catch (err) {
-        // window.location.reload()
+        window.location.reload()
         // localStorage.removeItem('user_id');
         // localStorage.removeItem("token")
         setTimeout(()=>{
@@ -223,6 +224,21 @@ if (user_id) {
   }
 }
   },[user_id,locationName])
+
+
+  const Get_job=async()=>{
+    try{
+      let res=await GetJob()
+      dispatch(setJobData(res.data.data1))
+ 
+      
+    }catch(err){
+
+    }
+  }
+  useEffect(()=>{
+    Get_job()
+  },[])
   
   return (
     <div>

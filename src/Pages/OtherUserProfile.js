@@ -35,11 +35,11 @@ import card from "../Images/card.jpg";
 import OtherSideModel from "../Component/SidePopup/OtherSideModel";
 import OtherSideModel2 from "../Component/SidePopup/OtherSideModel2";
 
-import WorkerImage from '../Component/Images/Worker.svg'
-import PhoneIcon from '../Component/Images/phone.svg'
-import EmailIcon from "../Component/Images/Mail.svg"
-import WebsiteIcon from "../Component/Images/Website.svg"
-import AboutIcon from "../Component/Images/AboutInfo.svg"
+import WorkerImage from "../Component/Images/Worker.svg";
+import PhoneIcon from "../Component/Images/phone.svg";
+import EmailIcon from "../Component/Images/Mail.svg";
+import WebsiteIcon from "../Component/Images/Website.svg";
+import AboutIcon from "../Component/Images/AboutInfo.svg";
 export default function OtherUserProfile() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -252,7 +252,7 @@ export default function OtherUserProfile() {
           <div
             class="stat"
             onClick={() => {
-              if (!data.profile_lock && data.total_follow>0) {
+              if (!data.profile_lock && data.total_follow > 0) {
                 toggleSidebar();
               }
             }}
@@ -263,7 +263,7 @@ export default function OtherUserProfile() {
           <div
             class="stat"
             onClick={() => {
-              if (!data.profile_lock && data.total_following>0) {
+              if (!data.profile_lock && data.total_following > 0) {
                 toggleSidebar2();
               }
             }}
@@ -333,33 +333,56 @@ export default function OtherUserProfile() {
                 post_id={post_id}
                 user_id={queryParam}
                 profile_lock={data.profile_lock}
+                user_name={user_name}
               />
             </div>
           ) : (
-            <div className={isMobile?"centerpostcard2":"centerpostcard"}>
+            <div className={isMobile ? "centerpostcard2" : "centerpostcard"}>
+              {data.about && (
+                <div className="aboutdetails">
+                  <img
+                    src={AboutIcon}
+                    alt=""
+                    style={{ width: "24px", marginRight: "9px" }}
+                  />
+                  <p className="pratitle">About:</p>
+                  <p className="anstitle">{data.about}</p>
+                </div>
+              )}
+
               <div className="aboutdetails">
-              <img src={AboutIcon} alt="" style={{width:"24px",marginRight:"9px" }}/>
-                <p className="pratitle">About:</p>
-                <p className="anstitle">{data.about}</p>
-              </div>
-              <div className="aboutdetails">
-                <img src={WorkerImage} alt="" style={{width:"24px",marginRight:"9px" }}/>
+                <img
+                  src={WorkerImage}
+                  alt=""
+                  style={{ width: "24px", marginRight: "9px" }}
+                />
                 <p className="pratitle">Profession:</p>
                 <p className="anstitle">{data.work_title}</p>
               </div>
+              {data.phone_number && (
+                <div className="aboutdetails">
+                  <img
+                    src={PhoneIcon}
+                    alt=""
+                    style={{ width: "24px", marginRight: "9px" }}
+                  />
+                  <p className="pratitle">Phone:</p>
+                  <p
+                    className="anstitle"
+                    href={`tel:${data.phone_number}`}
+                    style={{ color: "blue" }}
+                  >
+                    {data.phone_number}
+                  </p>
+                </div>
+              )}
+
               <div className="aboutdetails">
-              <img src={PhoneIcon} alt="" style={{width:"24px",marginRight:"9px" }}/>
-                <p className="pratitle">Phone:</p>
-                <p
-                  className="anstitle"
-                  href={`tel:${data.phone_number}`}
-                  style={{ color: "blue" }}
-                >
-                  {data.phone_number}
-                </p>
-              </div>
-              <div className="aboutdetails">
-              <img src={EmailIcon} alt="" style={{width:"24px",marginRight:"9px" }}/>
+                <img
+                  src={EmailIcon}
+                  alt=""
+                  style={{ width: "24px", marginRight: "9px" }}
+                />
                 <p className="pratitle">Email:</p>
                 <p
                   className="anstitle"
@@ -369,19 +392,25 @@ export default function OtherUserProfile() {
                   {data.email}
                 </p>
               </div>
-              <div className="aboutdetails">
-              <img src={WebsiteIcon} alt="" style={{width:"24px",marginRight:"9px" }}/>
-                <p className="pratitle">Website:</p>
-                <p className="anstitle">
-                  <a
-                    href={data.sitelink}
-                    style={{ color: "blue" }}
-                    target="_blank"
-                  >
-                    {data.sitelink}
-                  </a>
-                </p>
-              </div>
+              {data.sitelink && (
+                <div className="aboutdetails">
+                  <img
+                    src={WebsiteIcon}
+                    alt=""
+                    style={{ width: "24px", marginRight: "9px" }}
+                  />
+                  <p className="pratitle">Website:</p>
+                  <p className="anstitle">
+                    <a
+                      href={data.sitelink}
+                      style={{ color: "blue" }}
+                      target="_blank"
+                    >
+                      {data.sitelink}
+                    </a>
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </>

@@ -116,7 +116,12 @@ export default function Login({setToken}) {
     )}
     <div className='submitbtn'>
     <Button handleClickbtn={handleSubmit} loader={loader} name="Login" />
-    <p style={{paddingTop:"10px",fontSize:"15px",cursor:"pointer"}} onClick={()=>navigate("/resetpassword")}>Forgot password?</p>
+    <p style={{paddingTop:"10px",fontSize:"15px",cursor:"pointer",color:"#2b7de2"}} onClick={()=>navigate("/resetpassword")}>Forgot password?</p>
+    <div class="line-container">
+  <div class="line"></div>
+  <span class="center-text">OR</span>
+  <div class="line"></div>
+</div>
     <button style={{ backgroundColor: '#4CAF50', 
     paddingTop:"10px",
     // marginTop:"10px",

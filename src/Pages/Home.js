@@ -17,12 +17,13 @@ import checkImg from "../Images/check.svg"
 import SearchUserIcon from "../Component/Images/SearchUser.svg"
 import Button from '../Component/Button/Button';
 import { removeDuplicates } from '../Utiles';
+import { useNavigate } from 'react-router-dom';
 export default function Home() {
   const userlogin = useSelector(state => state.myReducer.data)
   const userlocation = useSelector(state => state.UserLocation.data)
   const postreff = useSelector(state => state.UpdateReducer.data)
   const socket = useRef();
-
+  const navigator=useNavigate()
   const queryClient = new QueryClient();
   const [page, setPage] = useState(1);
   const [reff,setRef]=useState("")

@@ -138,3 +138,7 @@ export const FollowerOtherUserList=(message_id,page,debouncedValue)=>apiUrl.get(
 
 //All location
 export const AllLocation=()=>apiUrl.get(`/api/user/all_location`)
+
+//All job details
+export const CreateJob=(job_details)=>apiUrl.post(`/api/user/job_approved/${job_details}`)
+export const GetJob=()=>apiUrl.get(`/api/user/job_all`)

@@ -11,3 +11,21 @@
     text-align: center;
     padding-top: 20px;
 }
+
+.line-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 9px;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background-color: #000; /* Line color */
+}
+
+.center-text {
+  margin: 0 15px; /* Space between the lines and text */
+  white-space: nowrap;
+}

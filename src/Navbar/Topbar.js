@@ -79,6 +79,8 @@ export default function Topbar() {
         return 0;
       case "location":
         return width;
+        case "searchuser":
+          return width;
       case "post":
         return width * 2;
       case "profile":
@@ -448,7 +450,6 @@ export default function Topbar() {
                         <div class="badge">
                           {totalUnseenMessages !== 0 && (
                             <span>
-                              9+
                               {totalUnseenMessages > 10
                                 ? "9+"
                                 : totalUnseenMessages}

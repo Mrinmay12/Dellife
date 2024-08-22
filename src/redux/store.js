@@ -9,6 +9,7 @@ import UserLocation from "./reducer/UserLocation";
 import UpdateReducer from "./reducer/UpdateReducer";
 import EditReducer from './reducer/EditReducer';
 import MessageReducer from './reducer/MessageReducer';
+import JobReducer from './reducer/JobReducer';
 const rootReducer = combineReducers({
   myReducer,
   RefreshReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   UserLocation,
   UpdateReducer,
   EditReducer,
-  MessageReducer
+  MessageReducer,
+  JobReducer
   // add more reducers here if needed
 });
 
