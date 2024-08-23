@@ -58,7 +58,7 @@ const DateDropdown = ({setUserAge,setDob}) => {
     // Populate years
     const yearsArray = [];
     const currentYear = new Date().getFullYear();
-    for (let i = currentYear - 100; i <= currentYear; i++) {
+    for (let i = currentYear; i >= currentYear - 100; i--) {
       yearsArray.push(i);
     }
     setYears(yearsArray);

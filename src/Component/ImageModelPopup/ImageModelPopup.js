@@ -22,7 +22,7 @@ const ImageModelPopup = ({ imageUrl, onClose ,setrefress,post_id}) => {
     console.log(err)
   }
   }
-  console.log(userlogin.sex,"userlogin.sex");
+  
   
   return (
     <div className="image-popup">
