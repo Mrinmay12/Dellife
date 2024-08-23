@@ -33,6 +33,7 @@ import SearchPage from "./Pages/SearchPage";
 import LandingPage from "./Component/Landing/LandingPage";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import { setJobData } from "./redux/action/JobAction";
+import TermsPage from "./Pages/TermsPage";
 export default function AppRoutes() {
   const dispatch = useDispatch()
   const socket = useRef();
@@ -276,6 +277,7 @@ if (user_id) {
 
           <Route path="/sharepost/:post_id" element={<Perticularpost/>} />
           <Route path="/Privacy-policy" element={<PrivacyPolicy/>} />
+          <Route path="/terms-and-conditions" element={<TermsPage/>} />
 
         </Routes>
       </div>

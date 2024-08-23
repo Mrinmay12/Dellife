@@ -297,6 +297,10 @@ setDob={setDob}/>
     {api_validation &&(
       <span style={{ color:"red",marginTop:"4px" }}>{api_validation}</span>
     )}
+      <div class="terms-container" style={{marginTop:"9px",fontSize:"9px" }}>
+      
+            <label for="terms">By clicking Sign Up, you agree to our <a href="/terms-and-conditions" target='_blank'>Terms & Conditions</a> and <a href="/Privacy-policy" target='_blank'> Privacy Policy</a> You may receive SMS  from us and can opt out at any time.</label>
+        </div>
     <div className='submitbtn'>
     <Button handleClickbtn={handleSubmit} loader={loader} name="Register" />
     <div class="line-container">

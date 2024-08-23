@@ -29,3 +29,12 @@
   margin: 0 15px; /* Space between the lines and text */
   white-space: nowrap;
 }
+
+.terms-container a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.terms-container a:hover {
+  text-decoration: underline;
+}

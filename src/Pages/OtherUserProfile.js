@@ -384,13 +384,21 @@ export default function OtherUserProfile() {
                   style={{ width: "24px", marginRight: "9px" }}
                 />
                 <p className="pratitle">Email:</p>
-                <p
+                <button
                   className="anstitle"
-                  href={`mailto:${data.email}`}
-                  style={{ color: "blue" }}
+                  onClick={() =>
+                    (window.location.href = `mailto:${data.email}`)
+                  }
+                  style={{
+                    color: "blue",
+                    cursor: "pointer",
+                    background: "none",
+                    border: "none",
+                    padding: 0,
+                  }}
                 >
                   {data.email}
-                </p>
+                </button>
               </div>
               {data.sitelink && (
                 <div className="aboutdetails">

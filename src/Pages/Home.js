@@ -107,7 +107,7 @@ let uniqueIds= removeDuplicates(postdata,"post_id")
     <SmallTopbar setColor={setColor}/>
     {(userlogin.total_following>0 || color !=="green") ?(
       <>
-         <div style={{paddingTop:"69px"}}>
+         <div style={{paddingTop:"88px"}}>
      <InfiniteScroll
         dataLength={uniqueIds.length}
         next={loadMore}

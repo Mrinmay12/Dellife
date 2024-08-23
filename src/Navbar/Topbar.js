@@ -270,7 +270,6 @@ export default function Topbar() {
                         <div class="badge">
                           {totalUnseenMessages !== 0 && (
                             <span>
-                              9+
                               {totalUnseenMessages > 10
                                 ? "9+"
                                 : totalUnseenMessages}
