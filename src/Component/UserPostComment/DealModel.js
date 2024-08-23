@@ -8,7 +8,8 @@ import { setEditdata } from '../../redux/action/EditAction';
 import { useDispatch } from 'react-redux';
 import SendIcon from "../CommentModel/Send.svg"
 import { removeDuplicates } from '../../Utiles';
-const CommentsListModel = ({ onClose ,postid,userlogin}) => {
+import "./DealModel.css"
+const DealModel = ({ onClose ,postid,userlogin}) => {
 const dispatch=useDispatch()
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -72,11 +73,21 @@ const dispatch=useDispatch()
   
   let uniqueIds= removeDuplicates(commentdata,"comment_id")
 
+  const [price,setPrice]=useState('')
   return (
     <div className="comment-modal-overlay" onClick={onClose}>
       <div className="comment-modal-content" onClick={e => e.stopPropagation()}>
         <button className="comment-modal-close" onClick={onClose}>×</button>
-        <h2>Comments</h2>
+        <div style={{ flexDirection:"row",justifyContent:"space-between",display:"flex",paddingBottom:"9px" }}>
+        <h2> Drop deal</h2>
+        <h2 style={{paddingRight:"18px" }}> 
+        <select id="currency" name="currency">
+                <option value="">Filter</option>
+                <option value="usd">Dollar ($)</option>
+                <option value="inr">Rupee (₹)</option>
+            </select>
+        </h2>
+        </div>
         <hr/>
         <div className="comments-container" ref={containerRef} onScroll={handleScroll}>
         {uniqueIds.filter((item)=>item.post_id===postid).map((item,index) => (
@@ -85,14 +96,6 @@ const dispatch=useDispatch()
             <img className='user-info2_img' src={item.user_pic} alt="User Image" />
             <span class="user-name2">{item.user_name}</span>
 
-            {/* <img width="23" height="20" style={{ paddingLeft: "7px" }} src={greenTick} alt="approval--v1" /> */}
-            {item.user_edit &&(
-              <>
-             
-            <Smallmodel post_id={postid} comment_id={item.comment_id} edite_text={item.user_comment} showonly={"comment"}/>
-       
-            </>
-            )}
             </div>
           <div class="slovetext">
             <p>{item.user_comment}
@@ -102,12 +105,28 @@ const dispatch=useDispatch()
       ))}
           {loading && <div className="comment-loading"><Loder/></div>}
         </div>
-        <div style={{ display:"flex",flexDirection:"row" }}>
+        <div class="form-container">
+    <h2>Enter Price</h2>
+    <form>
+        <div class="form-group">
+          <input type="text" id="price1" name="price1" placeholder="Amount" value={price} onChange={(e)=>setPrice(e.target.value.replace(/[^0-9]/g, ""))}/>
+            
+            <select id="currency" name="currency">
+                {/* <option value="usd">Dollar ($)</option> */}
+                <option value="inr">Rupee (₹)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+        {/* <div style={{ display:"flex",flexDirection:"row" }}>
 <input className='inputcomment' placeholder='Write your comment' value={inputValue} onChange={(e)=>setInputValue(e.target.value)}/>
 <div onClick={()=>handleSubmit()}  className='sendcomment'>
           <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
           </div>
-        </div>
+        </div> */}
       
       </div>
      
@@ -115,4 +134,4 @@ const dispatch=useDispatch()
   );
 };
 
-export default CommentsListModel;
+export default DealModel;

@@ -147,7 +147,7 @@ export default function UserCard({ searchby_data ,work_title,location_user}) {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [searchQuery, title,userlogin.user_id,searchby_data]);
+  }, [searchQuery, title,userlogin.user_id,searchby_data,work_title,location_user]);
 
   const loadMore2 = async () => {
     setPage1((prevPage) => prevPage + 1);

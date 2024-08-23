@@ -23,6 +23,7 @@ import { ref, deleteObject } from "firebase/storage";
 import { storage } from "../FirebaseConfig/Firebase";
 import HandleFollow from "./HandleFollow";
 import { Date_and_Time, TimeMoment, UserDate } from "../Utiles";
+import DealModel from "./UserPostComment/DealModel";
 export default function TextShow({ item }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -105,6 +106,10 @@ export default function TextShow({ item }) {
   //   </>
   // )
   // }
+
+  const handleDealOpen=()=>{
+    setIsModalOpen(true)
+  }
   return (
     <div>
       {item.Postimage.length > 0 ? (
@@ -156,6 +161,7 @@ export default function TextShow({ item }) {
                 <span >
                   {TimeMoment(item.createdAt)}
                 </span>
+                <button className="edit-profile-btn" style={{ color:'#07b807' }} onClick={()=>handleDealOpen()}>Deal</button>
               </div>
               {/* <div style={{display:"flex",alignItems:"center" }}>
                 <span className="dot"></span>
@@ -292,6 +298,7 @@ export default function TextShow({ item }) {
                 <span >
                   {TimeMoment(item.createdAt)}
                 </span>
+                <button className="edit-profile-btn" style={{ color:'#07b807' }} onClick={()=>handleDealOpen()}>Deal</button>
               </div>
               {/* <div style={{display:"flex",alignItems:"center" }}>
                 <span className="dot"></span>
@@ -424,6 +431,7 @@ export default function TextShow({ item }) {
 
       {/* <Checkbox/>   */}
       {/* {isModalOpen && <Commentmodel onClose={closeModal} postId={postId}/>} */}
+      {isModalOpen &&<DealModel  onClose={closeModal}/> }
     </div>
   );
 }
