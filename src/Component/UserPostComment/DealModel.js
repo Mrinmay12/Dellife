@@ -89,6 +89,9 @@ const dispatch=useDispatch()
         </h2>
         </div>
         <hr/>
+        <div style={{display:"flex",alignItems:'center'}}>
+          <h3>One to one Deal</h3>
+        </div>
         <div className="comments-container" ref={containerRef} onScroll={handleScroll}>
         {uniqueIds.filter((item)=>item.post_id===postid).map((item,index) => (
         <>

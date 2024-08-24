@@ -126,7 +126,7 @@ export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
         {/* <Input placeholder="phone" onchange={setPhone} value={phone} inputtype="tel" title={"Enter phone number"}/> */}
         {/* <Input placeholder="email" onchange={setEmail} value={email} inputtype="email"/> */}
         {/* <SelectDropdown  options={options} handleOption={handleChange}/> */}
-        <PhoneSelect onchange={setPhone}/>
+        <PhoneSelect onchange={setPhone} value={phone}/>
         {/* <SelectDropdown  options={options} handleOption={handleChange}/> */}
 
         <Input placeholder="link"  value={work_title} inputtype="url" title={"Profession"} disabled={true}/>

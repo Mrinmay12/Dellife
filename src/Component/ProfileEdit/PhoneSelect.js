@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import Select, { components } from "react-select";
 import Input from "../PostForm/Input";
 import "./PhoneSelect.css"
@@ -76,13 +76,18 @@ const customStyles = {
 
     
   };
-const PhoneSelect = ({onchange}) => {
+const PhoneSelect = ({onchange,value}) => {
     const[phone,setPhone]=useState("") 
     const[country_code,setCountry_code]=useState({
       value: "in",
       label: "+91",
       flag: "https://img.freepik.com/free-vector/illustration-india-flag_53876-27130.jpg",
     })
+    useEffect(()=>{
+      if(value){
+        setPhone(value)
+      }
+    },[value])
     const handleChange = (selectedOption) => {
       setCountry_code(selectedOption)
       console.log("Selected Option:", selectedOption);
