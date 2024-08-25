@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './Comment.css'; // Import CSS styles for the modal
 import Smallmodel from '../SmallPupup/Smallmodel';
-import { EditComment, userComment, userCommentget } from '../../AllApi/Integrateapi';
+import { DealCreate, GetDeal } from '../../AllApi/Integrateapi';
 import Loder from '../LoderComponent/Loder';
 import { setEditdata } from '../../redux/action/EditAction';
 import { useDispatch } from 'react-redux';
@@ -16,11 +16,12 @@ const dispatch=useDispatch()
   const containerRef = useRef(null);
   const [commentdata, setCommentdata] = useState([])
   const[report_postid,setReport_postid]=useState([])
+  const[sort,setSort]=useState([])
   const fetchComments = async (pageNum) => {
     setLoading(true);
     try {
-      const response = await userCommentget(postid, userlogin.user_id, page)
-      setCommentdata(prev => [...prev, ...response.data.postcomment]);
+      const response = await GetDeal(sort,postid, page)
+      setCommentdata(prev => [...prev, ...response.data.userdata]);
     } catch (error) {
       console.error('Error fetching comments:', error);
     } finally {
@@ -41,33 +42,16 @@ const dispatch=useDispatch()
     }
   };
 
-  const [inputValue, setInputValue] = useState('');
-  const handleChange = (e) => {
-    setInputValue(e.target.value);
-  };
+
   const handleSubmit = async () => {
     const json = JSON.stringify({
       post_id: postid,
       user_id: userlogin.user_id,
-      user_comment: inputValue
+      price: price
     })
-    const response = await userComment(json)
+    const response = await DealCreate(json)
     if (response) {
-      setCommentdata([{comment_id: response.data.id,
-        post_id: postid,
-        user_pic: userlogin.user_pic,
-        user_name: "You",
-        user_comment: inputValue,
-        user_edit:true},...commentdata])
-      // dispatch(setEditdata({
-      //   comment_id: response.data.id,
-      //   post_id: postId,
-      //   user_pic: userlogin.user_pic,
-      //   user_name: "You",
-      //   user_comment: inputValue,
-      //   user_edit:true
-      // }))
-      setInputValue('')
+     onClose()
     }
   };
   
@@ -120,7 +104,7 @@ const dispatch=useDispatch()
             </select>
         </div>
         <div class="form-group">
-            <button type="submit">Submit</button>
+            <button type="submit" onClick={()=>{handleSubmit()}}>Submit</button>
         </div>
     </form>
 </div>
