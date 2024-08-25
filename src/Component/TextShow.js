@@ -107,8 +107,9 @@ export default function TextShow({ item }) {
   // )
   // }
 
-  const handleDealOpen=()=>{
+  const handleDealOpen=(postid)=>{
     setIsModalOpen(true)
+    setPostId(postid);
   }
   return (
     <div>
@@ -161,7 +162,7 @@ export default function TextShow({ item }) {
                 <span >
                   {TimeMoment(item.createdAt)}
                 </span>
-                <button className="edit-profile-btn" style={{ color:'#07b807' }} onClick={()=>handleDealOpen()}>Deal</button>
+                <button className="edit-profile-btn" style={{ color:'#07b807' }} onClick={()=>handleDealOpen(item.post_id)}>Deal</button>
               </div>
               {/* <div style={{display:"flex",alignItems:"center" }}>
                 <span className="dot"></span>
@@ -298,7 +299,7 @@ export default function TextShow({ item }) {
                 <span >
                   {TimeMoment(item.createdAt)}
                 </span>
-                <button className="edit-profile-btn" style={{ color:'#07b807' }} onClick={()=>handleDealOpen()}>Deal</button>
+                <button className="edit-profile-btn" style={{ color:'#07b807' }} onClick={()=>handleDealOpen(item.post_id)}>Deal</button>
               </div>
               {/* <div style={{display:"flex",alignItems:"center" }}>
                 <span className="dot"></span>
@@ -431,7 +432,7 @@ export default function TextShow({ item }) {
 
       {/* <Checkbox/>   */}
       {/* {isModalOpen && <Commentmodel onClose={closeModal} postId={postId}/>} */}
-      {isModalOpen &&<DealModel  onClose={closeModal}/> }
+      {isModalOpen &&<DealModel  onClose={closeModal} postid={postId}/> }
     </div>
   );
 }
