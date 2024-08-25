@@ -142,3 +142,7 @@ export const AllLocation=()=>apiUrl.get(`/api/user/all_location`)
 //All job details
 export const CreateJob=(job_details)=>apiUrl.post(`/api/user/job_approved/${job_details}`)
 export const GetJob=()=>apiUrl.get(`/api/user/job_all`)
+
+//Deal price
+export const DealCreate=(json)=>apiUrl.get(`/create_price`,json)
+export const GetDeal=(sort,post_id,page)=>apiUrl.get(`/get_price?sort=${sort}&post_id=${post_id}&page=${page}`)
