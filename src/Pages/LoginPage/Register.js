@@ -24,9 +24,14 @@ export default function Register({setToken}) {
   const[valid_message1,setValid_Message1]=useState('')
   const[valid_message2,setValid_Message2]=useState('')
   const[api_validation,setApi_validation]=useState('')
-  const [options, setOptions] = useState(job_data);
+  const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
   const [inputValue2, setInputValue2] = useState(null);
+  useEffect(()=>{
+    if(Array.isArray(job_data)){
+      setOptions(job_data)
+    }
+  },[Array.isArray(job_data)])
   const handlename=(e)=>{
     setName(e)
   }
@@ -268,6 +273,7 @@ setDob={setDob}/>
       onInputChange={handleInputChange}
       value={selectedOption}
       isSearchable={true}
+      isClearable={true}
       placeholder={"Search or create job"}
       styles={customStyles}
       menuPlacement="top"  // Set the placement of the menu

@@ -143,8 +143,8 @@ header.clearfix {
     padding-left: 18px;
 }
 .iconstyle{
-    height: 26px;
-    width: 30px;
+    height: 22px;
+    width: 26px;
     color: #000;
     cursor: pointer;
 }
@@ -209,8 +209,8 @@ header.clearfix {
         margin-top: 14px;
     }
     .iconstyle{
-        height: 26px;
-        width: 26px;
+        height: 22px;
+        width: 20px;
         color: #000;
         cursor: pointer;
     }
@@ -262,8 +262,8 @@ header.clearfix {
 }
 
 .notification-icon img {
-    width: 40px; /* Adjust size as needed */
-    height: 40px;
+    width: 31px;
+    height: 30px;
 }
 
 .badge {
@@ -287,3 +287,4 @@ header.clearfix {
     justify-content: flex-end;
     margin-top: 5px;
 }
+

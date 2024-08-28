@@ -3,9 +3,9 @@ import "./PrivacyPolicy.css"
 export default function PrivacyPolicy() {
   return (
     <div class="policy-container">
-    <header>
+    <div className='privacyheader'>
         <h1>Privacy Policy</h1>
-    </header>
+    </div>
 
     <section class="policy-content">
         <h2>Introduction</h2>

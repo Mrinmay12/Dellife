@@ -50,13 +50,15 @@ export default function Topbar() {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-
+ 
+  
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   const getInitialPosition = (path, width) => {
     switch (path) {
       case "":
@@ -228,11 +230,11 @@ export default function Topbar() {
                   </li>
 
                   <li>
-                    <div onClick={() => setIsModalOpen2(true)}>
+                    <div onClick={() => setIsModalOpen2(true)} style={{ height:"30px",marginTop:"8px" }}>
                       <a href="#three">
                         <img
                           src={uploadblack}
-                          style={{ width: "54px", height: "48px" }}
+                          style={{ width: "36px", height: "36px" }}
                           alt=""
                         />
                       </a>
@@ -403,13 +405,13 @@ export default function Topbar() {
                         {pathname === "/post" ? (
                           <img
                             src={uploadred}
-                            style={{ width: "54px", height: "48px" }}
+                            style={{ width: "36px", height: "36px" }}
                             alt=""
                           />
                         ) : (
                           <img
                             src={uploadblack}
-                            style={{ width: "54px", height: "48px" }}
+                            style={{ width: "36px", height: "36px" }}
                             alt=""
                           />
                         )}

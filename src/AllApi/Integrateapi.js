@@ -19,7 +19,7 @@ export const userNewPost=(data)=>apiUrl.post(`/api/userpost/newpost`,data)
 //         'Content-Type': 'multipart/form-data',
 //       },
 // })
-export const userAllPost=(page,user_id,color,latitude,longitude,work_title)=>apiUrl.get(`/api/userpost/getallpost?page=${page}&user_id=${user_id}&color_code=${color}&latitude=${latitude}&longitude=${longitude}&work_title=${work_title}`)
+export const userAllPost=(page,user_id,color,latitude,longitude,work_title,location)=>apiUrl.get(`/api/userpost/getallpost?page=${page}&user_id=${user_id}&color_code=${color}&latitude=${latitude}&longitude=${longitude}&work_title=${work_title}&location=${location}`)
 
 // export const ProfilePicUpdate=(user_id,data)=>apiUrl.put(`/api/user/profilepic/${user_id}`,data,{
 //   headers: {
@@ -144,5 +144,5 @@ export const CreateJob=(job_details)=>apiUrl.post(`/api/user/job_approved/${job_
 export const GetJob=()=>apiUrl.get(`/api/user/job_all`)
 
 //Deal price
-export const DealCreate=(json)=>apiUrl.get(`/create_price`,json)
+export const DealCreate=(json)=>apiUrl.post(`/create_price`,json)
 export const GetDeal=(sort,post_id,page)=>apiUrl.get(`/get_price?sort=${sort}&post_id=${post_id}&page=${page}`)

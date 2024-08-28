@@ -34,6 +34,7 @@ export default function Home() {
     }
   };
 const [postdata,setPostdata]=useState([])
+const [postdata2,setPostdata2]=useState([])
 const[color,setColor]=useState("black")
 useEffect(() => {
   setPostdata([]); 
@@ -44,7 +45,7 @@ let user_longitude=userlocation.longitude||""
 
 const fetchAllPost = async (page) => {
   if(userlogin?.user_id){
-  const res = await userAllPost(page,userlogin?.user_id,color,user_latitude,user_longitude,userlogin.work_title||'')
+  const res = await userAllPost(page,userlogin?.user_id,color,user_latitude,user_longitude,userlogin.work_title||'',userlocation.locationName||'')
   return res.data.data;
   }
 };
@@ -69,6 +70,9 @@ const { data, isFetching, isPreviousData } = useQuery({
   useEffect(() => {
     if (data && userlogin?.user_id) {
       setPostdata((prevData) => [...prevData, ...data]);
+    }
+    if(color==='black'&& data){
+      setPostdata2((prevData) => [...prevData, ...data])
     }
   }, [data]);
     
@@ -98,16 +102,30 @@ useEffect(()=>{
 },[postreff])
 
 const handleFindUser=()=>{
-  navigator(`/searchuser/${userlogin.work_title}`)
+  navigator(`/searchuser/${userlogin.work_title||''}`)
 }
 // console.log(userlogin.total_following,"mmdmdmdmdmdmdmdm",color);
 let uniqueIds= removeDuplicates(postdata,"post_id")
+let uniqueIds2= removeDuplicates(postdata2,"post_id")
+
+const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+}, []);
   return (
     <div>
-    <SmallTopbar setColor={setColor}/>
+    <SmallTopbar setColor={setColor} data={uniqueIds2?.length}/>
     {(userlogin.total_following>0 || color !=="green") ?(
       <>
-         <div style={{paddingTop:"88px"}}>
+         <div style={{paddingTop:isMobile?"63px":"62px"}}>
      <InfiniteScroll
         dataLength={uniqueIds.length}
         next={loadMore}

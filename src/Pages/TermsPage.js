@@ -3,9 +3,9 @@ import "./PrivacyPolicy.css"
 export default function TermsPage() {
   return (
     <div class="policy-container">
-    <header>
+    <div className='privacyheader'>
         <h1>Terms & Conditions</h1>
-    </header>
+    </div>
 
     <section class="terms-content">
         <h2>Introduction</h2>

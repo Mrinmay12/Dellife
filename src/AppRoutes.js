@@ -36,14 +36,17 @@ import { setJobData } from "./redux/action/JobAction";
 import TermsPage from "./Pages/TermsPage";
 export default function AppRoutes() {
   const dispatch = useDispatch()
+  const location = useLocation();
   const socket = useRef();
   const refreshdata = useSelector(state => state.RefreshReducer.data)
   const[appverify,setAppverify]=useState(false)  
-
+  const { pathname } = location;
+  const splitLocation = pathname.split("/");
   const[user_id,setUser_id]=useState("")
   const[message_id,setMessage_id]=useState("")
-   const[Landing_show,setLanding_show]=useState(true)
+   const[Landing_show,setLanding_show]=useState(false)
    const[token,setToken]=useState(localStorage.getItem('token'))
+   
   useEffect(() => {
     const User_details = async () => {
       try {
@@ -66,7 +69,9 @@ export default function AppRoutes() {
       }
     }
     if(user_id && token){
+      if(splitLocation[1]!=='Privacy-policy'||splitLocation[1]!=='terms-and-conditions'){
     User_details()
+      }
     }
 
   // }, [refreshdata,appverify,user_id])
@@ -101,8 +106,9 @@ export default function AppRoutes() {
         
       }
     }
+    if(splitLocation[1]!=='Privacy-policy'||splitLocation[1]!=='terms-and-conditions'){
     User_Token()
-
+    }
   }, [token,user_id,refreshdata])
   const navigate = useNavigate()
 
@@ -159,7 +165,8 @@ export default function AppRoutes() {
             const data = await response.json();
             if (data.display_name) {
               // setLocationName(data.display_name);
-              setLocationName(data.address.suburb);
+              setLocationName(data.address.town);
+              
             }
           } catch (error) {
             console.error("Error fetching location name:", error);
@@ -175,7 +182,7 @@ export default function AppRoutes() {
   const { coordinate, locationName, error } = useCoordinates();
 
 
-  console.log(coordinate.lat,coordinate.long,locationName,"mrinmay1")
+  // console.log(coordinate.lat,coordinate.long,locationName,"mrinmay1")
 
   //Near user geolocation & socket Io
   const[location_data,setlocation_data]=useState({})

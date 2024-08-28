@@ -50,7 +50,7 @@ export default function SelectDropdown({options,handleOption}) {
       onChange={handleChange}
       value={selectedOption}
       isSearchable={true}
-      placeholder={"Search profession"}
+      placeholder={"Search & Tag user"}
       styles={customStyles}
     />
   // </div>
