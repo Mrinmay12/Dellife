@@ -7,6 +7,7 @@ import "../FilterModel/Filtermodel.css"
 import { UpdateUser } from '../../AllApi/Integrateapi';
 import { setRefresh } from '../../redux/action/RefreshAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { isValidLink } from '../../Utiles';
 export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
   const job_data = useSelector(state => state.JobReducer.data)
   const dispatch=useDispatch()
@@ -17,7 +18,7 @@ export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
     const [selectedOption, setSelectedOption] = useState("");
     const[work_title,setWork_title]=useState('')
     const [loding,setLoding]=useState(false)
-  
+    let valid_link = isValidLink(link);
     useEffect(()=>{
       if(userlogin){
         setAbout(userlogin.about)
@@ -43,6 +44,10 @@ export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
     // },[Json])
     
     const handleEdit2 = async() => {
+      if (link && !valid_link) {
+        // alert('Invalid link');
+        return;
+      }else{
       setLoding(true)
       try {
         const response = await UpdateUser(Json);
@@ -59,7 +64,7 @@ export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
         onClose()
         // setrefress(new Date().getMilliseconds())
       }
-     
+      } 
   
     }
 
@@ -123,13 +128,20 @@ export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
      {/* <textarea id="message" className="input" value={about} placeholder="About" onChange={(e)=>setAbout(e.target.value)}></textarea> */}
         <Input placeholder="About" onchange={setAbout} value={about} inputtype="text" title={"Write about yourself"}/>
         <Input placeholder="link" onchange={setLink} value={link} inputtype="url" title={"Enter link"}/>
+        {!valid_link && link !== "" ? (
+                <span style={{ marginTop: "5px", color: "red" }}>
+                  Link not valid
+                </span>
+              ) : (
+                ""
+              )}
         {/* <Input placeholder="phone" onchange={setPhone} value={phone} inputtype="tel" title={"Enter phone number"}/> */}
         {/* <Input placeholder="email" onchange={setEmail} value={email} inputtype="email"/> */}
         {/* <SelectDropdown  options={options} handleOption={handleChange}/> */}
         <PhoneSelect onchange={setPhone} value={phone}/>
         {/* <SelectDropdown  options={options} handleOption={handleChange}/> */}
 
-        <Input placeholder="link"  value={work_title} inputtype="url" title={"Profession"} disabled={true}/>
+        <Input placeholder="job title"  value={work_title} inputtype="url" title={"Profession"} disabled={true}/>
         {/* <Select
       options={options}
       onChange={handleChange}

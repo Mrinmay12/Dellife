@@ -17,7 +17,7 @@
   padding: 7px 0;
   background: white;
   transition: border-color 0.2s;
-  padding-left: 11px
+  padding-left: 0px
 }
 
 .form__field::placeholder {

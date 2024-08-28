@@ -4,6 +4,7 @@ import "../FilterModel/Filtermodel.css"
 import './SettingModel.css'
 import CalenderIcon from "../Images/calendarIcon.svg"
 import MailIcon from "../Images/Mail.svg"
+import LocationIcon from "../Images/Userlocation.svg"
 import { DateShowMonth } from '../../Utiles';
 import Button from '../Button/Button';
 import { Delete_profile, Number_Lock_Unlock } from '../../AllApi/Integrateapi';
@@ -11,6 +12,7 @@ import { setRefresh } from '../../redux/action/RefreshAction';
 export default function AboutModel({isOpen, onClose}) {
     const dispatch=useDispatch()
     const userlogin = useSelector(state => state.myReducer.data)
+    const userlocation = useSelector((state) => state.UserLocation.data);
     const modalRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleDelete= async()=>{
@@ -94,6 +96,14 @@ export default function AboutModel({isOpen, onClose}) {
         />
         <span className="slider round"></span>
       </label></span>
+       </div>
+       </div>
+
+       <div style={{ display:"flex" }}>
+       <img src={LocationIcon} width='23px' alt=''/>
+       <div style={{ marginLeft:"17px",marginTop:"11px" }}>
+       <p style={{ fontWeight:700 }}>Location</p>
+       <span>{userlocation.locationName}</span>
        </div>
        </div>
 
