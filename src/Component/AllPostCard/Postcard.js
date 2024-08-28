@@ -95,7 +95,7 @@ const handleDealOpen=(postid)=>{
   <>
     {item.post_img.length>0?(
       <div class="gallery-item" >
-          <div onClick={()=>handlePostid(item._id)}>
+          <div onClick={()=>handlePostid(item._id)} style={{ height:"100%" }}>
       <BlurredUpImage image={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img[0]}?alt=media`}/>
     {/* <img src={`${process.env.REACT_APP_FIREBASE}${process.env.REACT_APP_BUCKET}/o/${item.post_img}?alt=media`}  alt="Image 1"/> */}
     </div>
