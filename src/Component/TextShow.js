@@ -107,10 +107,10 @@ export default function TextShow({ item }) {
   // )
   // }
 
-  const handleDealOpen=(postid)=>{
-    setIsModalOpen(true)
+  const handleDealOpen = (postid) => {
+    setIsModalOpen(true);
     setPostId(postid);
-  }
+  };
   return (
     <div>
       {item.Postimage.length > 0 ? (
@@ -142,27 +142,46 @@ export default function TextShow({ item }) {
                   marginTop: "37px",
                 }}
               >
-                {item.user_present && (
-               <h4 class="user-name text-user-name">
-               <span onClick={handleProfile}>{item.user_name}{" "}</span>
-                  <span className="dot"></span>
-                <HandleFollow
-                  id={item.user_id}
-                  user_follow={item.user_follow}
-                  user_id={userlogin.user_id}
-                  show={"textshow"}
-                />
-                </h4>
-                )}
+                {item.user_present && !item.user_post_or_not ? (
+                  <h4 class="user-name text-user-name">
+                    <span onClick={handleProfile}>{item.user_name} </span>
+                    <span className="dot"></span>
+                    <HandleFollow
+                      id={item.user_id}
+                      user_follow={item.user_follow}
+                      user_id={userlogin.user_id}
+                      show={"textshow"}
+                    />
+                  </h4>
+                ) : null}
                 <span
-                  style={{ fontWeight: "bold", color: "rgb(0, 123, 255)" ,fontSize:"smaller"}}
+                  style={{
+                    fontWeight: "bold",
+                    color: "rgb(0, 123, 255)",
+                    fontSize: "smaller",
+                  }}
                 >
                   {item.work_title || "Other"}
                 </span>
-                <span >
-                  {TimeMoment(item.createdAt)}
-                </span>
-                <button className="edit-profile-btn" style={{ color:'#07b807' }} onClick={()=>handleDealOpen(item.post_id)}>Deal</button>
+                <span>{TimeMoment(item.createdAt)}</span>
+                {item.user_deal && !item.user_post_or_not ? (
+                  <button
+                    className="edit-profile-btn"
+                    style={{ color: "#07b807" }}
+                    onClick={() => handleDealOpen(item.post_id)}
+                  >
+                    Deal
+                  </button>
+                ) : null}
+                  {item.link && (
+                    <a
+                      href={item.link}
+                      style={{ color: "blue" }}
+                      target="_blank"
+                    >
+                      {"www.google.com"}
+                    </a>
+                  )}
               </div>
               {/* <div style={{display:"flex",alignItems:"center" }}>
                 <span className="dot"></span>
@@ -177,18 +196,18 @@ export default function TextShow({ item }) {
               </div> */}
             </div>
             {item.user_present && (
-            <div className="shairicone2">
-              {item.user_post_or_not ? (
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  style={{ color: "red" }}
-                  onClick={() => handlDelete(item.Postimage)}
-                />
-              ) : (
-                <Smallmodel post_id={item.post_id} />
-              )}
-            </div>
-          )}
+              <div className="shairicone2">
+                {item.user_post_or_not ? (
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    style={{ color: "red" }}
+                    onClick={() => handlDelete(item.Postimage)}
+                  />
+                ) : (
+                  <Smallmodel post_id={item.post_id} />
+                )}
+              </div>
+            )}
             {/* <div style={{ textAlign:"end" }}>
 
               </div> */}
@@ -219,7 +238,16 @@ export default function TextShow({ item }) {
            
           </div> */}
 
-          <div style={{ color: item.Color, whiteSpace: "break-spaces",fontSize:'20px' ,marginLeft:"11px",marginTop:"3px"}}>
+          <div
+            style={{
+              // color: item.Color,
+              color: "black",
+              whiteSpace: "break-spaces",
+              fontSize: "20px",
+              marginLeft: "11px",
+              marginTop: "3px",
+            }}
+          >
             {item.Title}
           </div>
 
@@ -231,7 +259,7 @@ export default function TextShow({ item }) {
                 onLoad={handleImageLoad} /> */}
             </div>
           </div>
-         <hr style={{ marginTop:"9px" }}/>
+          <hr style={{ marginTop: "9px" }} />
           {/* Comment model start */}
           <>
             <UserComment
@@ -265,43 +293,62 @@ export default function TextShow({ item }) {
                 )}
               </div>
             )}
-           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div class="user-info">
-              <img
-                src={item.user_pic}
-                alt="User_Image"
-                onClick={handleProfile}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  marginTop: "37px",
-                }}
-              >
-                {item.user_present && (
-                <h4 class="user-name text-user-name">
-                  <span onClick={handleProfile}>{item.user_name}{" "}</span>
-                  <span className="dot"></span>
-                <HandleFollow
-                  id={item.user_id}
-                  user_follow={item.user_follow}
-                  user_id={userlogin.user_id}
-                  show={"textshow"}
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div class="user-info">
+                <img
+                  src={item.user_pic}
+                  alt="User_Image"
+                  onClick={handleProfile}
                 />
-                </h4>
-                )}
-                <span
-                  style={{ fontWeight: "bold", color: "rgb(0, 123, 255)" ,fontSize:"smaller" }}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    marginTop: "37px",
+                  }}
                 >
-                  {item.work_title || "Other"}
-                </span>
-                <span >
-                  {TimeMoment(item.createdAt)}
-                </span>
-                <button className="edit-profile-btn" style={{ color:'#07b807' }} onClick={()=>handleDealOpen(item.post_id)}>Deal</button>
-              </div>
-              {/* <div style={{display:"flex",alignItems:"center" }}>
+                  {item.user_present && !item.user_post_or_not ? (
+                    <h4 class="user-name text-user-name">
+                      <span onClick={handleProfile}>{item.user_name} </span>
+                      <span className="dot"></span>
+                      <HandleFollow
+                        id={item.user_id}
+                        user_follow={item.user_follow}
+                        user_id={userlogin.user_id}
+                        show={"textshow"}
+                      />
+                    </h4>
+                  ) : null}
+                  <span
+                    style={{
+                      fontWeight: "bold",
+                      color: "rgb(0, 123, 255)",
+                      fontSize: "smaller",
+                    }}
+                  >
+                    {item.work_title || "Other"}
+                  </span>
+                  <span>{TimeMoment(item.createdAt)}</span>
+                  {item.user_deal && !item.user_post_or_not ? (
+                    <button
+                      className="edit-profile-btn"
+                      style={{ color: "#07b807" }}
+                      onClick={() => handleDealOpen(item.post_id)}
+                    >
+                      Deal
+                    </button>
+                  ) : null}
+                  {item.link && (
+                    <a
+                      href={item.link}
+                      style={{ color: "blue" }}
+                      target="_blank"
+                    >
+                      {"www.google.com"}
+                    </a>
+                  )}
+                </div>
+                {/* <div style={{display:"flex",alignItems:"center" }}>
                 <span className="dot"></span>
                 <HandleFollow
                   id={item.user_id}
@@ -311,17 +358,23 @@ export default function TextShow({ item }) {
                 />
 
                 {/* <div className="btn-theme icon-left" onClick={()=>handleFollowuser(item.user_id)}>{Follow?('Following' ):"+Follow"}</div> */}
-              {/* </div> */} 
-            </div>
-            {/* <div style={{ textAlign:"end" }}>
+                {/* </div> */}
+              </div>
+              {/* <div style={{ textAlign:"end" }}>
 
               </div> */}
-          </div>
+            </div>
 
-            <div style={{ color: item.Color, whiteSpace: "break-spaces",fontSize:"20px" }}>
+            <div
+              style={{
+                color: item.Color,
+                whiteSpace: "break-spaces",
+                fontSize: "20px",
+              }}
+            >
               {item.Title}
             </div>
-            <hr style={{ marginTop:"9px" }}/>
+            <hr style={{ marginTop: "9px" }} />
             {/* Comment model start */}
             <>
               <UserComment
@@ -432,7 +485,9 @@ export default function TextShow({ item }) {
 
       {/* <Checkbox/>   */}
       {/* {isModalOpen && <Commentmodel onClose={closeModal} postId={postId}/>} */}
-      {isModalOpen &&<DealModel  onClose={closeModal} postid={postId}/> }
+      {isModalOpen && (
+        <DealModel onClose={closeModal} postid={postId} userlogin={userlogin} />
+      )}
     </div>
   );
 }

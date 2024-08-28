@@ -19,6 +19,7 @@ import SideModel4 from '../SidePopup/SideModel4';
 import SharePost from './SharePost';
 import CommentsList from './CommentsListModel';
 import "../SkeletonLoder/Skeleton.css"
+import { formatNumber } from '../../Utiles';
 export default function UserComment({ postid ,user_post_or_not,user_present,countlike,user_like,user_id,post_title, post_image,user_number}) {
   const navigator=useNavigate()
   const userlogin = useSelector(state => state.myReducer.data)
@@ -391,12 +392,12 @@ const handleSubmit = async () => {
         <div >
           {userlike ? (
             <>
-              <FontAwesomeIcon icon={faHeart} style={{ color: "red" }} className={ `heart ${isBouncing ? 'bounce' : ''}`} onClick={()=>handleDislike()}/> {like!==0 && like}
+              <FontAwesomeIcon icon={faHeart} style={{ color: "red" }} className={ `heart ${isBouncing ? 'bounce' : ''}`} onClick={()=>handleDislike()}/> {like!==0 && formatNumber(like)}
             </>
 
           ) : (
             <>
-              <FontAwesomeIcon icon={faHeart} style={{ color: "gray" }}  className={ `heart ${isBouncing ? 'bounce' : ''}`} onClick={() => handleLike()} /> {like!==0 && like}
+              <FontAwesomeIcon icon={faHeart} style={{ color: "gray" }}  className={ `heart ${isBouncing ? 'bounce' : ''}`} onClick={() => handleLike()} /> {like!==0 && formatNumber(like)}
             </>
 
           )}
@@ -430,7 +431,7 @@ const handleSubmit = async () => {
 )}
 {user_present && !user_post_or_not?(
 <div style={{ display:"flex",flexDirection:"row" }}>
-<input className='inputcomment' placeholder='Add a comment...' value={inputValue} onChange={(e)=>setInputValue(e.target.value)}/>
+<textarea className='inputcomment' placeholder='Add a comment...' value={inputValue} onChange={(e)=>setInputValue(e.target.value)}/>
 <div onClick={()=>handleSubmit()}  className='sendcomment'>
           <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
           </div>

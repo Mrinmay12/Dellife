@@ -27,7 +27,7 @@ export default function Post({ only_use, onClose }) {
   const [fimageUrl, setFimageUrl] = useState("");
   const [imgnotexist, setImgnotExist] = useState(false);
   const [simageUrl, setSimageUrl] = useState("");
-  const [link, setLink] = useState("");
+  const [link, setLink] = useState(userlogin.sitelink);
   const [imgnotexist2, setImgnotExist2] = useState(false);
   const [description, setdescription] = useState("");
   const [tagshow, settagshow] = useState(false);
@@ -181,6 +181,7 @@ export default function Post({ only_use, onClose }) {
         latitude: userlocation.latitude || 0.0,
         longitude: userlocation.longitude || 0.0,
         address: userlocation.locationName,
+        user_deal:textcolor==='red'?true:false
       });
 
       if (text === "") {
@@ -304,7 +305,7 @@ export default function Post({ only_use, onClose }) {
               className="colorchange"
               style={{ height: "13px", width: "13px" }}
             ></div>
-            <h3> Red color post visible on help section</h3>
+            <h3> Post for a Deal</h3>
           </div>
           <div
             style={{
@@ -373,7 +374,7 @@ export default function Post({ only_use, onClose }) {
             className="inpttextarea"
             value={text}
             onChange={handleInputChange}
-            style={{ height: "50px", maxHeight: "300px", color: textcolor }}
+            style={{ height: "50px", maxHeight: "300px" }}
             // onKeyUp={handleEnterPress}
             onKeyPress={handleEnterPress}
             ref={textareaRef}
@@ -476,7 +477,8 @@ export default function Post({ only_use, onClose }) {
                 style={{ width: "60px" }}
                 title="Upload images"
                 onClick={handleButtonClick}
-              />
+                alt=""
+              />Image
             </p>
             <input
               type="file"
@@ -493,14 +495,14 @@ export default function Post({ only_use, onClose }) {
               value={tagshow}
               onClick={handleTagshow}
             >
-              <img src={Tagicon} style={{ width: "60px" }} title="Tag people" />
+              <img src={Tagicon} style={{ width: "60px" }} title="Tag people" alt=""/>Tag
             </p>
             <p
               style={{ color: "black" }}
               value={linkshow}
               onClick={handleLinkshow}
             >
-              <img src={Linkicon} title="Add link" style={{ width: "60px" }} />
+              <img src={Linkicon} title="Add link" style={{ width: "60px" }} alt=""/>Link
             </p>
           </div>
         </div>

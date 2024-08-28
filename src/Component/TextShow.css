@@ -240,8 +240,10 @@ body {
   border: none;
   font-size: 20px;
   outline: none;
+  /* padding: 3px; */
+  padding-top: 0px;
   /* margin-left: 2px; */
-  padding-left: 8px;
+  /* padding-left: 8px; */
  
 }
 
