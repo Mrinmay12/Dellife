@@ -78,6 +78,21 @@ const Commentmodel = ({ onClose, postId,commentId, edite_text }) => {
   const handleClose=()=>{
     onClose()
   }
+  const textareaRef = useRef(null);
+  const resizeTextarea = () => {
+    const textarea = textareaRef.current;
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`; // Auto-grow the height
+  };
+
+  useEffect(() => {
+    resizeTextarea();
+  }, [inputValue]);
+  function handleEnterPress(event) {
+    if (event.key === "Enter") {
+      resizeTextarea();
+    }
+  }
   return (
     <div className="modal-container" ref={modalRef}>
        <div onClick={()=>handleClose()} className='closemodel'>
@@ -87,17 +102,33 @@ const Commentmodel = ({ onClose, postId,commentId, edite_text }) => {
       <div style={{ paddingTop: "2px" }} />
 
       {/* <InputArea/> */}
-      <textarea type="text" className={"textarea"} style={{ color: "black" }} value={inputValue} placeholder="Enter Tittle" onChange={handleChange} />
+      {/* <textarea type="text" className={"textarea"} style={{ color: "black" }} value={inputValue} placeholder="Enter Tittle" onChange={handleChange} /> */}
       {/* <div> */}
+      <textarea
+            type="text"
+            placeholder="Add a comment..."
+            className="inpttextarea"
+            value={inputValue}
+            onChange={(e)=>setInputValue(e.target.value)}
+            style={{ height: "50px", maxHeight: "300px",borderBottomWidth: 2,   
+              borderBottomColor: '#000',
+              borderBottomStyle: 'solid' }}
+            // onKeyUp={handleEnterPress}
+            onKeyPress={handleEnterPress}
+            ref={textareaRef}
+            rows="1"
+          />
+
       {edite_text ? (
-        <div onClick={handleSubmit2} className="commentbtn">
+        <div onClick={()=>inputValue.trim().length!==0?handleSubmit2:''} className={inputValue.trim().length===0?'sendcomment': 'sendcomment_write'}>
           <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
         </div>
         
       ) : (
-        <div onClick={handleSubmit} className="commentbtn">
-          <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
+        <div onClick={()=>inputValue.trim().length!==0?handleSubmit():''}  className={inputValue.trim().length===0?'sendcomment': 'sendcomment_write'}>
+        <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
         </div>
+  
       )}
 
 

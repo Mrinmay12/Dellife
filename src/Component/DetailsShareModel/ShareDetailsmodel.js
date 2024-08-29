@@ -4,6 +4,7 @@ import { NearUsers } from '../../AllApi/Integrateapi';
 import "./Detailsmodel.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate } from 'react-router-dom';
+import { FirstLetterCapital } from '../../Utiles';
 const ShareDetailsmodel = ({ onClose,postId }) => {
   const navigate=useNavigate()
   const userlogin = useSelector(state => state.myReducer.data)
@@ -109,6 +110,7 @@ const nearUsersdata = uniqueObjects.filter((user) => {
   // console.log(nearUsersdata,"nearUsersdata");
   const handleOpenProfile=(id)=>{
     navigate(`/otherprofile/${new Date().getMilliseconds()}?user_id=${id}`)
+    onClose();
   }
   return (
     <div className="modal-container-details" ref={modalRef}>
@@ -127,7 +129,7 @@ const nearUsersdata = uniqueObjects.filter((user) => {
      </div>
 <hr/>
 <div className="shareuserscroll">
-{nearUsersdata.length===0?(
+{nearUsersdata.filter((item)=>item.message_id!==userlogin.message_id).length===0?(
   <>
   <div className="search-container2">
     <div className="search-icon2_share">
@@ -149,7 +151,7 @@ const nearUsersdata = uniqueObjects.filter((user) => {
   
   <div className="shareuserinfo">
    <img className="usershareimg" src={item.user_image} alt={item.name} />
-   <h3 className="usersharename">{item.name}</h3>
+   <h3 className="usersharename">{item.name} ({FirstLetterCapital(item.work_title||'other')})</h3>
    {/* <div className="usersharename"> */}
    <div className='viewnearuser' style={{cursor:"pointer"}} onClick={()=>handleOpenProfile(item.user_id)}>
    <p style={{color:"navy"}}>{"view >>"}</p>
@@ -163,7 +165,7 @@ const nearUsersdata = uniqueObjects.filter((user) => {
 </label> */}
 </div>
   </div>
-   <p style={{marginTop:"-23px",marginBottom:"9px",textAlign:"center"}}>{item.work_title}</p>
+   {/* <p style={{marginTop:"-23px",marginBottom:"9px",textAlign:"center"}}>{item.work_title}</p> */}
   </div>
 ))}
  {/* </InfiniteScroll> */}
