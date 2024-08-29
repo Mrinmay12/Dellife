@@ -259,8 +259,23 @@ body {
   height: 37px;
   width: 34px;
   border: 2px solid gainsboro;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
-
+.sendcomment_write {
+  background-color: #dcdcdc00;
+  padding: 5px;
+  margin-left: 24px;
+  border-radius: 22px;
+  height: 38px;
+  width: 41px;
+  border: 2px solid #2fa346;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  cursor: pointer;
+}
 .text-user-name{
   display: flex;
   flex-direction: row;

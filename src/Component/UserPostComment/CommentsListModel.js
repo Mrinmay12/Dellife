@@ -71,7 +71,21 @@ const dispatch=useDispatch()
   };
   
   let uniqueIds= removeDuplicates(commentdata,"comment_id")
+  const textareaRef = useRef(null);
+  const resizeTextarea = () => {
+    const textarea = textareaRef.current;
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`; // Auto-grow the height
+  };
 
+  useEffect(() => {
+    resizeTextarea();
+  }, [inputValue]);
+  function handleEnterPress(event) {
+    if (event.key === "Enter") {
+      resizeTextarea();
+    }
+  }
   return (
     <div className="comment-modal-overlay" onClick={onClose}>
       <div className="comment-modal-content" onClick={e => e.stopPropagation()}>
@@ -103,8 +117,21 @@ const dispatch=useDispatch()
           {loading && <div className="comment-loading"><Loder/></div>}
         </div>
         <div style={{ display:"flex",flexDirection:"row" }}>
-<input className='inputcomment' placeholder='Write your comment' value={inputValue} onChange={(e)=>setInputValue(e.target.value)}/>
-<div onClick={()=>handleSubmit()}  className='sendcomment'>
+        <textarea
+            type="text"
+            placeholder="Add a comment..."
+            className="inpttextarea"
+            value={inputValue}
+            onChange={(e)=>setInputValue(e.target.value)}
+            style={{ height: "50px", maxHeight: "300px",borderBottomWidth: 2,   
+              borderBottomColor: '#000',
+              borderBottomStyle: 'solid' }}
+            // onKeyUp={handleEnterPress}
+            onKeyPress={handleEnterPress}
+            ref={textareaRef}
+            rows="1"
+          />
+<div onClick={()=>inputValue.trim().length!==0?handleSubmit():''}  className={inputValue.trim().length===0?'sendcomment': 'sendcomment_write'}>
           <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef } from 'react'
 import Commentmodel from '../CommentModel/Commentmodel';
 import { userCommentget, postLike, getLike,disLike, userComment, User_connect_or_not, addTwoUser, sendMessage } from '../../AllApi/Integrateapi';
 import "..//TextShow.css"
@@ -330,7 +330,21 @@ const handleSubmit = async () => {
     }
   }
   // console.log(messagedata,"messagedatamessagedatamessagedataMMM");
-  
+  const textareaRef = useRef(null);
+  const resizeTextarea = () => {
+    const textarea = textareaRef.current;
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`; // Auto-grow the height
+  };
+
+  useEffect(() => {
+    resizeTextarea();
+  }, [inputValue]);
+  function handleEnterPress(event) {
+    if (event.key === "Enter") {
+      resizeTextarea();
+    }
+  }
   return (
     <div>
 {loader &&(
@@ -431,8 +445,23 @@ const handleSubmit = async () => {
 )}
 {user_present && !user_post_or_not?(
 <div style={{ display:"flex",flexDirection:"row" }}>
-<textarea className='inputcomment' placeholder='Add a comment...' value={inputValue} onChange={(e)=>setInputValue(e.target.value)}/>
-<div onClick={()=>handleSubmit()}  className='sendcomment'>
+{/* <textarea className='inputcomment' placeholder='Add a comment...' value={inputValue} onChange={(e)=>setInputValue(e.target.value)}/> */}
+
+<textarea
+            type="text"
+            placeholder="Add a comment..."
+            className="inpttextarea"
+            value={inputValue}
+            onChange={(e)=>setInputValue(e.target.value)}
+            style={{ height: "50px", maxHeight: "300px",borderBottomWidth: 2,   
+              borderBottomColor: '#000',
+              borderBottomStyle: 'solid' }}
+            // onKeyUp={handleEnterPress}
+            onKeyPress={handleEnterPress}
+            ref={textareaRef}
+            rows="1"
+          />
+<div onClick={()=>inputValue.trim().length!==0?handleSubmit():''}  className={inputValue.trim().length===0?'sendcomment': 'sendcomment_write'}>
           <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
           </div>
         </div>
