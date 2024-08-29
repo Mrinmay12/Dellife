@@ -21,7 +21,7 @@ import Register from "./Pages/LoginPage/Register";
 import OtherUserProfile from "./Pages/OtherUserProfile";
 import { useSelector, useDispatch } from 'react-redux';
 import { setData } from "./redux/action/LoginAction";
-import {setNearUserData} from './redux/action/UserLocationAction'
+import { setUserLocationData} from './redux/action/UserLocationAction'
 import { GetJob, Userdetails, UserLocation, verifytoken } from "./AllApi/Integrateapi"
 import ErrorPage from "./Pages/ErrorPage";
 //socket
@@ -44,27 +44,27 @@ export default function AppRoutes() {
   const splitLocation = pathname.split("/");
   const[user_id,setUser_id]=useState("")
   const[message_id,setMessage_id]=useState("")
-   const[Landing_show,setLanding_show]=useState(false)
+   const[Landing_show,setLanding_show]=useState(true)
    const[token,setToken]=useState(localStorage.getItem('token'))
    
   useEffect(() => {
     const User_details = async () => {
       try {
-        setLanding_show(true)
+        
         let user_data = await Userdetails(user_id)
         dispatch(setData(user_data.data.data))
         setMessage_id(user_data.data.data.message_id)
         setTimeout(()=>{
-       setLanding_show(false)
-        },3000)
-       
+          setLanding_show(false)
+           },3000)
       } catch (err) {
         window.location.reload()
-        // localStorage.removeItem('user_id');
-        // localStorage.removeItem("token")
         setTimeout(()=>{
           setLanding_show(false)
            },3000)
+        // localStorage.removeItem('user_id');
+        // localStorage.removeItem("token")
+    
         console.log(err);
       }
     }
@@ -77,7 +77,13 @@ export default function AppRoutes() {
   // }, [refreshdata,appverify,user_id])
   }, [appverify,user_id])
 
-
+useEffect(()=>{
+  if(!token){
+    setTimeout(()=>{
+      setLanding_show(false)
+       },3000)
+  }
+},[])
 // console.log(token,"this is token");
 
   useEffect(() => {
@@ -87,15 +93,11 @@ export default function AppRoutes() {
          if(res){
           setUser_id(res.data.user_id)
           setAppverify(true)
-          setTimeout(()=>{
-            setLanding_show(false)
-             },3000)
+         
           // navigate("/")
          }
       } catch (err) {
-        setTimeout(()=>{
-          setLanding_show(false)
-           },3000)
+      
         localStorage.removeItem('user_id');
         localStorage.removeItem("token")
         // setToken("")
@@ -163,9 +165,9 @@ export default function AppRoutes() {
               `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinate.lat}&lon=${coordinate.long}&zoom=18&addressdetails=1`
             );
             const data = await response.json();
-            if (data.display_name) {
+            if (data) {
               // setLocationName(data.display_name);
-              setLocationName(data.address.town);
+              setLocationName(data.address.suburb);
               
             }
           } catch (error) {
@@ -202,7 +204,7 @@ export default function AppRoutes() {
                     longitude:longitude,locationName:locationName};
                 userLocation.user_id = message_id;
                 setlocation_data(userLocation)
-               dispatch(setNearUserData(userLocation))
+               dispatch(setUserLocationData(userLocation))
                
             },
             (error) => {

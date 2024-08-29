@@ -29,16 +29,18 @@ export default function SmallTopbar({ setColor ,data}) {
       setColor("green");
     }
   };
+console.log(userlocation.locationName,'userlocation.locationName',data);
 
   useEffect(() => {
-    if (userlocation.latitude && userlocation.longitude && userlocation.locationName && data!==0) {
+    if (userlocation.latitude && userlocation.longitude && userlocation.locationName) {
       setShow("near");
+      setColor("black");
     } else {
       setShow("argent");
+      setColor("red");
     }
   }, [userlocation.latitude, userlocation.longitude,userlocation.locationName,data]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-console.log(show,"showshowshowshowshowshowMM",data);
 
   useEffect(() => {
     const handleResize = () => {
@@ -65,7 +67,7 @@ console.log(show,"showshowshowshowshowshowMM",data);
           className="profilebottom"
           style={{ width: "30%", backgroundColor: "#d4e2d25c" }}
         >
-          {userlocation.longitude && userlocation.latitude&&userlocation.locationName && data!==0? (
+          {userlocation.longitude && userlocation.latitude&&userlocation.locationName ? (
             <p
               className={
                 show === "near" ? "profilebottomtext" : "profilebottomtext2"

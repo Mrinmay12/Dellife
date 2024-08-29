@@ -195,6 +195,8 @@ return formattedDate
 
 
  export function formatNumber(num) {
+  if(num){
+
   if (Number(num)>= 1000000000) {
       return (Number(num) / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
   }
@@ -205,4 +207,12 @@ return formattedDate
       return (Number(num) / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
   }
   return Number(num).toString();
+}
+}
+
+export const FirstLetterCapital=(string)=>{
+if(string){
+  let capitalizedStr = string.charAt(0).toUpperCase() + string.slice(1);
+  return capitalizedStr
+}
 }
