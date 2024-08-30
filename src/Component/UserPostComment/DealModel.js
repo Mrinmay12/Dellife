@@ -103,6 +103,7 @@ useEffect(()=>{
         <button className="comment-modal-close" onClick={onClose}>×</button>
         <div style={{ flexDirection:"row",justifyContent:"space-between",display:"flex",paddingBottom:"9px" }}>
         <h2> Drop deal</h2>
+        {show&&(
         <h2 style={{paddingRight:"18px" }}> 
         <select id="currency" name="currency" value={selectedCurrency} onChange={handleCurrencyChange}>
         <option value="">Filter</option>
@@ -110,6 +111,7 @@ useEffect(()=>{
         <option value="desc">Higher to Lower Price</option>
       </select>
         </h2>
+        )}
         </div>
         <hr/>
         {!show&&(
