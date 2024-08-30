@@ -198,7 +198,7 @@ export default function OtherUserProfile() {
   return (
     <div>
       <div className="containerprofile">
-        <h1>Profile</h1>
+        <h3>Profile</h3>
 
         <div className="avatar-upload">
           <div className="avatar-edit">

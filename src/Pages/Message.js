@@ -6,6 +6,7 @@ import { userfriend } from '../AllApi/Integrateapi';
 import Button from '../Component/Button/Button';
 import PageLoder from '../Component/LoderComponent/PageLoder';
 import { useNavigate } from 'react-router-dom';
+import UserCards from '../Component/NoUserList/UserCards';
 export default function Message({socket}) {
 //User message connect
 const navigator=useNavigate()
@@ -53,13 +54,17 @@ const handleFindUser=()=>{
     <MessageComponent socket={socket}/>
    ):(
     <>
-    <div style={{ justifyContent:"center",display:"flex",marginTop:"43px",flexDirection:"column" ,alignItems:"center"}}>
+    {/* <div style={{ justifyContent:"center",display:"flex",marginTop:"43px",flexDirection:"column" ,alignItems:"center"}}>
     <img src={SearchUserIcon} alt='' width='80px'/>
     <div style={{ marginTop:"34px" }}>
     <Button value="Find users" handleClick={handleFindUser} backcolor={"#007bff"} icon={<i class="fa fa-search"></i>}/> 
   
     </div>
+    </div> */}
+    <div style={{ justifyContent:"center",display:"flex",marginTop:"43px",flexDirection:"column" ,alignItems:"center"}}>
+    <UserCards/>
     </div>
+   
       <div class="line-container">
   <div class="line"></div>
   <span class="center-text">End to end encryption</span>

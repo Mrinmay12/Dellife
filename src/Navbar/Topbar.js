@@ -230,15 +230,16 @@ export default function Topbar() {
                   </li>
 
                   <li>
-                    <div onClick={() => setIsModalOpen2(true)} style={{ height:"30px",marginTop:"8px" }}>
+                    {/* <div onClick={() => setIsModalOpen2(true)} style={{ height:"30px",marginTop:"8px" }}> */}
                       <a href="#three">
-                        <img
+                      <div class="plus-icon" onClick={() => setIsModalOpen2(true)}>+</div>
+                        {/* <img
                           src={uploadblack}
                           style={{ width: "36px", height: "36px" }}
                           alt=""
-                        />
+                        /> */}
                       </a>
-                    </div>
+                    {/* </div> */}
                   </li>
 
                   <li>
@@ -401,8 +402,8 @@ export default function Topbar() {
                         className={pathname === "/post" ? "activ" : ""}
                         onClick={(e) => handleLinkClick(e, 2, "#three")}
                       >
-                        {/* <FontAwesomeIcon icon={faUpload} style={{ color: pathname === '/post' ? "red" : "black" }} className="iconstyle" /> */}
-                        {pathname === "/post" ? (
+                       <div class="plus-icon" >+</div>
+                        {/* {pathname === "/post" ? (
                           <img
                             src={uploadred}
                             style={{ width: "36px", height: "36px" }}
@@ -414,7 +415,7 @@ export default function Topbar() {
                             style={{ width: "36px", height: "36px" }}
                             alt=""
                           />
-                        )}
+                        )} */}
                       </a>
                     </li>
 

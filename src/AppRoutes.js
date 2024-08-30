@@ -46,12 +46,14 @@ export default function AppRoutes() {
   const[message_id,setMessage_id]=useState("")
    const[Landing_show,setLanding_show]=useState(true)
    const[token,setToken]=useState(localStorage.getItem('token'))
+   const [locationName1, setLocationName1] = useState("");
+   console.log(locationName1,'locationName1');
    
   useEffect(() => {
     const User_details = async () => {
       try {
         
-        let user_data = await Userdetails(user_id)
+        let user_data = await Userdetails(user_id,locationName1)
         dispatch(setData(user_data.data.data))
         setMessage_id(user_data.data.data.message_id)
         setTimeout(()=>{
@@ -75,7 +77,7 @@ export default function AppRoutes() {
     }
 
   // }, [refreshdata,appverify,user_id])
-  }, [appverify,user_id])
+  }, [appverify,user_id,locationName1])
 
 useEffect(()=>{
   if(!token){
@@ -168,6 +170,7 @@ useEffect(()=>{
             if (data) {
               // setLocationName(data.display_name);
               setLocationName(data.address.suburb);
+              setLocationName1(data.address.suburb);
               
             }
           } catch (error) {

@@ -435,7 +435,7 @@ const [isSettingOpen1, setisSettingOpen1] = useState(false);
         </div>
          <CardSetting title={'About your account'} onClickSetting={handleAbout} img={userIcon}/>
          <CardSetting title={'Account policy'} onClickSetting={handleAccount} img={lockIcon} profile_lock={userlogin.profile_lock?'private':'public'}/>
-         <CardSetting title={'Privacy policy'} onClickSetting={handlePrivacy} img={SecurityIcon} />
+         {/* <CardSetting title={'Privacy policy'} onClickSetting={handlePrivacy} img={SecurityIcon} /> */}
          <CardSetting title={'Blocked'} onClickSetting={handleBlock} img={blockIcon}/>
       
           <Advancesetting userlogin={userlogin} setSetting_ope={setSetting_ope} profile_lock={userlogin.profile_lock}/>

@@ -214,6 +214,20 @@ header.clearfix {
         color: #000;
         cursor: pointer;
     }
+    .plus-icon {
+        font-size: 31px !important;
+        font-weight: 200 !important;
+        color: #333333c4 !important;
+        border: 2px solid !important;
+        width: 35px !important;
+        align-items: center !important;
+        display: flex !important;
+        justify-content: center !important;
+        border-radius: 11px !important;
+        height: 34px !important;
+        margin-top: 13px !important;
+        margin-left: 15px !important;
+    }
 }
 
 .numicon{
@@ -286,5 +300,20 @@ header.clearfix {
     display: flex;
     justify-content: flex-end;
     margin-top: 5px;
+}
+
+.plus-icon {
+    font-size: 38px;
+    font-weight: 200;
+    color: #333333c4;
+    border: 2px solid;
+    width: 40px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 11px;
+    height: 34px;
+    margin-top: 13px;
+    margin-left: 39px;
 }
 
