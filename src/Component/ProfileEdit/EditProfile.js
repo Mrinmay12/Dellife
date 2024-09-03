@@ -112,6 +112,7 @@ export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
     
   };
 
+console.log(link,"mylink");
 
   return (
     <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={onClose}>
@@ -128,7 +129,7 @@ export default function EditProfile({setEditejson,userlogin,isOpen, onClose }) {
      {/* <textarea id="message" className="input" value={about} placeholder="About" onChange={(e)=>setAbout(e.target.value)}></textarea> */}
         <Input placeholder="About" onchange={setAbout} value={about} inputtype="text" title={"Write about yourself"}/>
         <Input placeholder="link" onchange={setLink} value={link} inputtype="url" title={"Enter link"}/>
-        {!valid_link && link !== "" ? (
+        {!valid_link && link ? (
                 <span style={{ marginTop: "5px", color: "red" }}>
                   Link not valid
                 </span>

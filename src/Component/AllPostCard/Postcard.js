@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { removeDuplicates } from '../../Utiles';
 import nopostimg from "../Images/nopost.svg"
 import DealModel from '../UserPostComment/DealModel';
-export default function Postcard({user_id,post_id}) { 
+export default function Postcard({user_id,post_id,show}) { 
   const navigate=useNavigate()
   const userlogin = useSelector(state => state.myReducer.data)
   const refreshdata = useSelector(state => state.RefreshReducer.data)
@@ -31,7 +31,7 @@ export default function Postcard({user_id,post_id}) {
   };
   console.log(user_id,"user_iduser_id");
   const { data, isFetching, isPreviousData } = useQuery({
-    queryKey: ['userpost', page,user_id,refreshdata],
+    queryKey: ['userpost', page,user_id,refreshdata,show],
     queryFn: () => fetchAllPost(page),
     keepPreviousData: true,
     staleTime: Infinity,

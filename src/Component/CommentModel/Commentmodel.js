@@ -120,12 +120,12 @@ const Commentmodel = ({ onClose, postId,commentId, edite_text }) => {
           />
 
       {edite_text ? (
-        <div onClick={()=>inputValue.trim().length!==0?handleSubmit2:''} className={inputValue.trim().length===0?'sendcomment': 'sendcomment_write'}>
+        <div onClick={()=>inputValue.trim().length!==0?handleSubmit2:''} className={inputValue.trim().length===0?'sendcomment': 'sendcomment_write'} style={{ marginLeft:"260px" }}>
           <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
         </div>
         
       ) : (
-        <div onClick={()=>inputValue.trim().length!==0?handleSubmit():''}  className={inputValue.trim().length===0?'sendcomment': 'sendcomment_write'}>
+        <div onClick={()=>inputValue.trim().length!==0?handleSubmit():''}  className={inputValue.trim().length===0?'sendcomment': 'sendcomment_write'} style={{ marginLeft:"260px" }}>
         <img src={SendIcon} style={{width:"20px",height:"20px"}} alt='' title='post'/>
         </div>
   

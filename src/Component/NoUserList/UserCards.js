@@ -30,9 +30,10 @@ const UserCards = () => {
       setShowLeftButton(container.scrollLeft > 0);
 
      
+// console.log(Math.round(container.scrollLeft + container.clientWidth));
 
       
-      setShowRightButton(Math.round(container.scrollLeft + container.clientWidth)===830 ? false:true);
+      setShowRightButton(Math.round(container.scrollLeft + container.clientWidth)===2910 ? false:true);
   };
 
   useEffect(() => {
@@ -98,7 +99,7 @@ useEffect(() => {
           navigator(
             `/message/${response.data.data._id}?userid=${window.btoa(message_id)}`
           );
-        window.location.reload()
+        // window.location.reload()
       
       }
     }

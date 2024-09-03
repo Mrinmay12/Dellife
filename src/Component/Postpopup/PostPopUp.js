@@ -9,9 +9,12 @@ export default function PostPopUp({onClose}) {
   }
   return (
     <div className="modal-container" ref={modalRef} style={{width:"56%" }}>
-      <div onClick={()=>handleClose()} className='closemodel'>
-        <span className='Xicon'>X</span>
+      <div onClick={()=>handleClose()} className='closemodel' style={{ marginBottom:"9px" }}>
+        <span className='Xicon' >X</span>
+       
       </div>
+      <hr/>
+      <div style={{marginTop:"9px" }}></div>
         <Post only_use={"destop"} onClose={onClose}/>
     </div>
   )
