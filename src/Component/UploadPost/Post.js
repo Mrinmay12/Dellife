@@ -324,12 +324,12 @@ export default function Post({ only_use, onClose }) {
           <div style={{ display: "flex", flexDirection: "row" }}>
             <div style={{ width: "60%", display: "flex" }}>
               <div
-                className="colorchange3"
+                className={textcolor==='black'?'color_click_change2':"colorchange3"}
                 value={textcolor}
                 onClick={() => handleColor("black")}
               ></div>
               <div
-                className="colorchange"
+                className={textcolor==='red'?'color_click_change':"colorchange"}
                 value={textcolor}
                 onClick={() => handleColor("red")}
               ></div>

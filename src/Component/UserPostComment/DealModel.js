@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './Comment.css'; // Import CSS styles for the modal
 import Smallmodel from '../SmallPupup/Smallmodel';
-import { DealCreate, GetDeal } from '../../AllApi/Integrateapi';
+import { DealClose, DealCreate, GetDeal } from '../../AllApi/Integrateapi';
 import Loder from '../LoderComponent/Loder';
 import { setEditdata } from '../../redux/action/EditAction';
 import { useDispatch } from 'react-redux';
@@ -97,6 +97,17 @@ useEffect(()=>{
   const handleOpenProfile=(id)=>{
     navigate(`/otherprofile/${new Date().getMilliseconds()}?user_id=${id}`)
   }
+
+  const handleDealClose=async()=>{
+    try{
+    await  DealClose(postid)
+    onClose()
+    }catch(err){
+
+    }
+    
+    // postid
+  }
   return (
     <div className="comment-modal-overlay" onClick={onClose}>
       <div className="comment-modal-content" onClick={e => e.stopPropagation()}>
@@ -162,7 +173,13 @@ useEffect(()=>{
 </div>
       )}
     
-       
+    <button
+                    className="edit-profile-btn"
+                    style={{ color: "red" }}
+                    onClick={() => handleDealClose()}
+                  >
+                   Close Deal
+                  </button>
       
       </div>
       {showPopup2 && (

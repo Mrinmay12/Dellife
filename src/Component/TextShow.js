@@ -179,7 +179,7 @@ export default function TextShow({ item }) {
                       style={{ color: "blue" }}
                       target="_blank"
                     >
-                      {"www.google.com"}
+                     {item.link}
                     </a>
                   )}
               </div>
@@ -344,7 +344,7 @@ export default function TextShow({ item }) {
                       style={{ color: "blue" }}
                       target="_blank"
                     >
-                      {"www.google.com"}
+                      {item.link}
                     </a>
                   )}
                 </div>
@@ -367,7 +367,7 @@ export default function TextShow({ item }) {
 
             <div
               style={{
-                color: item.Color,
+                color: "black",
                 whiteSpace: "break-spaces",
                 fontSize: "20px",
               }}

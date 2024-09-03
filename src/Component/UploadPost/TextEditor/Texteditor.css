@@ -4,7 +4,8 @@
     border-radius: 64px;
     background-color:red;
     margin-top: 5px;
-    margin: 5px
+    margin: 5px;
+    cursor: pointer;
   }
   .colorchange1{
     height: 30px;
@@ -28,13 +29,15 @@
     border-radius: 64px;
     background-color:black;
     margin-top: 5px;
-    margin: 5px
+    margin: 5px;
+    cursor: pointer;
   }
 
   .textmanustyle{
     display: flex;
     padding-left: 182px;
     margin-top: 10px;
+  
   }
   .manutext{
     width: 50px;

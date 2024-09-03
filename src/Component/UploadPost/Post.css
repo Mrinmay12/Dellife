@@ -297,3 +297,23 @@ textarea.inpttextarea {
   100% { transform: rotate(360deg); }
 }
 
+.color_click_change {
+  height: 30px;
+  width: 31px;
+  border-radius: 64px;
+  background-color: red;
+  margin-top: 5px;
+  margin: 5px;
+  border: 4px solid green;
+  cursor: pointer;
+}
+.color_click_change2 {
+  height: 30px;
+  width: 31px;
+  border-radius: 64px;
+  background-color: black;
+  margin-top: 5px;
+  margin: 5px;
+  border: 4px solid green;
+  cursor: pointer;
+}

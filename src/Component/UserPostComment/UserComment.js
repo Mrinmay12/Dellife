@@ -333,8 +333,10 @@ const handleSubmit = async () => {
   const textareaRef = useRef(null);
   const resizeTextarea = () => {
     const textarea = textareaRef.current;
+    if(textarea){
     textarea.style.height = "auto";
     textarea.style.height = `${textarea.scrollHeight}px`; // Auto-grow the height
+    }
   };
 
   useEffect(() => {
@@ -406,12 +408,12 @@ const handleSubmit = async () => {
         <div >
           {userlike ? (
             <>
-              <FontAwesomeIcon icon={faHeart} style={{ color: "red" }} className={ `heart ${isBouncing ? 'bounce' : ''}`} onClick={()=>handleDislike()}/> {like!==0 && formatNumber(like)}
+              <FontAwesomeIcon icon={faHeart} style={{ color: "red",height:"26px",width:"26px" }} className={ `heart ${isBouncing ? 'bounce' : ''}`} onClick={()=>handleDislike()} /> {like!==0 && formatNumber(like)}
             </>
 
           ) : (
             <>
-              <FontAwesomeIcon icon={faHeart} style={{ color: "gray" }}  className={ `heart ${isBouncing ? 'bounce' : ''}`} onClick={() => handleLike()} /> {like!==0 && formatNumber(like)}
+              <FontAwesomeIcon icon={faHeart} style={{ color: "gray",height:"26px",width:"26px"  }}  className={ `heart ${isBouncing ? 'bounce' : ''}`} onClick={() => handleLike()} /> {like!==0 && formatNumber(like)}
             </>
 
           )}
