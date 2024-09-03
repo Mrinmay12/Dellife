@@ -25,7 +25,7 @@ export default function Post({only_use,onClose}) {
   }, []);
   
   return (
-    <div >
+    <div style={{alignContent:"center",display:"flex" }}>
   <UploadPost only_use={only_use} onClose={onClose}/>
     </div>
   )

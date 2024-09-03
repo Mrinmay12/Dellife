@@ -147,3 +147,4 @@ export const GetJob=()=>apiUrl.get(`/api/user/job_all`)
 //Deal price
 export const DealCreate=(json)=>apiUrl.post(`/create_price`,json)
 export const GetDeal=(sort,post_id,page)=>apiUrl.get(`/get_price?sort=${sort}&post_id=${post_id}&page=${page}`)
+export const DealClose=(post_id)=>apiUrl.put(`/deal_close?post_id=${post_id}`)

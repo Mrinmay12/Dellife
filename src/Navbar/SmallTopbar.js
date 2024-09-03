@@ -58,6 +58,11 @@ export default function SmallTopbar({ setColor, data }) {
   }, []);
 let following=userlogin.total_following > 0?true:false
   return (
+    <>
+    {[following,userlogin.location_post].every((ele)=>ele==false)?(
+      ""
+    ):(
+      
     <div
       className={isMobile ? "smallnavbarmobile" : "smallnavbar"}
       style={{
@@ -65,9 +70,7 @@ let following=userlogin.total_following > 0?true:false
         zIndex: 1,
       }}
     >
-      {[following,userlogin.location_post].every((ele)=>ele==false)?(
-        ""
-      ):(
+     
         <div className="profilediv">
         <div
           className="profilebottom"
@@ -112,8 +115,11 @@ let following=userlogin.total_following > 0?true:false
           )}
         </div>
       </div>
-      )}
+    
      
     </div>
+  
+  )}
+    </>
   );
 }

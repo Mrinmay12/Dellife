@@ -410,11 +410,11 @@ const [isSettingOpen1, setisSettingOpen1] = useState(false);
         <>
           {show==="post"?(
             <div className='profile_centerpostcard'>
-            <Postcard user_id={userlogin.user_id}/>
+            <Postcard user_id={userlogin.user_id} show={show}/>
             </div>
           ):(
             <div className='profile_centerpostcard'>
-            <SavePostcard user_id={userlogin.user_id}/>
+            <SavePostcard user_id={userlogin.user_id} show={show}/>
             </div>
           )}
         </>

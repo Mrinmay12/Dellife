@@ -9,7 +9,7 @@ import { validateEmail } from '../../Utiles'
 import { useSelector } from 'react-redux'
 import InformationIcon from "./Information.png"
 import Select from 'react-select';
-export default function Register({setToken}) {
+export default function Register({setToken,setLanding_show}) {
   const userlocation = useSelector(state => state.UserLocation.data)
   const job_data = useSelector(state => state.JobReducer.data)
   const navigate=useNavigate()
@@ -105,10 +105,11 @@ export default function Register({setToken}) {
           if(response){
             SaveData()
             setLoder(false)
+            setLanding_show(true)
            const token = response.data.token;
            localStorage.setItem('token', token);
            setToken(token)
-           navigate("/")
+          //  navigate("/")
            // dispatch(setData(response.data.user_id))
           //  localStorage.setItem("user_id",response.data.user_id)
          

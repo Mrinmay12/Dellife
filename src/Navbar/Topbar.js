@@ -42,7 +42,7 @@ export default function Topbar() {
   const location = useLocation();
   // Destructuring pathname from location
   const { pathname } = location;
-  const splitLocation = pathname.split("/");
+  const splitLocation = pathname.split("/"); 
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -62,13 +62,13 @@ export default function Topbar() {
   const getInitialPosition = (path, width) => {
     switch (path) {
       case "":
-        return width * 3.6;
+        return width * 3.1;
       case "post":
-        return width * 4.3;
+        return width * 4.0;
       case "profile":
-        return width * 5.0;
+        return width * 4.3;
       case "message":
-        return width * 5.7;
+        return width * 4.9;
       // Add more cases for other routes if needed
       default:
         return 0;
@@ -187,18 +187,14 @@ export default function Topbar() {
             <a onClick={() => navigate("/")} className="logo">
               DelLife
             </a>
-            {isMobile && (
+            {/* {isMobile && (
               <div className="nearshare">
                 <a href="#five">
                 <img src={LocationIcon} className="iconstyle" alt="" onClick={() => setIsModalOpen(true)}/>
-                  {/* <FontAwesomeIcon
-                    icon={faMessage}
-                    onClick={() => setIsModalOpen(true)}
-                    className="iconstyle"
-                  /> */}
+               
                 </a>
               </div>
-            )}
+            )} */}
           </div>
         )}
 
@@ -282,32 +278,16 @@ export default function Topbar() {
                           )} 
                       </div>
 
-                      {/* <FontAwesomeIcon
-                          icon={faMessage}
-                          style={{
-                            color:
-                              splitLocation[1] === "message" ? "red" : "black",
-                          }}
-                          className="iconstyle"
-                        />
-                        {totalUnseenMessages !==0 &&(
-                          <span className="message_not_seen">{totalUnseenMessages>10?"9+":totalUnseenMessages}</span>
-
-                        )} */}
                     </a>
                   </li>
-                  {/* // )} */}
+                
 
-                  <li>
+                  {/* <li>
                     <a href="#five">
                       <img src={LocationIcon} className="iconstyle" alt="" onClick={() => setIsModalOpen(true)}/>
-                      {/* <FontAwesomeIcon
-                        icon={faMessage}
-                        onClick={() => setIsModalOpen(true)}
-                        className="iconstyle"
-                      /> */}
+                   
                     </a>
-                  </li>
+                  </li> */}
                 </li>
               </ul>
               {pathname !== "/location" &&

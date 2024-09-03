@@ -120,12 +120,16 @@ useEffect(() => {
     window.removeEventListener("resize", handleResize);
   };
 }, []);
+let following=userlogin.total_following > 0?true:false
+let show_style=[following,userlogin.location_post].every((ele)=>ele==false)
+
+
   return (
     <div>
     <SmallTopbar setColor={setColor} data={uniqueIds2?.length}/>
     {(userlogin.total_following>0 || color !=="green") ?(
       <>
-         <div style={{paddingTop:isMobile?"63px":"62px"}}>
+         <div style={{paddingTop:isMobile?show_style?'0px':"63px":show_style?'0px':"62px"}}>
      <InfiniteScroll
         dataLength={uniqueIds.length}
         next={loadMore}

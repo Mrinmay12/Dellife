@@ -273,11 +273,13 @@ header.clearfix {
   .notification-icon {
     position: relative;
     display: inline-block;
+    height: 7px;
+    padding-top: 0px;
 }
 
 .notification-icon img {
-    width: 31px;
-    height: 30px;
+    width: 26px;
+    /* height: 30px; */
 }
 
 .badge {
@@ -303,16 +305,16 @@ header.clearfix {
 }
 
 .plus-icon {
-    font-size: 38px;
+    font-size: 35px;
     font-weight: 200;
     color: #333333c4;
     border: 2px solid;
-    width: 40px;
+    width: 34px;
     align-items: center;
     display: flex;
     justify-content: center;
     border-radius: 11px;
-    height: 34px;
+    height: 31px;
     margin-top: 13px;
     margin-left: 39px;
 }

@@ -169,8 +169,8 @@ useEffect(()=>{
             const data = await response.json();
             if (data) {
               // setLocationName(data.display_name);
-              setLocationName(data.address.suburb);
-              setLocationName1(data.address.suburb);
+              setLocationName(data.address.suburb||data.address.address);
+              setLocationName1(data.address.suburb ||data.address.address);
               
             }
           } catch (error) {
@@ -252,6 +252,7 @@ if (user_id) {
   useEffect(()=>{
     Get_job()
   },[])
+  console.log(Landing_show,"Landing_show");
   
   return (
     <div>
@@ -277,7 +278,7 @@ if (user_id) {
           ) : (
             <>
               <Route path="/" element={<Login setToken={setToken}/>} />
-              <Route path="/register" element={<Register setToken={setToken}/>} />
+              <Route path="/register" element={<Register setToken={setToken} setLanding_show={setLanding_show}/>} />
               <Route path="/resetpassword" element={<ForgetPassword setToken={setToken}/>} />
             
 
