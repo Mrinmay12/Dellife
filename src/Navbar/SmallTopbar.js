@@ -45,6 +45,7 @@ export default function SmallTopbar({ setColor, data }) {
   ]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -57,6 +58,7 @@ export default function SmallTopbar({ setColor, data }) {
     };
   }, []);
 let following=userlogin.total_following > 0?true:false
+                                                                                                                                    
   return (
     <>
     {[following,userlogin.location_post].every((ele)=>ele==false)?(

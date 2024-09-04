@@ -214,12 +214,12 @@ export default function Topbar() {
                     <a
                       href="#one"
                       className={pathname === "/" ? "activ" : ""}
-                      style={{ color: pathname === "/" ? "red" : "black" }}
+                      style={{ color: pathname === "/" ? "rgb(0, 123, 255)" : "black" }}
                       onClick={(e) => handleLinkClick(e, 0, "#one")}
                     >
                       <FontAwesomeIcon
                         icon={faHome}
-                        style={{ color: pathname === "/" ? "red" : "black" }}
+                        style={{ color: pathname === "/" ? "rgb(0, 123, 255)" : "black" }}
                         className="iconstyle"
                       />
                     </a>
@@ -247,7 +247,7 @@ export default function Topbar() {
                       <FontAwesomeIcon
                         icon={faUser}
                         style={{
-                          color: pathname === "/profile" ? "red" : "black",
+                          color: pathname === "/profile" ? "rgb(0, 123, 255)" : "black",
                         }}
                         className="iconstyle"
                       />
@@ -319,7 +319,7 @@ export default function Topbar() {
                       <a
                         href="#one"
                         className={pathname === "/" ? "activ" : ""}
-                        style={{ color: pathname === "/" ? "red" : "black" }}
+                        style={{ color: pathname === "/" ? "rgb(0, 123, 255)" : "black" }}
                         onClick={(e) =>
                           pathname === "/location"
                             ? handleLinkClick(e, 0, "#one")
@@ -328,7 +328,7 @@ export default function Topbar() {
                       >
                         <FontAwesomeIcon
                           icon={faArrowLeft}
-                          style={{ color: pathname === "/" ? "red" : "black" }}
+                          style={{ color: pathname === "/" ? "rgb(0, 123, 255)" : "black" }}
                           className="iconstyle"
                         />
                       </a>
@@ -350,12 +350,12 @@ export default function Topbar() {
                       <a
                         href="#one"
                         className={pathname === "/" ? "activ" : ""}
-                        style={{ color: pathname === "/" ? "red" : "black" }}
+                        style={{ color: pathname === "/" ? "rgb(0, 123, 255)" : "black" }}
                         onClick={(e) => handleLinkClick(e, 0, "#one")}
                       >
                         <FontAwesomeIcon
                           icon={faHome}
-                          style={{ color: pathname === "/" ? "red" : "black" }}
+                          style={{ color: pathname === "/" ? "rgb(0, 123, 255)" : "black" }}
                           className="iconstyle"
                         />
                       </a>
@@ -370,7 +370,7 @@ export default function Topbar() {
                         <FontAwesomeIcon
                           icon={faSearch}
                           style={{
-                            color: pathname === "/location" ? "red" : "black",
+                            color: pathname === "/location" ? "rgb(0, 123, 255)" : "black",
                           }}
                           className="iconstyle"
                         />
@@ -408,7 +408,7 @@ export default function Topbar() {
                         <FontAwesomeIcon
                           icon={faUser}
                           style={{
-                            color: pathname === "/profile" ? "red" : "black",
+                            color: pathname === "/profile" ? "rgb(0, 123, 255)" : "black",
                           }}
                           className="iconstyle"
                         />
@@ -444,7 +444,7 @@ export default function Topbar() {
                           icon={faMessage}
                           style={{
                             color:
-                              splitLocation[1] === "message" ? "red" : "black",
+                              splitLocation[1] === "message" ? "rgb(0, 123, 255)" : "black",
                           }}
                           className="iconstyle"
                         />
